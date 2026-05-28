@@ -1,0 +1,22 @@
+﻿# APIキー・環境変数
+.env
+
+# 支給要領PDF（容量大・著作権のため除外）
+knowledge/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 出力レポート
+outputs/

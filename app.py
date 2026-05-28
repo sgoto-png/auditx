@@ -1,5 +1,5 @@
 """
-app.py - AuditX 就業規則チェックツール v0.4
+app.py - AuditX 就業規則チェックツール v0.5
 """
 
 import json
@@ -35,9 +35,9 @@ YEAR_OPTIONS = ["R08", "R07", "R06"]
 DATE_OPTIONS = {"R08": ["0408", "0401"], "R07": ["0401"], "R06": ["0401"]}
 
 PHASE_ITEMS = {
-    "phase1": ("Phase 1", "申請準備開始時", "就業規則新規作成後の初回確認"),
-    "phase2": ("Phase 2", "制度導入・改訂時", "導入内容・改訂内容の不備確認"),
-    "phase3": ("Phase 3", "支給申請提出前", "全バージョン整合性の最終確認"),
+    "phase1": ("PHASE 1", "申請準備開始時", "就業規則新規作成後の初回確認"),
+    "phase2": ("PHASE 2", "制度導入・改訂時", "導入内容・改訂内容の不備確認"),
+    "phase3": ("PHASE 3", "支給申請提出前", "全バージョン整合性の最終確認"),
 }
 
 # ============================================================
@@ -57,178 +57,212 @@ st.markdown("""
 
 html, body, [class*="css"] {
     font-family: 'Noto Sans JP', sans-serif;
-    background-color: #f0f2f7;
+    background-color: #e8ecf2;
     color: #1e293b;
 }
 .block-container { padding: 2.5rem 3rem 5rem; max-width: 1000px; }
 
 /* サイドバー */
-section[data-testid="stSidebar"] { background: #ffffff; border-right: 1px solid #e8ecf2; }
-section[data-testid="stSidebar"] * { color: #334155 !important; }
+section[data-testid="stSidebar"] {
+    background: #1e2a40;
+    border-right: none;
+}
+section[data-testid="stSidebar"] * { color: #cbd5e1 !important; }
+section[data-testid="stSidebar"] h1,
+section[data-testid="stSidebar"] h2,
+section[data-testid="stSidebar"] h3,
+section[data-testid="stSidebar"] strong { color: #e2e8f0 !important; }
 
-/* ページタイトルエリア */
+/* ページヘッダー */
 .page-eyebrow {
-    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em;
-    color: #94a3b8; text-transform: uppercase; margin-bottom: 0.4rem;
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em;
+    color: #64748b; text-transform: uppercase; margin-bottom: 0.5rem;
 }
 .page-title {
-    font-size: 2rem; font-weight: 700; color: #0f172a;
-    margin: 0 0 0.3rem; letter-spacing: -0.5px; line-height: 1.2;
+    font-size: 2.1rem; font-weight: 700; color: #0f172a;
+    margin: 0 0 0.4rem; letter-spacing: -0.5px; line-height: 1.2;
 }
 .page-subtitle {
-    font-size: 0.85rem; color: #64748b; font-weight: 300;
-    margin: 0 0 2rem;
+    font-size: 0.85rem; color: #475569; font-weight: 400; margin: 0 0 2rem;
 }
-.page-divider {
-    border: none; border-top: 1px solid #dde3ee; margin: 0 0 2rem;
-}
+.page-divider { border: none; border-top: 2px solid #cbd5e1; margin: 0 0 2rem; }
 
 /* セクションラベル */
 .sec-label {
-    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em;
-    color: #94a3b8; text-transform: uppercase; margin: 2rem 0 0.8rem;
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em;
+    color: #1e40af; text-transform: uppercase;
+    background: #dbeafe; border-radius: 4px;
+    display: inline-block; padding: 3px 10px;
+    margin: 2rem 0 1rem;
 }
 
 /* カード */
 .card {
-    background: #ffffff; border: 1px solid #e8ecf2;
+    background: #ffffff; border: 1px solid #c8d4e4;
     border-radius: 12px; padding: 1.4rem 1.6rem;
     margin-bottom: 0.8rem;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 8px rgba(0,0,0,0.03);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.07);
 }
 
-/* フェーズボタン */
+/* フェーズカード */
+.phase-active {
+    background: #1d4ed8; border: 2px solid #1d4ed8;
+    border-radius: 10px; padding: 0.9rem 1rem; margin-bottom: 6px;
+    box-shadow: 0 4px 12px rgba(29,78,216,0.3);
+}
+.phase-inactive {
+    background: #ffffff; border: 1.5px solid #c8d4e4;
+    border-radius: 10px; padding: 0.9rem 1rem; margin-bottom: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.phase-num-active {
+    font-size: 0.68rem; font-weight: 700; color: #93c5fd;
+    text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 3px;
+}
+.phase-num-inactive {
+    font-size: 0.68rem; font-weight: 700; color: #94a3b8;
+    text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 3px;
+}
+.phase-title-active {
+    font-size: 0.9rem; font-weight: 700; color: #ffffff; margin-bottom: 2px;
+}
+.phase-title-inactive {
+    font-size: 0.9rem; font-weight: 600; color: #334155; margin-bottom: 2px;
+}
+.phase-desc-active { font-size: 0.75rem; color: #bfdbfe; }
+.phase-desc-inactive { font-size: 0.75rem; color: #64748b; }
+
+/* フェーズ説明バー */
+.phase-hint {
+    background: #dbeafe; border: 1px solid #93c5fd;
+    border-left: 4px solid #1d4ed8;
+    border-radius: 0 8px 8px 0;
+    padding: 0.75rem 1.1rem;
+    font-size: 0.85rem; color: #1e3a8a; font-weight: 500;
+    margin: 0.8rem 0 1.5rem;
+}
+
+/* コースグループラベル */
+.group-label {
+    font-size: 0.73rem; font-weight: 700; letter-spacing: 0.1em;
+    color: #475569; text-transform: uppercase;
+    background: #e2e8f0; border-radius: 4px;
+    display: inline-block; padding: 2px 8px;
+    margin: 1rem 0 0.5rem;
+}
+
+/* ボタン共通 */
 .stButton > button {
     font-family: 'Noto Sans JP', sans-serif !important;
-    border-radius: 7px !important;
-    font-size: 0.83rem !important;
+    border-radius: 8px !important;
+    font-size: 0.85rem !important;
     font-weight: 500 !important;
     transition: all 0.15s !important;
-    border: 1.5px solid #dde3ee !important;
-    background: #ffffff !important;
-    color: #64748b !important;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05) !important;
 }
-.stButton > button:hover {
+
+/* 未選択フェーズボタン */
+.btn-inactive > div > button {
+    background: #f1f5f9 !important;
+    color: #475569 !important;
+    border: 1.5px solid #c8d4e4 !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.06) !important;
+}
+.btn-inactive > div > button:hover {
+    background: #e2e8f0 !important;
     border-color: #3b82f6 !important;
     color: #1d4ed8 !important;
-    background: #f0f7ff !important;
-    box-shadow: 0 2px 6px rgba(59,130,246,0.15) !important;
 }
-.btn-selected > button {
+
+/* 選択中フェーズボタン */
+.btn-active > div > button {
     background: #1d4ed8 !important;
     color: #ffffff !important;
-    border-color: #1d4ed8 !important;
-    box-shadow: 0 2px 8px rgba(29,78,216,0.25) !important;
+    border: none !important;
+    box-shadow: 0 3px 10px rgba(29,78,216,0.35) !important;
+    font-weight: 700 !important;
 }
-.btn-selected > button:hover {
+.btn-active > div > button:hover {
     background: #1e40af !important;
-    color: #ffffff !important;
-    border-color: #1e40af !important;
 }
 
 /* 実行ボタン */
-.run-btn > button {
+.stButton > button[kind="primary"] {
     background: #1d4ed8 !important;
     color: #ffffff !important;
     border: none !important;
     border-radius: 10px !important;
-    font-size: 0.95rem !important;
-    font-weight: 600 !important;
-    padding: 0.7rem 2rem !important;
-    box-shadow: 0 3px 12px rgba(29,78,216,0.3) !important;
-    letter-spacing: 0.3px !important;
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px !important;
+    box-shadow: 0 4px 14px rgba(29,78,216,0.35) !important;
 }
-.run-btn > button:hover {
+.stButton > button[kind="primary"]:hover {
     background: #1e40af !important;
-    box-shadow: 0 5px 16px rgba(29,78,216,0.4) !important;
+    box-shadow: 0 6px 18px rgba(29,78,216,0.45) !important;
     transform: translateY(-1px) !important;
 }
-.run-btn > button:disabled {
+.stButton > button:disabled {
     background: #e2e8f0 !important;
     color: #94a3b8 !important;
     box-shadow: none !important;
+    border: 1px solid #cbd5e1 !important;
     transform: none !important;
-    border: none !important;
 }
 
 /* ダウンロードボタン */
 .stDownloadButton > button {
     background: #ffffff !important;
-    border: 1.5px solid #3b82f6 !important;
+    border: 1.5px solid #2563eb !important;
     color: #1d4ed8 !important;
     border-radius: 8px !important;
     font-family: 'Noto Sans JP', sans-serif !important;
-    font-size: 0.85rem !important;
-}
-
-/* フェーズ説明 */
-.phase-hint {
-    background: #f0f7ff; border-left: 3px solid #3b82f6;
-    border-radius: 0 8px 8px 0;
-    padding: 0.7rem 1rem; font-size: 0.82rem; color: #1e40af;
-    margin-top: 0.8rem; margin-bottom: 1.2rem;
-}
-
-/* コースグループラベル */
-.group-label {
-    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
-    color: #94a3b8; text-transform: uppercase;
-    padding: 0.6rem 0 0.3rem;
-    border-top: 1px solid #e8ecf2; margin-top: 0.8rem;
-}
-.group-label:first-child { border-top: none; margin-top: 0; }
-
-/* コース選択展開エリア */
-.course-expand {
-    background: #f8fafc; border: 1px solid #e2e8f0;
-    border-radius: 8px; padding: 0.7rem 1rem;
-    margin: 0.3rem 0 0.6rem 1.5rem;
+    font-weight: 600 !important;
 }
 
 /* 入力フィールド */
 .stTextInput > div > div > input {
-    background: #ffffff !important; border-color: #dde3ee !important;
+    background: #ffffff !important; border-color: #c8d4e4 !important;
     color: #1e293b !important; border-radius: 8px !important;
     font-family: 'Noto Sans JP', sans-serif !important;
+    font-size: 0.9rem !important;
 }
 .stSelectbox > div > div {
-    background: #ffffff !important; border-color: #dde3ee !important;
+    background: #ffffff !important; border-color: #c8d4e4 !important;
     color: #1e293b !important;
     font-family: 'Noto Sans JP', sans-serif !important;
 }
 .stCheckbox > label {
-    color: #334155 !important; font-size: 0.88rem !important;
+    color: #1e293b !important; font-size: 0.9rem !important;
     font-family: 'Noto Sans JP', sans-serif !important;
+    font-weight: 500 !important;
 }
 
-/* サイドバー内装飾 */
+/* 区切り線 */
+.divider { border: none; border-top: 1.5px solid #c8d4e4; margin: 2rem 0; }
+
+/* サイドバー内 */
 .sb-brand {
     padding: 0.8rem 0 1.2rem;
-    border-bottom: 1px solid #e8ecf2;
-    margin-bottom: 1.2rem;
+    border-bottom: 1px solid #2d3f5c; margin-bottom: 1.2rem;
 }
 .sb-brand-eye {
-    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em;
-    color: #94a3b8; text-transform: uppercase; margin-bottom: 4px;
+    font-size: 0.63rem; font-weight: 700; letter-spacing: 0.18em;
+    color: #475569; text-transform: uppercase; margin-bottom: 5px;
 }
 .sb-brand-title {
-    font-size: 1rem; font-weight: 700; color: #0f172a; margin: 0;
+    font-size: 1rem; font-weight: 700; color: #e2e8f0; margin: 0;
 }
-.sb-brand-sub {
-    font-size: 0.72rem; color: #94a3b8; margin: 2px 0 0;
-}
+.sb-brand-sub { font-size: 0.72rem; color: #64748b; margin: 3px 0 0; }
 .sb-rule-item {
-    background: #f8fafc; border: 1px solid #e2e8f0;
-    border-radius: 7px; padding: 5px 9px;
-    font-size: 0.76rem; color: #3b82f6;
+    background: #162032; border: 1px solid #2d4a6e;
+    border-radius: 7px; padding: 6px 10px;
+    font-size: 0.77rem; color: #60a5fa;
     margin-bottom: 5px; display: block;
 }
 .sb-footer {
     position: fixed; bottom: 1.2rem;
-    font-size: 0.68rem; color: #cbd5e1; text-align: center; width: 200px;
+    font-size: 0.68rem; color: #3d5068; text-align: center; width: 200px;
 }
-.divider { border: none; border-top: 1px solid #dde3ee; margin: 2rem 0; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -277,7 +311,10 @@ with st.sidebar:
         for year, date, cid in sorted(available_keys):
             c = next((x for x in COURSES if x["id"] == cid), None)
             label = f"{year}年度 {date[:2]}月{date[2:]}日〜　{c['name'] if c else cid}"
-            st.markdown(f'<span class="sb-rule-item">&#10003;&#160;{label}</span>', unsafe_allow_html=True)
+            st.markdown(
+                f'<span class="sb-rule-item">&#10003;&#160;{label}</span>',
+                unsafe_allow_html=True,
+            )
     else:
         st.warning("判定ルールJSONがありません")
 
@@ -287,7 +324,10 @@ with st.sidebar:
         st.markdown(f"**{pnum}　{pshort}**")
         st.caption(pdesc)
 
-    st.markdown('<div class="sb-footer">AuditX v0.4　Powered by Claude API</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="sb-footer">AuditX v0.5　Powered by Claude API</div>',
+        unsafe_allow_html=True,
+    )
 
 
 # ============================================================
@@ -297,8 +337,10 @@ with st.sidebar:
 st.markdown(
     '<div class="page-eyebrow">HUMAX | LABOR REGULATION AUDIT SYSTEM</div>'
     '<div class="page-title">就業規則チェックツール（Humax）</div>'
-    '<div class="page-subtitle">社会保険労務士法人ヒューマックス向け就業規則チェックシステム'
-    '　— 業務効率の最大化のために</div>',
+    '<div class="page-subtitle">'
+    '社会保険労務士法人ヒューマックス向け就業規則チェックシステム'
+    '　— 業務効率の最大化のために'
+    '</div>',
     unsafe_allow_html=True,
 )
 st.markdown('<hr class="page-divider">', unsafe_allow_html=True)
@@ -312,9 +354,13 @@ st.markdown('<div class="sec-label">STEP 1　会社情報</div>', unsafe_allow_h
 
 col1, col2 = st.columns([3, 2])
 with col1:
-    company_name = st.text_input("会社名", placeholder="例：株式会社〇〇", label_visibility="collapsed")
+    company_name = st.text_input(
+        "会社名", placeholder="例：株式会社〇〇", label_visibility="collapsed"
+    )
 with col2:
-    industry = st.text_input("業種（任意）", placeholder="例：小売業、サービス業", label_visibility="collapsed")
+    industry = st.text_input(
+        "業種（任意）", placeholder="例：小売業、サービス業", label_visibility="collapsed"
+    )
 
 st.markdown('<hr class="divider">', unsafe_allow_html=True)
 
@@ -332,23 +378,22 @@ cols_p = st.columns(3)
 for col, (pk, (pnum, pshort, pdesc)) in zip(cols_p, PHASE_ITEMS.items()):
     with col:
         is_active = st.session_state.selected_phase == pk
-        bg    = "#eff6ff" if is_active else "#ffffff"
-        border = "1.5px solid #1d4ed8" if is_active else "1px solid #dde3ee"
-        ncolor = "#1d4ed8" if is_active else "#94a3b8"
-        lcolor = "#1e3a8a" if is_active else "#334155"
+        card_cls  = "phase-active" if is_active else "phase-inactive"
+        num_cls   = "phase-num-active" if is_active else "phase-num-inactive"
+        ttl_cls   = "phase-title-active" if is_active else "phase-title-inactive"
+        dsc_cls   = "phase-desc-active" if is_active else "phase-desc-inactive"
+
         st.markdown(
-            f'<div style="background:{bg};border:{border};border-radius:10px;'
-            f'padding:0.85rem 1rem;margin-bottom:6px;'
-            f'box-shadow:{"0 0 0 3px #bfdbfe" if is_active else "none"};">'
-            f'<div style="font-size:0.68rem;color:{ncolor};text-transform:uppercase;'
-            f'letter-spacing:0.12em;font-weight:700;margin-bottom:3px;">{pnum}</div>'
-            f'<div style="font-size:0.84rem;font-weight:600;color:{lcolor};margin-bottom:2px;">{pshort}</div>'
-            f'<div style="font-size:0.74rem;color:#94a3b8;">{pdesc}</div>'
+            f'<div class="{card_cls}">'
+            f'<div class="{num_cls}">{pnum}</div>'
+            f'<div class="{ttl_cls}">{pshort}</div>'
+            f'<div class="{dsc_cls}">{pdesc}</div>'
             f'</div>',
             unsafe_allow_html=True,
         )
-        css_class = "btn-selected" if is_active else ""
-        st.markdown(f'<div class="stButton {css_class}">', unsafe_allow_html=True)
+
+        btn_wrap = "btn-active" if is_active else "btn-inactive"
+        st.markdown(f'<div class="{btn_wrap}">', unsafe_allow_html=True)
         if st.button(
             "選択中 ✓" if is_active else "選択する",
             key=f"pb_{pk}",
@@ -372,14 +417,20 @@ st.markdown('<hr class="divider">', unsafe_allow_html=True)
 # STEP 3 : コース選択（コースごとに年度・施行日）
 # ============================================================
 
-st.markdown('<div class="sec-label">STEP 3　申請予定の助成金コース　（コースごとに年度・施行日を設定）</div>', unsafe_allow_html=True)
+st.markdown(
+    '<div class="sec-label">STEP 3　申請予定の助成金コース（コースごとに年度・施行日を設定）</div>',
+    unsafe_allow_html=True,
+)
 
 selected_courses = []
 prev_group = None
 
 for course in COURSES:
     if course["group"] != prev_group:
-        st.markdown(f'<div class="group-label">{course["group"]}</div>', unsafe_allow_html=True)
+        st.markdown(
+            f'<div class="group-label">{course["group"]}</div>',
+            unsafe_allow_html=True,
+        )
         prev_group = course["group"]
 
     checked = st.checkbox(course["name"], key=f"chk_{course['id']}")
@@ -404,9 +455,12 @@ for course in COURSES:
         with c3:
             rule_exists = (year, date, course["id"]) in available_keys
             if rule_exists:
-                st.success("判定ルール：あり", icon="✓")
+                st.success("判定ルール：あり ✓")
             else:
-                st.warning(f"令和{year[1:]}年度（{date[:2]}月{date[2:]}日〜）の判定ルールJSONがありません")
+                st.warning(
+                    f"令和{year[1:]}年度（{date[:2]}月{date[2:]}日〜）の"
+                    "判定ルールJSONがありません"
+                )
 
         selected_courses.append({
             "course_id":   course["id"],
@@ -424,13 +478,19 @@ st.markdown('<hr class="divider">', unsafe_allow_html=True)
 # STEP 4 : ファイルアップロード
 # ============================================================
 
-st.markdown('<div class="sec-label">STEP 4　就業規則ファイルをアップロード</div>', unsafe_allow_html=True)
+st.markdown(
+    '<div class="sec-label">STEP 4　就業規則ファイルをアップロード</div>',
+    unsafe_allow_html=True,
+)
 
 if selected_phase == "phase3":
-    st.info("Phase 3 では導入前・導入後・その他改訂分すべての就業規則をまとめてアップロードしてください。")
+    st.info(
+        "Phase 3 では導入前・導入後・その他改訂分すべての就業規則を"
+        "まとめてアップロードしてください。"
+    )
 
-col_upload1, col_upload2 = st.columns(2)
-with col_upload1:
+col_u1, col_u2 = st.columns(2)
+with col_u1:
     st.markdown("**就業規則**（必須・複数可）")
     st.caption("就業規則・賃金規程・育児介護休業規程 等")
     uploaded_files = st.file_uploader(
@@ -440,8 +500,7 @@ with col_upload1:
         label_visibility="collapsed",
         key="main_files",
     )
-
-with col_upload2:
+with col_u2:
     st.markdown("**補足書類**（任意）")
     st.caption("賃金台帳・労働条件通知書・労使協定書 等")
     supplementary_files = st.file_uploader(
@@ -476,18 +535,17 @@ can_run = bool(company_name) and bool(valid_courses) and bool(uploaded_files)
 
 missing = []
 if not company_name:   missing.append("会社名")
-if not valid_courses:  missing.append("助成金コース（判定ルールが存在するもの）")
+if not valid_courses:  missing.append("助成金コース")
 if not uploaded_files: missing.append("就業規則ファイル")
 if missing:
     st.caption("未入力の項目：" + "　/　".join(missing))
 
-st.markdown('<div class="run-btn">', unsafe_allow_html=True)
 run_button = st.button(
     "チェック開始",
     disabled=not can_run,
+    type="primary",
     use_container_width=True,
 )
-st.markdown("</div>", unsafe_allow_html=True)
 
 if not can_run:
     st.caption("就業規則ファイルをアップロードすると「チェック開始」が有効になります。")
@@ -514,7 +572,10 @@ if run_button and can_run:
                         api_key = line.split("=", 1)[1].strip()
                         break
     if not api_key:
-        st.error("ANTHROPIC_API_KEY が設定されていません。Streamlit Cloud の Secrets を確認してください。")
+        st.error(
+            "ANTHROPIC_API_KEY が設定されていません。"
+            "Streamlit Cloud の Secrets を確認してください。"
+        )
         st.stop()
     os.environ["ANTHROPIC_API_KEY"] = api_key
 
@@ -555,10 +616,23 @@ if run_button and can_run:
             st.write("判定ルール読み込み完了")
             st.write("Claude API で判定中（30秒〜1分ほどかかります）...")
             try:
-                others = [f"{c['group']}　{c['name']}" for c in valid_courses if c["course_id"] != ci["course_id"]]
-                result = run_audit(combined_text, rk, ci["course_id"], selected_phase, others or None)
-                report = generate_report(result, company_name, ci["course_id"], selected_phase, rk, target_filenames)
-                all_reports.append({"course_id": ci["course_id"], "label": f"{ci['group']}　{ci['name']}", "report": report})
+                others = [
+                    f"{c['group']}　{c['name']}"
+                    for c in valid_courses if c["course_id"] != ci["course_id"]
+                ]
+                result = run_audit(
+                    combined_text, rk, ci["course_id"],
+                    selected_phase, others or None,
+                )
+                report = generate_report(
+                    result, company_name, ci["course_id"],
+                    selected_phase, rk, target_filenames,
+                )
+                all_reports.append({
+                    "course_id": ci["course_id"],
+                    "label":     f"{ci['group']}　{ci['name']}",
+                    "report":    report,
+                })
                 status.update(label=f"完了：{ci['name']}", state="complete")
             except Exception as e:
                 st.error(f"APIエラー：{e}")
@@ -601,7 +675,11 @@ if run_button and can_run:
                 use_container_width=True,
             )
 
-    # フッター
     st.markdown('<hr class="divider">', unsafe_allow_html=True)
-    st.caption("就業規則チェックツール（ヒューマックス）　v1.1　|　キャリアアップ助成金 正社員化コース対応")
-    st.caption("※ 本ツールは実務補助用です。最終判断は必ず担当社会保険労務士が行ってください。")
+    st.caption(
+        "就業規則チェックツール（ヒューマックス）　v0.5　|　"
+        "キャリアアップ助成金 正社員化・賞与退職金制度導入コース対応"
+    )
+    st.caption(
+        "※ 本ツールは実務補助用です。最終判断は必ず担当社会保険労務士が行ってください。"
+    )

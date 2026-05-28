@@ -1,6 +1,6 @@
 """
 app.py - AuditX 就業規則チェックツール
-Streamlit UIアプリ（リデザイン版）
+Streamlit UIアプリ v0.3
 """
 
 import json
@@ -22,20 +22,22 @@ from audit_engine import (
 # 定数
 # ============================================================
 
-COURSE_OPTIONS = {
-    "CA":           "キャリアアップ助成金（正社員化・賞与退職金）",
-    "KO65_keizoku": "65歳超雇用推進助成金（継続雇用促進）",
-    "KO65_tenkan":  "65歳超雇用推進助成金（無期雇用転換）",
-    "JK_kanri":     "人材確保等支援助成金（雇用管理制度）",
-    "JK_hyoka":     "人材確保等支援助成金（人事評価改善）",
-    "JH_kyuka":     "人材開発支援助成金（教育訓練休暇）",
-    "RY_funin":     "両立支援等助成金（不妊治療・女性健康）",
-    "RY_juman":     "両立支援等助成金（柔軟な働き方選択）",
-    "RY_shussei":   "両立支援等助成金（出生時両立支援）",
-    "RY_kaigo":     "両立支援等助成金（介護離職防止）",
-    "RY_ikukyu":    "両立支援等助成金（育児休業等支援）",
-    "RY_daitai":    "両立支援等助成金（育休中等業務代替）",
-}
+# コース正式名称（個別管理）
+COURSES = [
+    {"id": "CA_seishain",   "group": "キャリアアップ助成金",        "name": "正社員化コース"},
+    {"id": "CA_shoyo",      "group": "キャリアアップ助成金",        "name": "賞与・退職金制度導入コース"},
+    {"id": "KO65_keizoku",  "group": "65歳超雇用推進助成金",        "name": "65歳超継続雇用促進コース"},
+    {"id": "KO65_tenkan",   "group": "65歳超雇用推進助成金",        "name": "高年齢者無期雇用転換コース"},
+    {"id": "JK_kanri",      "group": "人材確保等支援助成金",        "name": "雇用管理制度・雇用環境整備助成コース"},
+    {"id": "JK_hyoka",      "group": "人材確保等支援助成金",        "name": "人事評価改善等助成コース"},
+    {"id": "JH_kyuka",      "group": "人材開発支援助成金",          "name": "教育訓練休暇等付与コース"},
+    {"id": "RY_funin",      "group": "両立支援等助成金",            "name": "不妊治療及び女性の健康課題対応両立支援コース"},
+    {"id": "RY_juman",      "group": "両立支援等助成金",            "name": "柔軟な働き方選択制度等支援コース"},
+    {"id": "RY_shussei",    "group": "両立支援等助成金",            "name": "出生時両立支援コース"},
+    {"id": "RY_kaigo",      "group": "両立支援等助成金",            "name": "介護離職防止支援コース"},
+    {"id": "RY_ikukyu",     "group": "両立支援等助成金",            "name": "育児休業等支援コース"},
+    {"id": "RY_daitai",     "group": "両立支援等助成金",            "name": "育休中等業務代替支援コース"},
+]
 
 YEAR_OPTIONS = ["R08", "R07", "R06"]
 DATE_OPTIONS = {
@@ -56,7 +58,7 @@ PHASE_DESC = {
 
 st.set_page_config(
     page_title="AuditX | 就業規則チェックツール",
-    page_icon="⚖️",
+    page_icon="",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -67,143 +69,230 @@ st.markdown("""
 
 html, body, [class*="css"] {
     font-family: 'Noto Sans JP', sans-serif;
-    background-color: #0f1117;
-    color: #e8eaf0;
+    background-color: #f4f6fb;
+    color: #1a2340;
 }
 .block-container {
     padding: 2rem 2.5rem 4rem;
     max-width: 1100px;
 }
+
+/* サイドバー */
 section[data-testid="stSidebar"] {
-    background: #0a0e1a;
-    border-right: 1px solid #1e2640;
+    background: #1a2340;
+    border-right: none;
 }
-section[data-testid="stSidebar"] * { color: #c8cde0 !important; }
+section[data-testid="stSidebar"] * { color: #c8d4e8 !important; }
+section[data-testid="stSidebar"] .stMarkdown p { color: #8a9dc0 !important; }
 
 /* ヘッダー */
 .auditx-header {
-    background: linear-gradient(135deg, #0d1b3e 0%, #112354 40%, #0d2060 100%);
-    border: 1px solid #1e3a8a;
+    background: linear-gradient(135deg, #1a2f6e 0%, #1e3a8a 50%, #1d4ed8 100%);
     border-radius: 16px;
-    padding: 2.5rem 3rem;
-    margin-bottom: 2.5rem;
+    padding: 2.2rem 2.8rem;
+    margin-bottom: 2rem;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 4px 24px rgba(30,58,138,0.18);
 }
-.auditx-header::before {
+.auditx-header::after {
     content: '';
     position: absolute;
-    top: -50%; right: -10%;
-    width: 400px; height: 400px;
-    background: radial-gradient(circle, rgba(99,179,237,0.06) 0%, transparent 70%);
+    top: -60px; right: -40px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(255,255,255,0.07) 0%, transparent 70%);
     pointer-events: none;
 }
-.auditx-header h1 {
-    font-size: 2rem; font-weight: 700;
-    color: #ffffff; margin: 0 0 0.5rem;
-    letter-spacing: -0.5px;
+.auditx-header-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 0.4rem;
+    letter-spacing: -0.3px;
+    line-height: 1.3;
 }
-.auditx-header .subtitle {
-    color: #7ca3d4; font-size: 0.9rem;
-    font-weight: 300; letter-spacing: 0.3px;
+.auditx-header-sub {
+    color: #93c5fd;
+    font-size: 0.88rem;
+    font-weight: 300;
 }
 .auditx-header .badge-row {
-    margin-top: 1.2rem;
-    display: flex; gap: 0.6rem; flex-wrap: wrap;
+    margin-top: 1.1rem;
+    display: flex; gap: 0.5rem; flex-wrap: wrap;
 }
 .auditx-badge {
-    background: rgba(255,255,255,0.07);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 99px; padding: 3px 12px;
-    font-size: 0.75rem; color: #a8bdd4;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 99px;
+    padding: 3px 11px;
+    font-size: 0.73rem;
+    color: #dbeafe;
 }
 
 /* セクションヘッダー */
 .section-header {
     display: flex; align-items: center;
-    gap: 12px; margin: 2rem 0 1.2rem;
+    gap: 10px; margin: 1.8rem 0 1rem;
 }
 .step-circle {
-    width: 32px; height: 32px; border-radius: 50%;
-    background: linear-gradient(135deg, #1e40af, #2563eb);
-    color: white; font-size: 0.8rem; font-weight: 700;
+    width: 30px; height: 30px; border-radius: 50%;
+    background: #1d4ed8;
+    color: white; font-size: 0.78rem; font-weight: 700;
     display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; box-shadow: 0 2px 8px rgba(37,99,235,0.4);
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(29,78,216,0.35);
 }
 .section-title {
-    font-size: 1rem; font-weight: 500;
-    color: #e2e8f0; letter-spacing: 0.3px;
+    font-size: 1rem; font-weight: 600;
+    color: #1a2340; letter-spacing: 0.2px;
 }
+
+/* カード */
+.card {
+    background: #ffffff;
+    border: 1px solid #e2e8f4;
+    border-radius: 12px;
+    padding: 1.4rem 1.6rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+/* フェーズカード */
+.phase-card {
+    background: #ffffff;
+    border: 2px solid #e2e8f4;
+    border-radius: 10px;
+    padding: 0.9rem 1.1rem;
+    margin-bottom: 6px;
+    transition: all 0.15s;
+}
+.phase-card.active {
+    background: #eff6ff;
+    border-color: #1d4ed8;
+    box-shadow: 0 0 0 1px #1d4ed8;
+}
+.phase-num {
+    font-size: 0.68rem; color: #94a3b8;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    margin-bottom: 3px;
+}
+.phase-card.active .phase-num { color: #1d4ed8; }
+.phase-label {
+    font-size: 0.83rem; font-weight: 500; color: #475569;
+}
+.phase-card.active .phase-label { color: #1e3a8a; }
 
 /* フェーズ説明 */
 .phase-info {
-    background: #0d1830;
-    border: 1px solid #1a2d52;
-    border-left: 3px solid #2563eb;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-left: 3px solid #1d4ed8;
     border-radius: 0 8px 8px 0;
-    padding: 0.8rem 1.2rem;
-    font-size: 0.85rem; color: #7ca3d4;
-    margin-bottom: 1rem;
+    padding: 0.75rem 1.1rem;
+    font-size: 0.83rem; color: #1e40af;
+    margin-bottom: 1.2rem;
 }
 
-/* 区切り線 */
-.divider {
-    border: none; border-top: 1px solid #1e2640;
-    margin: 2rem 0;
+/* コース選択カード */
+.course-group-label {
+    font-size: 0.75rem; font-weight: 600;
+    color: #64748b; text-transform: uppercase;
+    letter-spacing: 0.08em; margin: 1rem 0 0.4rem;
+}
+.course-card {
+    background: #ffffff;
+    border: 1.5px solid #e2e8f4;
+    border-radius: 10px;
+    padding: 0.9rem 1.1rem 0.7rem;
+    margin-bottom: 0.5rem;
+    transition: border-color 0.15s;
+}
+.course-card.selected {
+    border-color: #1d4ed8;
+    background: #f0f7ff;
 }
 
 /* ボタン */
 .stButton > button {
-    background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%) !important;
-    color: white !important; border: none !important;
-    border-radius: 10px !important;
+    background: #1d4ed8 !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 8px !important;
     font-family: 'Noto Sans JP', sans-serif !important;
-    font-size: 0.95rem !important; font-weight: 500 !important;
-    box-shadow: 0 4px 16px rgba(37,99,235,0.35) !important;
+    font-weight: 500 !important;
+    box-shadow: 0 2px 8px rgba(29,78,216,0.25) !important;
+    transition: all 0.15s !important;
 }
 .stButton > button:hover {
-    box-shadow: 0 6px 20px rgba(37,99,235,0.5) !important;
+    background: #1e40af !important;
+    box-shadow: 0 4px 12px rgba(29,78,216,0.35) !important;
     transform: translateY(-1px) !important;
 }
 .stButton > button:disabled {
-    background: #1e2640 !important;
-    box-shadow: none !important; color: #4a5568 !important;
+    background: #e2e8f4 !important;
+    color: #94a3b8 !important;
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+/* 選択中ボタン（アクティブフェーズ） */
+.btn-active > .stButton > button {
+    background: #1d4ed8 !important;
+    color: white !important;
+    font-weight: 600 !important;
+}
+.btn-inactive > .stButton > button {
+    background: #f1f5f9 !important;
+    color: #64748b !important;
+    border: 1.5px solid #cbd5e1 !important;
+    box-shadow: none !important;
+}
+.btn-inactive > .stButton > button:hover {
+    background: #e2e8f0 !important;
+    border-color: #94a3b8 !important;
+    transform: none !important;
+    box-shadow: none !important;
 }
 
 /* ダウンロードボタン */
 .stDownloadButton > button {
-    background: #141a2e !important;
-    border: 1px solid #2563eb !important;
-    color: #60a5fa !important; border-radius: 8px !important;
+    background: #ffffff !important;
+    border: 1.5px solid #1d4ed8 !important;
+    color: #1d4ed8 !important;
+    border-radius: 8px !important;
     font-family: 'Noto Sans JP', sans-serif !important;
 }
 
-/* 入力 */
-.stTextInput > div > div > input {
-    background: #0f1520 !important;
-    border-color: #1e2a4a !important;
-    color: #e2e8f0 !important; border-radius: 8px !important;
-}
-
-/* チェックボックス */
-.stCheckbox > label {
-    color: #c8cde0 !important; font-size: 0.88rem !important;
-}
+/* 区切り */
+.divider { border: none; border-top: 1px solid #e2e8f4; margin: 1.8rem 0; }
 
 /* サイドバー */
-.sidebar-logo { padding: 0.5rem 0 1rem; border-bottom: 1px solid #1e2640; margin-bottom: 1rem; }
-.sidebar-logo h2 { font-size: 1.1rem; font-weight: 700; color: #e2e8f0; margin: 0; }
-.sidebar-logo p { font-size: 0.75rem; color: #4a6080; margin: 2px 0 0; }
+.sb-logo { padding: 0.5rem 0 1.2rem; border-bottom: 1px solid #2a3a5c; margin-bottom: 1rem; }
+.sb-logo h2 { font-size: 1.05rem; font-weight: 700; color: #e2e8f0; margin: 0; }
+.sb-logo p { font-size: 0.73rem; color: #64748b; margin: 2px 0 0; }
 .rule-badge {
-    background: #0d2040; border: 1px solid #1a3a6e;
-    border-radius: 8px; padding: 6px 10px;
-    font-size: 0.78rem; color: #60a5fa;
-    margin-bottom: 6px; display: block;
+    background: #111c35; border: 1px solid #2a3a5c;
+    border-radius: 7px; padding: 5px 9px;
+    font-size: 0.76rem; color: #60a5fa;
+    margin-bottom: 5px; display: block;
 }
-.sidebar-footer {
+.sb-footer {
     position: fixed; bottom: 1rem;
-    font-size: 0.72rem; color: #2d3a52;
+    font-size: 0.7rem; color: #334155;
     text-align: center; width: 200px;
+}
+
+/* 入力フィールド */
+.stTextInput > div > div > input {
+    background: #ffffff !important;
+    border-color: #cbd5e1 !important;
+    color: #1a2340 !important;
+    border-radius: 8px !important;
+}
+.stSelectbox > div > div {
+    background: #ffffff !important;
+    border-color: #cbd5e1 !important;
+    color: #1a2340 !important;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -222,21 +311,16 @@ def load_rule_knowledge(course_id: str, year: str, date: str):
     return None
 
 
-def get_available_rules():
+def get_available_rule_keys():
+    """利用可能なJSONのキーセット {(year, date, course_id)} を返す"""
     rule_dir = Path(__file__).parent / "rule_knowledge"
-    available = []
+    keys = set()
     if rule_dir.exists():
-        for json_file in sorted(rule_dir.glob("*.json")):
-            stem = json_file.stem
-            parts = stem.split("_", 2)
-            if len(parts) >= 3:
-                year, date, course_id = parts[0], parts[1], parts[2]
-                available.append({
-                    "file": json_file, "year": year, "date": date,
-                    "course_id": course_id,
-                    "label": f"{year}年度（{date[:2]}月{date[2:]}日〜）{COURSE_OPTIONS.get(course_id, course_id)}",
-                })
-    return available
+        for json_file in rule_dir.glob("*.json"):
+            parts = json_file.stem.split("_", 2)
+            if len(parts) == 3:
+                keys.add(tuple(parts))
+    return keys
 
 
 # ============================================================
@@ -245,56 +329,63 @@ def get_available_rules():
 
 with st.sidebar:
     st.markdown("""
-    <div class="sidebar-logo">
-        <h2>⚖️ AuditX</h2>
+    <div class="sb-logo">
+        <h2>AuditX</h2>
         <p>就業規則チェックツール</p>
     </div>
     """, unsafe_allow_html=True)
 
-    available_rules = get_available_rules()
+    available_keys = get_available_rule_keys()
 
     st.markdown("**利用可能な判定ルール**")
-    if available_rules:
-        for rule in available_rules:
-            st.markdown(f'<span class="rule-badge">✓ {rule["label"]}</span>', unsafe_allow_html=True)
+    if available_keys:
+        for year, date, course_id in sorted(available_keys):
+            course = next((c for c in COURSES if c["id"] == course_id), None)
+            label = f"{year}年度 {date[:2]}月{date[2:]}日〜 {course['name'] if course else course_id}"
+            st.markdown(f'<span class="rule-badge">&#10003; {label}</span>', unsafe_allow_html=True)
     else:
         st.warning("判定ルールJSONがありません")
 
     st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown("**チェックフェーズの説明**")
+    st.markdown("**チェックフェーズ**")
     for key, desc in PHASE_DESC.items():
-        phase_num = key.replace("phase", "Phase ")
-        st.markdown(f"**{phase_num}**")
+        st.markdown(f"**{key.replace('phase','Phase ')}**")
         st.caption(desc)
 
-    st.markdown('<div class="sidebar-footer">AuditX v0.1 ／ Powered by Claude API</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sb-footer">AuditX v0.1<br>Powered by Claude API</div>', unsafe_allow_html=True)
 
 
 # ============================================================
 # メイン
 # ============================================================
 
-st.markdown("""
-<div class="auditx-header">
-    <h1>⚖️ AuditX 就業規則チェックツール</h1>
-    <div class="subtitle">助成金申請に特化した社労士法人向け就業規則監査システム ／ 不支給リスクをゼロに</div>
-    <div class="badge-row">
-        <span class="auditx-badge">13コース対応</span>
-        <span class="auditx-badge">3フェーズ監査</span>
-        <span class="auditx-badge">処方箋つきレポート</span>
-        <span class="auditx-badge">PDF / Word 対応</span>
-    </div>
-</div>
-""", unsafe_allow_html=True)
+st.markdown(
+    '<div class="auditx-header">'
+    '<div class="auditx-header-title">AuditX 就業規則チェックツール</div>'
+    '<div class="auditx-header-sub">社会保険労務士法人ヒューマックス向け就業規則チェックシステム'
+    ' ／ 業務効率の最大化のために</div>'
+    '<div class="badge-row">'
+    '<span class="auditx-badge">13コース対応</span>'
+    '<span class="auditx-badge">3フェーズ監査</span>'
+    '<span class="auditx-badge">処方箋つきレポート</span>'
+    '<span class="auditx-badge">PDF / Word 対応</span>'
+    '</div>'
+    '</div>',
+    unsafe_allow_html=True,
+)
 
 
-# STEP 1
-st.markdown("""
-<div class="section-header">
-    <div class="step-circle">1</div>
-    <div class="section-title">会社情報・申請情報を入力</div>
-</div>
-""", unsafe_allow_html=True)
+# ============================================================
+# STEP 1 : 会社情報
+# ============================================================
+
+st.markdown(
+    '<div class="section-header">'
+    '<div class="step-circle">1</div>'
+    '<div class="section-title">会社情報を入力</div>'
+    '</div>',
+    unsafe_allow_html=True,
+)
 
 col1, col2 = st.columns([3, 2])
 with col1:
@@ -302,90 +393,153 @@ with col1:
 with col2:
     industry = st.text_input("業種", placeholder="例：小売業、サービス業")
 
-col3, col4 = st.columns(2)
-with col3:
-    selected_year = st.selectbox("申請年度", options=YEAR_OPTIONS, format_func=lambda x: f"令和{x[1:]}年度")
-with col4:
-    date_options = DATE_OPTIONS.get(selected_year, ["0401"])
-    selected_date = st.selectbox("施行日", options=date_options, format_func=lambda x: f"{x[:2]}月{x[2:]}日以降")
+st.markdown('<hr class="divider">', unsafe_allow_html=True)
 
-# フェーズ選択
-st.markdown("**チェックフェーズ**")
+
+# ============================================================
+# STEP 2 : フェーズ選択
+# ============================================================
+
+st.markdown(
+    '<div class="section-header">'
+    '<div class="step-circle">2</div>'
+    '<div class="section-title">チェックフェーズを選択</div>'
+    '</div>',
+    unsafe_allow_html=True,
+)
 
 if "selected_phase" not in st.session_state:
     st.session_state.selected_phase = "phase1"
 
-phase_labels_short = {
+phase_defs = {
     "phase1": ("Phase 1", "申請準備開始時"),
     "phase2": ("Phase 2", "制度導入・改訂時"),
     "phase3": ("Phase 3", "支給申請提出前"),
 }
 
 col_p1, col_p2, col_p3 = st.columns(3)
-phase_cols = [col_p1, col_p2, col_p3]
-
-for i, (phase_key, (phase_num, phase_short)) in enumerate(phase_labels_short.items()):
-    with phase_cols[i]:
-        is_active = st.session_state.selected_phase == phase_key
-        bg = "#0f2a5e" if is_active else "#141a2e"
-        border = "#2563eb" if is_active else "#1e2a4a"
-        num_color = "#60a5fa" if is_active else "#4a6080"
-        title_color = "#e2e8f0" if is_active else "#8a9ab8"
-
-        st.markdown(f"""
-        <div style="background:{bg};border:1px solid {border};border-radius:10px;
-                    padding:1rem 1.2rem;margin-bottom:6px;">
-            <div style="font-size:0.7rem;color:{num_color};text-transform:uppercase;
-                        letter-spacing:0.1em;margin-bottom:4px;">{phase_num}</div>
-            <div style="font-size:0.85rem;font-weight:500;color:{title_color};">{phase_short}</div>
-        </div>
-        """, unsafe_allow_html=True)
-
+for col, (pk, (pnum, plabel)) in zip([col_p1, col_p2, col_p3], phase_defs.items()):
+    is_active = st.session_state.selected_phase == pk
+    with col:
+        bg    = "#eff6ff" if is_active else "#ffffff"
+        border = "#1d4ed8" if is_active else "#e2e8f4"
+        bwidth = "2px" if is_active else "1.5px"
+        ncolor = "#1d4ed8" if is_active else "#94a3b8"
+        lcolor = "#1e3a8a" if is_active else "#475569"
+        st.markdown(
+            f'<div style="background:{bg};border:{bwidth} solid {border};border-radius:10px;'
+            f'padding:0.9rem 1.1rem;margin-bottom:6px;">'
+            f'<div style="font-size:0.68rem;color:{ncolor};text-transform:uppercase;'
+            f'letter-spacing:0.1em;margin-bottom:3px;">{pnum}</div>'
+            f'<div style="font-size:0.83rem;font-weight:500;color:{lcolor};">{plabel}</div>'
+            f'</div>',
+            unsafe_allow_html=True,
+        )
+        btn_class = "btn-active" if is_active else "btn-inactive"
+        st.markdown(f'<div class="{btn_class}">', unsafe_allow_html=True)
         if st.button(
-            "✓ 選択中" if is_active else "選択する",
-            key=f"phase_btn_{phase_key}",
+            "選択中" if is_active else "選択する",
+            key=f"phase_btn_{pk}",
             use_container_width=True,
         ):
-            st.session_state.selected_phase = phase_key
+            st.session_state.selected_phase = pk
             st.rerun()
+        st.markdown("</div>", unsafe_allow_html=True)
 
 selected_phase = st.session_state.selected_phase
-
-st.markdown(f"""
-<div class="phase-info">📋 {PHASE_DESC.get(selected_phase, '')}</div>
-""", unsafe_allow_html=True)
-
-# コース選択
-available_course_ids = [
-    r["course_id"] for r in available_rules
-    if r["year"] == selected_year and r["date"] == selected_date
-]
-
-st.markdown("**申請予定の助成金コース**（複数選択可）")
-
-selected_courses = []
-if not available_course_ids:
-    st.warning(f"令和{selected_year[1:]}年度（{selected_date[:2]}月{selected_date[2:]}日〜）の判定ルールJSONが見つかりません。")
-else:
-    cols = st.columns(2)
-    for i, course_id in enumerate(available_course_ids):
-        with cols[i % 2]:
-            if st.checkbox(COURSE_OPTIONS.get(course_id, course_id), key=f"course_{course_id}"):
-                selected_courses.append(course_id)
+st.markdown(
+    f'<div class="phase-info">&#128203; {PHASE_DESC.get(selected_phase,"")}</div>',
+    unsafe_allow_html=True,
+)
 
 st.markdown('<hr class="divider">', unsafe_allow_html=True)
 
 
-# STEP 2
-st.markdown("""
-<div class="section-header">
-    <div class="step-circle">2</div>
-    <div class="section-title">就業規則ファイルをアップロード</div>
-</div>
-""", unsafe_allow_html=True)
+# ============================================================
+# STEP 3 : コース選択（コースごとに年度・施行日を選択）
+# ============================================================
+
+st.markdown(
+    '<div class="section-header">'
+    '<div class="step-circle">3</div>'
+    '<div class="section-title">申請予定の助成金コースを選択（コースごとに年度・施行日を設定）</div>'
+    '</div>',
+    unsafe_allow_html=True,
+)
+
+# グループ別に表示
+selected_courses = []  # [{course_id, year, date, name}]
+
+prev_group = None
+for course in COURSES:
+    if course["group"] != prev_group:
+        st.markdown(
+            f'<div class="course-group-label">{course["group"]}</div>',
+            unsafe_allow_html=True,
+        )
+        prev_group = course["group"]
+
+    checked = st.checkbox(
+        course["name"],
+        key=f"check_{course['id']}",
+    )
+
+    if checked:
+        c1, c2 = st.columns([1, 1])
+        with c1:
+            year = st.selectbox(
+                "申請年度",
+                options=YEAR_OPTIONS,
+                format_func=lambda x: f"令和{x[1:]}年度",
+                key=f"year_{course['id']}",
+                label_visibility="collapsed",
+            )
+        with c2:
+            date_opts = DATE_OPTIONS.get(year, ["0401"])
+            date = st.selectbox(
+                "施行日",
+                options=date_opts,
+                format_func=lambda x: f"{x[:2]}月{x[2:]}日以降",
+                key=f"date_{course['id']}",
+                label_visibility="collapsed",
+            )
+
+        # 判定ルールJSONの存在確認
+        rule_exists = (year, date, course["id"]) in available_keys
+        if not rule_exists:
+            st.caption(
+                f"⚠️ 令和{year[1:]}年度（{date[:2]}月{date[2:]}日〜）の判定ルールJSONが見つかりません。"
+            )
+
+        selected_courses.append({
+            "course_id":   course["id"],
+            "name":        course["name"],
+            "group":       course["group"],
+            "year":        year,
+            "date":        date,
+            "rule_exists": rule_exists,
+        })
+
+st.markdown('<hr class="divider">', unsafe_allow_html=True)
+
+
+# ============================================================
+# STEP 4 : ファイルアップロード
+# ============================================================
+
+st.markdown(
+    '<div class="section-header">'
+    '<div class="step-circle">4</div>'
+    '<div class="section-title">就業規則ファイルをアップロード</div>'
+    '</div>',
+    unsafe_allow_html=True,
+)
 
 if selected_phase == "phase3":
-    st.info("Phase 3 では複数バージョンの就業規則をまとめてアップロードしてください（導入前・導入後・改訂分すべて）")
+    st.info(
+        "Phase 3 では複数バージョンの就業規則をまとめてアップロードしてください"
+        "（制度導入前・導入後・その他改訂分すべて）"
+    )
 
 uploaded_files = st.file_uploader(
     "PDF / Word ファイルを選択",
@@ -396,30 +550,40 @@ uploaded_files = st.file_uploader(
 
 if uploaded_files:
     for f in uploaded_files:
-        st.markdown(f"- 📄 **{f.name}**　{f.size/1024:.1f} KB")
+        st.markdown(f"- **{f.name}**　{f.size/1024:.1f} KB")
 
-with st.expander("補足情報（任意）"):
+with st.expander("担当者メモ（任意）"):
     memo = st.text_area(
-        "担当者メモ・特記事項",
+        "メモ",
         placeholder="例：転換予定者は〇〇さん（入社3年目）。定年規定の確認が特に重要。",
         height=80,
+        label_visibility="collapsed",
     )
 
 st.markdown('<hr class="divider">', unsafe_allow_html=True)
 
 
+# ============================================================
 # 実行ボタン
-can_run = bool(company_name) and bool(selected_courses) and bool(uploaded_files)
+# ============================================================
+
+valid_courses = [c for c in selected_courses if c["rule_exists"]]
+can_run = (
+    bool(company_name)
+    and bool(valid_courses)
+    and bool(uploaded_files)
+)
 
 if not can_run:
     missing = []
-    if not company_name: missing.append("会社名")
-    if not selected_courses: missing.append("助成金コース")
-    if not uploaded_files: missing.append("就業規則ファイル")
-    st.caption(f"未入力の項目があります：{'　/　'.join(missing)}")
+    if not company_name:    missing.append("会社名")
+    if not valid_courses:   missing.append("有効な助成金コース（判定ルールJSONが存在するもの）")
+    if not uploaded_files:  missing.append("就業規則ファイル")
+    if missing:
+        st.caption("未入力・未選択の項目があります：" + "　/　".join(missing))
 
 run_button = st.button(
-    "🔍　就業規則チェックを開始する",
+    "就業規則チェックを開始する",
     disabled=not can_run,
     type="primary",
     use_container_width=True,
@@ -433,12 +597,13 @@ run_button = st.button(
 if run_button and can_run:
 
     st.markdown('<hr class="divider">', unsafe_allow_html=True)
-    st.markdown("""
-    <div class="section-header">
-        <div class="step-circle">3</div>
-        <div class="section-title">チェック結果</div>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown(
+        '<div class="section-header">'
+        '<div class="step-circle">5</div>'
+        '<div class="section-title">チェック結果</div>'
+        '</div>',
+        unsafe_allow_html=True,
+    )
 
     # APIキー取得
     api_key = st.secrets.get("ANTHROPIC_API_KEY", os.getenv("ANTHROPIC_API_KEY"))
@@ -453,7 +618,10 @@ if run_button and can_run:
                         break
 
     if not api_key:
-        st.error("ANTHROPIC_API_KEY が設定されていません。Streamlit Cloud の Secrets を確認してください。")
+        st.error(
+            "ANTHROPIC_API_KEY が設定されていません。"
+            "Streamlit Cloud の Secrets を確認してください。"
+        )
         st.stop()
 
     os.environ["ANTHROPIC_API_KEY"] = api_key
@@ -463,20 +631,20 @@ if run_button and can_run:
     target_filenames = []
 
     with st.status("就業規則を読み込み中...", expanded=True) as status:
-        for uploaded_file in uploaded_files:
-            st.write(f"📄 {uploaded_file.name}")
+        for uf in uploaded_files:
+            st.write(f"読み込み中：{uf.name}")
             try:
-                suffix = Path(uploaded_file.name).suffix
+                suffix = Path(uf.name).suffix
                 with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as tmp:
-                    tmp.write(uploaded_file.read())
+                    tmp.write(uf.read())
                     tmp_path = tmp.name
                 text = extract_text(tmp_path)
                 os.unlink(tmp_path)
-                all_texts.append(f"=== {uploaded_file.name} ===\n{text}")
-                target_filenames.append(uploaded_file.name)
-                st.write(f"✅ {len(text):,} 文字を抽出")
+                all_texts.append(f"=== {uf.name} ===\n{text}")
+                target_filenames.append(uf.name)
+                st.write(f"完了：{uf.name}（{len(text):,} 文字）")
             except Exception as e:
-                st.error(f"❌ {uploaded_file.name}：{e}")
+                st.error(f"エラー：{uf.name}　{e}")
         status.update(label="読み込み完了", state="complete")
 
     if not all_texts:
@@ -485,57 +653,71 @@ if run_button and can_run:
     combined_text = "\n\n".join(all_texts)
     all_reports = []
 
-    for course_id in selected_courses:
-        course_label = COURSE_OPTIONS.get(course_id, course_id)
+    for course_info in valid_courses:
+        cid    = course_info["course_id"]
+        cname  = course_info["name"]
+        cgroup = course_info["group"]
+        year   = course_info["year"]
+        date   = course_info["date"]
+        label  = f"{cgroup}　{cname}"
 
-        with st.status(f"判定中：{course_label}", expanded=True) as status:
-            rule_knowledge = load_rule_knowledge(course_id, selected_year, selected_date)
+        with st.status(f"判定中：{cname}", expanded=True) as status:
+            rule_knowledge = load_rule_knowledge(cid, year, date)
             if not rule_knowledge:
-                st.error(f"判定ルールJSONが見つかりません")
-                status.update(label=f"エラー：{course_label}", state="error")
+                st.error("判定ルールJSONの読み込みに失敗しました")
+                status.update(label=f"エラー：{cname}", state="error")
                 continue
 
-            st.write("📚 判定ルール読み込み完了")
-            st.write("🤖 Claude API で判定中（30秒〜1分ほどかかります）...")
+            st.write("判定ルール読み込み完了")
+            st.write("Claude API で判定中（30秒〜1分ほどかかります）...")
 
             try:
-                other_courses = [COURSE_OPTIONS.get(c, c) for c in selected_courses if c != course_id]
+                other_courses = [
+                    f"{c['group']}　{c['name']}"
+                    for c in valid_courses if c["course_id"] != cid
+                ]
                 audit_result = run_audit(
-                    combined_text, rule_knowledge, course_id,
-                    selected_phase, other_courses if other_courses else None,
+                    combined_text, rule_knowledge, cid,
+                    selected_phase,
+                    other_courses if other_courses else None,
                 )
                 report = generate_report(
-                    audit_result, company_name, course_id,
+                    audit_result, company_name, cid,
                     selected_phase, rule_knowledge, target_filenames,
                 )
-                all_reports.append({"course_id": course_id, "course_label": course_label, "report": report})
-                status.update(label=f"✅ 完了：{course_label}", state="complete")
+                all_reports.append({
+                    "course_id": cid,
+                    "label": label,
+                    "report": report,
+                })
+                status.update(label=f"完了：{cname}", state="complete")
             except Exception as e:
                 st.error(f"APIエラー：{e}")
-                status.update(label=f"エラー：{course_label}", state="error")
+                status.update(label=f"エラー：{cname}", state="error")
 
+    # レポート表示
     if all_reports:
-        st.success(f"チェック完了 ／ {len(all_reports)} コース")
+        st.success(f"チェック完了　{len(all_reports)} コース")
 
         if len(all_reports) == 1:
             rd = all_reports[0]
             st.markdown(rd["report"])
             now_str = datetime.now().strftime("%Y%m%d_%H%M")
             st.download_button(
-                label="📥 レポートをダウンロード（Markdown）",
+                label="レポートをダウンロード（Markdown）",
                 data=rd["report"].encode("utf-8"),
                 file_name=f"AuditX_{company_name}_{rd['course_id']}_{selected_phase}_{now_str}.md",
                 mime="text/markdown",
                 use_container_width=True,
             )
         else:
-            tabs = st.tabs([r["course_label"] for r in all_reports])
+            tabs = st.tabs([r["label"] for r in all_reports])
             for tab, rd in zip(tabs, all_reports):
                 with tab:
                     st.markdown(rd["report"])
                     now_str = datetime.now().strftime("%Y%m%d_%H%M")
                     st.download_button(
-                        label="📥 このレポートをダウンロード",
+                        label="このレポートをダウンロード",
                         data=rd["report"].encode("utf-8"),
                         file_name=f"AuditX_{company_name}_{rd['course_id']}_{selected_phase}_{now_str}.md",
                         mime="text/markdown",
@@ -546,7 +728,7 @@ if run_button and can_run:
             all_combined = "\n\n---\n\n".join(r["report"] for r in all_reports)
             now_str = datetime.now().strftime("%Y%m%d_%H%M")
             st.download_button(
-                label="📥 全レポートをまとめてダウンロード",
+                label="全レポートをまとめてダウンロード",
                 data=all_combined.encode("utf-8"),
                 file_name=f"AuditX_{company_name}_全コース_{selected_phase}_{now_str}.md",
                 mime="text/markdown",

@@ -561,7 +561,7 @@ if run_button and can_run:
     st.markdown('<div class="sec-label">チェック結果</div>', unsafe_allow_html=True)
 
     # APIキー
-    api_key = st.secrets.get("ANTHROPIC_API_KEY", os.getenv("ANTHROPIC_API_KEY"))
+    api_key = st.secrets.get("GOOGLE_API_KEY", os.getenv("GOOGLE_API_KEY"))
     if not api_key:
         env_path = Path(__file__).parent / ".env"
         if env_path.exists():
@@ -572,12 +572,9 @@ if run_button and can_run:
                         api_key = line.split("=", 1)[1].strip()
                         break
     if not api_key:
-        st.error(
-            "ANTHROPIC_API_KEY が設定されていません。"
-            "Streamlit Cloud の Secrets を確認してください。"
-        )
+    st.error("GOOGLE_API_KEY が設定されていません。Streamlit Cloud の Secrets を確認してください。")
         st.stop()
-    os.environ["ANTHROPIC_API_KEY"] = api_key
+    os.environ["GOOGLE_API_KEY"] = api_key
 
     # テキスト抽出
     all_texts, target_filenames = [], []

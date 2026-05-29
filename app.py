@@ -1145,7 +1145,7 @@ if run_button and can_run:
                 status.update(label=f"エラー：{ci['name']}", state="error")
                 continue
             st.write("判定ルール読み込み完了")
-            st.write("Gemini API で判定中（30秒〜1分ほどかかります）...")
+            st.write("Gemini API で判定中（1〜2分ほどかかります）...")
             try:
                 others = [
                     f"{c['group']}　{c['name']}"

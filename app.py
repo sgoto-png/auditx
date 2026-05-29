@@ -325,7 +325,7 @@ with st.sidebar:
         st.caption(pdesc)
 
     st.markdown(
-        '<div class="sb-footer">AuditX v0.5　Powered by Claude API</div>',
+        '<div class="sb-footer">AuditX v0.5　Powered by Gemini API</div>'
         unsafe_allow_html=True,
     )
 
@@ -611,7 +611,7 @@ if run_button and can_run:
                 status.update(label=f"エラー：{ci['name']}", state="error")
                 continue
             st.write("判定ルール読み込み完了")
-            st.write("Claude API で判定中（30秒〜1分ほどかかります）...")
+            st.write("Gemini API で判定中（30秒〜1分ほどかかります）...")
             try:
                 others = [
                     f"{c['group']}　{c['name']}"

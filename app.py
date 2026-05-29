@@ -568,7 +568,7 @@ if run_button and can_run:
             with open(env_path, "r", encoding="utf-8") as f:
                 for line in f:
                     line = line.strip()
-                    if line.startswith("ANTHROPIC_API_KEY=") and "ここに" not in line:
+                    if line.startswith("GOOGLE_API_KEY=") and "ここに" not in line:
                         api_key = line.split("=", 1)[1].strip()
                         break
     if not api_key:

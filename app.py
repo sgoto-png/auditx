@@ -121,17 +121,17 @@ section[data-testid="stSidebar"] strong { color: #e8dfc0 !important; }
     text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 3px;
 }
 .phase-num-inactive {
-    font-size: 0.68rem; font-weight: 700; color: #94a3b8;
+    font-size: 0.68rem; font-weight: 700; color: #b0bec5;
     text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 3px;
 }
 .phase-title-active {
-    font-size: 0.9rem; font-weight: 700; color: #0f172a; margin-bottom: 2px;
+    font-size: 0.9rem; font-weight: 700; color: #0d1b30; margin-bottom: 2px;
 }
 .phase-title-inactive {
-    font-size: 0.9rem; font-weight: 600; color: #64748b; margin-bottom: 2px;
+    font-size: 0.9rem; font-weight: 500; color: #94a3b8; margin-bottom: 2px;
 }
 .phase-desc-active  { font-size: 0.75rem; color: #475569; }
-.phase-desc-inactive { font-size: 0.75rem; color: #94a3b8; }
+.phase-desc-inactive { font-size: 0.75rem; color: #b0bec5; }
 
 .phase-hint {
     background: #faf7ee;
@@ -677,10 +677,7 @@ if run_button and can_run:
             )
 
     st.markdown('<hr class="divider">', unsafe_allow_html=True)
-    st.caption(
-        "就業規則チェックツール（ヒューマックス）　v0.5　|　"
-        "キャリアアップ助成金 正社員化・賞与退職金制度導入コース対応"
-    )
+    st.caption("就業規則チェックツール（ヒューマックス）　v0.5")
     st.caption(
         "※ 本ツールは実務補助用です。最終判断は必ず担当社会保険労務士が行ってください。"
     )

@@ -1386,8 +1386,12 @@ if run_button and can_run:
                     st.write("就業規則サマリーを抽出中...")
                     try:
                         seishain_summary = extract_seishain_summary(combined_text, api_key)
+                        if seishain_summary:
+                            st.write(f"サマリー抽出完了（{len(seishain_summary)}項目）")
+                        else:
+                            st.warning("サマリーの抽出結果が空でした。再度お試しください。")
                     except Exception as e_sum:
-                        st.warning(f"サマリー抽出エラー：{e_sum}")
+                        st.error(f"サマリー抽出エラー：{e_sum}")
 
                 all_reports.append({
                     "course_id": ci["course_id"],

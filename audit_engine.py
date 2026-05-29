@@ -292,32 +292,7 @@ def run_audit(
     )
     raw_report = response.text
 
-    # ── 要約ステップ：各フィールドを確実に短くする ──
-    shorten_prompt = f"""以下の就業規則チェックレポートを、フォーマットを完全に維持したまま各フィールドの文章を短縮してください。
-
-【短縮ルール】★絶対に守ること★
-- Markdownの構造（###見出し、**フィールド名：**、---）は一切変えない
-- 「問題の内容」：最大100文字。問題点を一言で。箇条書きは最大3行。
-- 「審査官の目線」：最大80文字。一文で完結。
-- 「修正案」：最大120文字。「〜を〜に修正する」の形で。例文は不要。
-- 「根拠」：条番号・項目名のみ。説明文は削除。
-- 「該当箇所」：条文番号リストのみ。変更不要。
-- サマリー・判定・チェック項目名は変更しない。
-
-【レポート】
-{raw_report}
-
-短縮後のレポートのみ出力すること。説明文は不要。"""
-
-    shorten_response = client.models.generate_content(
-        model=MODEL,
-        contents=shorten_prompt,
-        config=types.GenerateContentConfig(
-            max_output_tokens=MAX_TOKENS,
-            temperature=0.1,
-        ),
-    )
-    return shorten_response.text
+    return raw_report
 
 # ============================================================
 # 就業規則サマリー抽出（正社員化コース専用）

@@ -424,10 +424,12 @@ def display_report_visual(report_text: str, label: str):
         if it["level"] in counts:
             counts[it["level"]] += 1
 
-    # サマリーバー
+    # サマリーバー（OKは非表示）
     st.markdown("#### チェックサマリー")
-    cols = st.columns(5)
-    for col, (key, cfg) in zip(cols, ALERT_CONFIG.items()):
+    DISPLAY_LEVELS = ["CRITICAL", "WARNING", "CAUTION", "HUMAN_CHECK"]
+    cols = st.columns(4)
+    for col, key in zip(cols, DISPLAY_LEVELS):
+        cfg = ALERT_CONFIG[key]
         with col:
             st.markdown(
                 f'<div style="background:{cfg["color"]};border:2px solid {cfg["border"]};'
@@ -442,7 +444,7 @@ def display_report_visual(report_text: str, label: str):
     st.markdown("<br>", unsafe_allow_html=True)
 
     # 優先順位フィルター
-    priority_order = ["CRITICAL", "WARNING", "CAUTION", "HUMAN_CHECK", "OK"]
+    priority_order = ["CRITICAL", "WARNING", "CAUTION", "HUMAN_CHECK"]
     filter_options = ["すべて表示"] + [
         f'{ALERT_CONFIG[k]["icon"]} {k} ({counts[k]}件)'
         for k in priority_order if counts[k] > 0
@@ -456,6 +458,8 @@ def display_report_visual(report_text: str, label: str):
 
     # 項目カード表示
     for it in items:
+        if it["level"] == "OK":
+            continue
         cfg = ALERT_CONFIG.get(it["level"], {"icon": "ℹ️", "color": "#f8f9fa", "border": "#aaa", "label": it["level"]})
         if selected_filter != "すべて表示" and it["level"] not in selected_filter:
             continue
@@ -526,6 +530,8 @@ def build_xlsx(report_text: str, company: str, label: str, phase: str) -> bytes:
     border = Border(left=thin, right=thin, top=thin, bottom=thin)
 
     for ri, it in enumerate(items, 2):
+        if it["level"] == "OK":
+            continue
         color = level_colors.get(it["level"], "FFFFFF")
         fill = PatternFill("solid", fgColor=color)
         row_data = [

@@ -325,19 +325,47 @@ ALERT_CONFIG = {
 }
 
 def parse_report(report_text: str) -> list:
-    """Markdownレポートをチェック項目リストに変換"""
+    """Markdownレポートをチェック項目リストに変換
+    
+    AIが出力する形式に対応:
+    - ### チェック項目名
+    - **判定：CRITICAL 🔴** または 判定：CRITICAL
+    - **問題の内容：** テキスト または ❗ 問題の内容　テキスト
+    """
     items = []
 
-    def extract_field(body, field_name):
-        """フィールド名の後のテキストを次のフィールドまで抽出"""
-        esc = re.escape(field_name)
-        # **フィールド名：** の後から次の **〜：** または末尾まで
-        pat = rf'(?:\*\*{esc}[：:]\*\*|{esc}[：:])[ \t]*\n?(.*?)(?=(?:\n\*\*[^\n]{{1,20}}[：:]\*\*|\Z))'
-        m = re.search(pat, body, re.DOTALL)
-        return m.group(1).strip() if m else ""
+    EMOJI_MAP = {
+        "問題の内容": "❗",
+        "該当箇所":   "📌",
+        "修正案":     "✏",
+        "審査官の目線": "👁",
+        "根拠":       "📎",
+    }
 
-    # --- ブロック単位で分割（## または ### の見出し）---
-    # レポート全体を行で処理
+    def extract_field(body, field_name):
+        esc = re.escape(field_name)
+        # パターン1: **フィールド名：** + 改行 + 内容 + 次の**まで
+        pat1 = rf'\*\*{esc}[：:]\*\*[ \t]*\n?(.*?)(?=\n\*\*|\Z)'
+        m = re.search(pat1, body, re.DOTALL)
+        if m:
+            val = m.group(1).strip()
+            if val and val != "**":
+                return val
+        # パターン2: 絵文字 + フィールド名 + 全角/半角スペース + 内容
+        emoji = EMOJI_MAP.get(field_name, "")
+        if emoji:
+            pat2 = rf'{re.escape(emoji)}[^\n]*{esc}[^\n]*[　 ]+(.*?)(?=\n[❗📌✏👁📎]|\n\*\*|\Z)'
+            m2 = re.search(pat2, body, re.DOTALL)
+            if m2:
+                return m2.group(1).strip()
+        # パターン3: フィールド名：内容（同一行）
+        pat3 = rf'{esc}[：:][　 ]*(.*?)(?=\n[❗📌✏👁📎]|\n\*\*|\Z)'
+        m3 = re.search(pat3, body, re.DOTALL)
+        if m3:
+            return m3.group(1).strip()
+        return ""
+
+    # ブロックを行単位で分割
     lines = report_text.split('\n')
     current_title = None
     current_body_lines = []
@@ -346,11 +374,9 @@ def parse_report(report_text: str) -> list:
         body = '\n'.join(body_lines).strip()
         if not title or not body:
             return None
-        # 判定レベルを検出
         level = None
         for key in ALERT_CONFIG:
-            # 「判定：CRITICAL」「**判定：CRITICAL**」などにマッチ
-            if re.search(rf'判定[：:][^\n]{{0,30}}{key}', body):
+            if re.search(rf'判定[：:][^\n]{{0,40}}{key}', body):
                 level = key
                 break
         if level is None:
@@ -369,7 +395,6 @@ def parse_report(report_text: str) -> list:
     for line in lines:
         heading = re.match(r'^#{2,4}\s+(.*)', line)
         if heading:
-            # 前のブロックを確定
             if current_title is not None:
                 item = flush_block(current_title, current_body_lines)
                 if item:
@@ -380,11 +405,24 @@ def parse_report(report_text: str) -> list:
             if current_title is not None:
                 current_body_lines.append(line)
 
-    # 最後のブロック
     if current_title is not None:
         item = flush_block(current_title, current_body_lines)
         if item:
             items.append(item)
+
+    # パーサーで取れなかった場合はrawをそのまま使う
+    if not items:
+        # フォールバック：rawテキストをそのまま1項目として返す
+        for key in ALERT_CONFIG:
+            if key in report_text:
+                items.append({
+                    "title": "チェック結果",
+                    "level": key,
+                    "問題の内容": report_text,
+                    "該当箇所": "", "修正案": "", "審査官の目線": "", "根拠": "",
+                    "raw": report_text,
+                })
+                break
 
     return items
 

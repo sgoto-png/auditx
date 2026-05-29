@@ -9,7 +9,8 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
-import google.generativeai as genai
+from google import genai
+from google.genai import types
 import fitz  # PyMuPDF
 
 try:
@@ -22,7 +23,7 @@ except ImportError:
 # 定数
 # ============================================================
 
-MODEL = "gemini-1.5-flash"
+MODEL = "gemini-2.5-flash"
 MAX_TOKENS = 8192
 
 PHASE_LABELS = {
@@ -246,14 +247,14 @@ def run_audit(
     if not api_key:
         raise ValueError("GOOGLE_API_KEY が設定されていません。.env ファイルを確認してください。")
 
-    genai.configure(api_key=api_key)
-    model = genai.GenerativeModel(MODEL)
+    client = genai.Client(api_key=api_key)
 
     prompt = build_prompt(rule_knowledge, course_id, phase, rules_text, additional_courses)
 
-    response = model.generate_content(
-        prompt,
-        generation_config=genai.types.GenerationConfig(
+    response = client.models.generate_content(
+        model=MODEL,
+        contents=prompt,
+        config=types.GenerateContentConfig(
             max_output_tokens=MAX_TOKENS,
             temperature=0.1,
         ),

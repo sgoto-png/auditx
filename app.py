@@ -577,15 +577,27 @@ def build_docx(report_text: str, company: str, label: str, phase: str) -> bytes:
     items = parse_report(report_text)
     doc = DocxDocument()
 
-    # ページ設定（A4横: 1EMU = 1/914400インチ、1cm = 360000EMU）
-    from docx.shared import Emu
-    section = doc.sections[0]
-    section.page_width    = Emu(11906 * 914400 // 12700)  # A4幅 21cm
-    section.page_height   = Emu(16838 * 914400 // 12700)  # A4高 29.7cm
-    section.left_margin   = Emu(720000)   # 2cm
-    section.right_margin  = Emu(720000)   # 2cm
-    section.top_margin    = Emu(720000)   # 2cm
-    section.bottom_margin = Emu(720000)   # 2cm
+    # ページ設定（A4・余白2cm）XMLを直接書き換え
+    from lxml import etree as _etree
+    body = doc.element.body
+    sectPr = body.get_or_add_sectPr()
+    pgSz = sectPr.find(qn("w:pgSz"))
+    if pgSz is None:
+        pgSz = OxmlElement("w:pgSz")
+        sectPr.insert(0, pgSz)
+    pgSz.set(qn("w:w"), "11906")   # A4幅
+    pgSz.set(qn("w:h"), "16838")   # A4高
+    pgMar = sectPr.find(qn("w:pgMar"))
+    if pgMar is None:
+        pgMar = OxmlElement("w:pgMar")
+        sectPr.insert(1, pgMar)
+    pgMar.set(qn("w:top"),    "1134")   # 2cm
+    pgMar.set(qn("w:right"),  "1134")
+    pgMar.set(qn("w:bottom"), "1134")
+    pgMar.set(qn("w:left"),   "1134")
+    pgMar.set(qn("w:header"), "708")
+    pgMar.set(qn("w:footer"), "708")
+    pgMar.set(qn("w:gutter"), "0")
 
     # タイトル
     title = doc.add_paragraph()

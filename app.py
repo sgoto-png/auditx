@@ -572,7 +572,7 @@ if run_button and can_run:
                         api_key = line.split("=", 1)[1].strip()
                         break
     if not api_key:
-    st.error("GOOGLE_API_KEY が設定されていません。Streamlit Cloud の Secrets を確認してください。")
+        st.error("GOOGLE_API_KEY が設定されていません。Streamlit Cloud の Secrets を確認してください。")
         st.stop()
     os.environ["GOOGLE_API_KEY"] = api_key
 

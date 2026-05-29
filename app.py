@@ -8,6 +8,9 @@ import tempfile
 from datetime import datetime
 from pathlib import Path
 
+import io
+import re
+
 import streamlit as st
 from audit_engine import PHASE_LABELS, extract_text, generate_report, run_audit
 
@@ -307,6 +310,333 @@ def get_available_keys():
             if len(parts) == 3:
                 keys.add(tuple(parts))
     return keys
+
+
+# ============================================================
+# レポートパーサー
+# ============================================================
+
+ALERT_CONFIG = {
+    "CRITICAL": {"icon": "🔴", "label": "CRITICAL（即時修正必須）", "color": "#fff0f0", "border": "#e53e3e"},
+    "WARNING":  {"icon": "🟡", "label": "WARNING（要修正）",       "color": "#fffbeb", "border": "#d69e2e"},
+    "CAUTION":  {"icon": "🟠", "label": "CAUTION（要確認）",       "color": "#fff7ed", "border": "#dd6b20"},
+    "HUMAN_CHECK": {"icon": "👤", "label": "HUMAN_CHECK（人間確認）", "color": "#f0f4ff", "border": "#4c6ef5"},
+    "OK":       {"icon": "🟢", "label": "OK（問題なし）",           "color": "#f0fff4", "border": "#38a169"},
+}
+
+def parse_report(report_text: str) -> list:
+    """Markdownレポートをチェック項目リストに変換"""
+    items = []
+    # ### で始まるセクションを分割
+    sections = re.split(r'
+### ', report_text)
+    for sec in sections[1:]:  # 最初はヘッダー部分
+        lines = sec.strip().split('
+')
+        title = lines[0].strip()
+        body = '
+'.join(lines[1:])
+
+        # 判定レベルを抽出
+        level = "INFO"
+        for key in ALERT_CONFIG:
+            if f"判定：{key}" in body or f"**判定：{key}" in body:
+                level = key
+                break
+
+        # 各フィールドを抽出
+        def extract_field(text, field_name):
+            pattern = rf'\*\*{field_name}[：:]\*\*\s*(.*?)(?=
+\*\*|\Z)'
+            m = re.search(pattern, text, re.DOTALL)
+            return m.group(1).strip() if m else ""
+
+        items.append({
+            "title": title,
+            "level": level,
+            "該当箇所": extract_field(body, "該当箇所"),
+            "問題の内容": extract_field(body, "問題の内容"),
+            "審査官の目線": extract_field(body, "審査官の目線"),
+            "修正案": extract_field(body, "修正案"),
+            "根拠": extract_field(body, "根拠"),
+            "raw": body,
+        })
+    return items
+
+
+def display_report_visual(report_text: str, label: str):
+    """チェック結果を視覚的に表示"""
+    items = parse_report(report_text)
+
+    if not items:
+        st.markdown(report_text)
+        return
+
+    # サマリーカウント
+    counts = {k: 0 for k in ALERT_CONFIG}
+    for it in items:
+        if it["level"] in counts:
+            counts[it["level"]] += 1
+
+    # サマリーバー
+    st.markdown("#### チェックサマリー")
+    cols = st.columns(5)
+    for col, (key, cfg) in zip(cols, ALERT_CONFIG.items()):
+        with col:
+            st.markdown(
+                f'<div style="background:{cfg["color"]};border:2px solid {cfg["border"]};'
+                f'border-radius:10px;padding:0.6rem;text-align:center;">'
+                f'<div style="font-size:1.4rem">{cfg["icon"]}</div>'
+                f'<div style="font-size:1.3rem;font-weight:800;color:{cfg["border"]}">{counts[key]}</div>'
+                f'<div style="font-size:0.65rem;color:#555">{key}</div>'
+                f'</div>',
+                unsafe_allow_html=True,
+            )
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # 優先順位フィルター
+    priority_order = ["CRITICAL", "WARNING", "CAUTION", "HUMAN_CHECK", "OK"]
+    filter_options = ["すべて表示"] + [
+        f'{ALERT_CONFIG[k]["icon"]} {k} ({counts[k]}件)'
+        for k in priority_order if counts[k] > 0
+    ]
+    selected_filter = st.selectbox(
+        "表示する判定レベル",
+        filter_options,
+        key=f"filter_{label[:10]}",
+        label_visibility="collapsed",
+    )
+
+    # 項目カード表示
+    for it in items:
+        cfg = ALERT_CONFIG.get(it["level"], {"icon": "ℹ️", "color": "#f8f9fa", "border": "#aaa", "label": it["level"]})
+        if selected_filter != "すべて表示" and it["level"] not in selected_filter:
+            continue
+
+        with st.expander(f'{cfg["icon"]} {it["title"]}', expanded=(it["level"] in ["CRITICAL", "WARNING"])):
+            st.markdown(
+                f'<div style="display:inline-block;background:{cfg["color"]};'
+                f'border:1.5px solid {cfg["border"]};border-radius:6px;'
+                f'padding:3px 12px;font-weight:700;font-size:0.82rem;margin-bottom:0.8rem">'
+                f'{cfg["icon"]} {cfg["label"]}</div>',
+                unsafe_allow_html=True,
+            )
+            if it["問題の内容"]:
+                st.markdown(f"**❗ 問題の内容**")
+                st.markdown(it["問題の内容"])
+            if it["該当箇所"]:
+                st.markdown(f"**📌 該当箇所**")
+                st.code(it["該当箇所"], language=None)
+            if it["修正案"]:
+                st.markdown(f"**✏️ 修正案**")
+                st.info(it["修正案"])
+            if it["審査官の目線"]:
+                st.markdown(f"**👁️ 審査官の目線**")
+                st.markdown(it["審査官の目線"])
+            if it["根拠"]:
+                st.caption(f"📎 根拠：{it['根拠']}")
+
+
+# ============================================================
+# Excel生成
+# ============================================================
+
+def build_xlsx(report_text: str, company: str, label: str, phase: str) -> bytes:
+    try:
+        import openpyxl
+        from openpyxl.styles import PatternFill, Font, Alignment, Border, Side
+    except ImportError:
+        return b""
+
+    items = parse_report(report_text)
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    ws.title = "チェック結果"
+
+    # ヘッダー
+    headers = ["No.", "チェック項目", "判定", "問題の内容", "該当箇所", "修正案", "根拠"]
+    header_fill = PatternFill("solid", fgColor="0D1B30")
+    header_font = Font(bold=True, color="C8A84A", size=11)
+    col_widths = [5, 30, 12, 50, 40, 50, 30]
+
+    for ci, (h, w) in enumerate(zip(headers, col_widths), 1):
+        cell = ws.cell(row=1, column=ci, value=h)
+        cell.fill = header_fill
+        cell.font = header_font
+        cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+        ws.column_dimensions[cell.column_letter].width = w
+    ws.row_dimensions[1].height = 25
+
+    # 判定レベル別カラー
+    level_colors = {
+        "CRITICAL":   "FFE4E4",
+        "WARNING":    "FFFBE6",
+        "CAUTION":    "FFF3E0",
+        "HUMAN_CHECK":"EEF2FF",
+        "OK":         "F0FFF4",
+    }
+    thin = Side(style="thin", color="DDDDDD")
+    border = Border(left=thin, right=thin, top=thin, bottom=thin)
+
+    for ri, it in enumerate(items, 2):
+        color = level_colors.get(it["level"], "FFFFFF")
+        fill = PatternFill("solid", fgColor=color)
+        row_data = [
+            ri - 1,
+            it["title"],
+            f'{ALERT_CONFIG.get(it["level"], {}).get("icon","")}{it["level"]}',
+            it["問題の内容"],
+            it["該当箇所"],
+            it["修正案"],
+            it["根拠"],
+        ]
+        for ci, val in enumerate(row_data, 1):
+            cell = ws.cell(row=ri, column=ci, value=val)
+            cell.fill = fill
+            cell.border = border
+            cell.alignment = Alignment(vertical="top", wrap_text=True)
+        ws.row_dimensions[ri].height = 60
+
+    # メタシート
+    ws2 = wb.create_sheet("概要")
+    ws2["A1"] = "会社名"
+    ws2["B1"] = company
+    ws2["A2"] = "対象コース"
+    ws2["B2"] = label
+    ws2["A3"] = "チェックフェーズ"
+    ws2["B3"] = PHASE_LABELS.get(phase, phase)
+    ws2["A4"] = "出力日時"
+    ws2["B4"] = datetime.now().strftime("%Y年%m月%d日 %H:%M")
+
+    buf = io.BytesIO()
+    wb.save(buf)
+    return buf.getvalue()
+
+
+# ============================================================
+# Word生成
+# ============================================================
+
+def build_docx(report_text: str, company: str, label: str, phase: str) -> bytes:
+    try:
+        from docx import Document as DocxDocument
+        from docx.shared import Pt, RGBColor, Cm
+        from docx.enum.text import WD_ALIGN_PARAGRAPH
+        from docx.oxml.ns import qn
+        from docx.oxml import OxmlElement
+    except ImportError:
+        return b""
+
+    items = parse_report(report_text)
+    doc = DocxDocument()
+
+    # ページ設定
+    section = doc.sections[0]
+    section.page_width  = int(11906)
+    section.page_height = int(16838)
+    section.left_margin   = Cm(2)
+    section.right_margin  = Cm(2)
+    section.top_margin    = Cm(2)
+    section.bottom_margin = Cm(2)
+
+    # タイトル
+    title = doc.add_paragraph()
+    title.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run = title.add_run("就業規則チェックレポート")
+    run.bold = True
+    run.font.size = Pt(18)
+    run.font.color.rgb = RGBColor(0x0D, 0x1B, 0x30)
+
+    # メタ情報
+    doc.add_paragraph()
+    meta_items = [
+        ("会社名", company),
+        ("対象コース", label),
+        ("フェーズ", PHASE_LABELS.get(phase, phase)),
+        ("出力日時", datetime.now().strftime("%Y年%m月%d日 %H:%M")),
+    ]
+    for k, v in meta_items:
+        p = doc.add_paragraph()
+        run_k = p.add_run(f"{k}：")
+        run_k.bold = True
+        run_k.font.size = Pt(10)
+        run_v = p.add_run(v)
+        run_v.font.size = Pt(10)
+
+    doc.add_paragraph()
+
+    # サマリー
+    h = doc.add_paragraph("チェックサマリー")
+    h.runs[0].bold = True
+    h.runs[0].font.size = Pt(13)
+    h.runs[0].font.color.rgb = RGBColor(0x0D, 0x1B, 0x30)
+
+    counts = {k: 0 for k in ALERT_CONFIG}
+    for it in items:
+        if it["level"] in counts:
+            counts[it["level"]] += 1
+    for key, cfg in ALERT_CONFIG.items():
+        p = doc.add_paragraph()
+        p.add_run(f"  {cfg['icon']} {cfg['label']}：{counts[key]}件")
+        p.runs[0].font.size = Pt(10)
+
+    doc.add_paragraph()
+
+    # 詳細
+    h2 = doc.add_paragraph("詳細チェック結果")
+    h2.runs[0].bold = True
+    h2.runs[0].font.size = Pt(13)
+    h2.runs[0].font.color.rgb = RGBColor(0x0D, 0x1B, 0x30)
+
+    level_rgb = {
+        "CRITICAL":    RGBColor(0xC5, 0x3B, 0x3B),
+        "WARNING":     RGBColor(0xB7, 0x79, 0x10),
+        "CAUTION":     RGBColor(0xC0, 0x5A, 0x10),
+        "HUMAN_CHECK": RGBColor(0x3B, 0x5B, 0xC5),
+        "OK":          RGBColor(0x27, 0x7A, 0x4A),
+    }
+
+    for it in items:
+        cfg = ALERT_CONFIG.get(it["level"], {"icon": "ℹ️", "label": it["level"]})
+        rgb = level_rgb.get(it["level"], RGBColor(0x33, 0x33, 0x33))
+
+        # 項目タイトル
+        p = doc.add_paragraph()
+        run = p.add_run(f'{cfg["icon"]} {it["title"]}')
+        run.bold = True
+        run.font.size = Pt(11)
+        run.font.color.rgb = RGBColor(0x0D, 0x1B, 0x30)
+
+        # 判定バッジ
+        p2 = doc.add_paragraph()
+        badge = p2.add_run(f'　判定：{cfg["icon"]} {cfg["label"]}')
+        badge.bold = True
+        badge.font.size = Pt(10)
+        badge.font.color.rgb = rgb
+
+        # 各フィールド
+        fields = [
+            ("❗ 問題の内容", it["問題の内容"]),
+            ("📌 該当箇所",   it["該当箇所"]),
+            ("✏️ 修正案",    it["修正案"]),
+            ("👁️ 審査官の目線", it["審査官の目線"]),
+            ("📎 根拠",       it["根拠"]),
+        ]
+        for fname, fval in fields:
+            if fval:
+                p = doc.add_paragraph()
+                label_run = p.add_run(f"{fname}　")
+                label_run.bold = True
+                label_run.font.size = Pt(9.5)
+                val_run = p.add_run(fval[:500])
+                val_run.font.size = Pt(9.5)
+
+        doc.add_paragraph()
+
+    buf = io.BytesIO()
+    doc.save(buf)
+    return buf.getvalue()
 
 
 # ============================================================
@@ -658,38 +988,50 @@ if run_button and can_run:
         st.success(f"チェック完了　{len(all_reports)} コース")
         now_str = datetime.now().strftime("%Y%m%d_%H%M")
 
-        if len(all_reports) == 1:
-            rd = all_reports[0]
-            st.markdown(rd["report"])
-            st.download_button(
-                "レポートをダウンロード（Markdown）",
-                data=rd["report"].encode("utf-8"),
-                file_name=f"AuditX_{company_name}_{rd['course_id']}_{selected_phase}_{now_str}.md",
-                mime="text/markdown",
-                use_container_width=True,
-            )
-        else:
-            tabs = st.tabs([r["label"] for r in all_reports])
-            for tab, rd in zip(tabs, all_reports):
-                with tab:
-                    st.markdown(rd["report"])
+        report_tabs = st.tabs([r["label"] for r in all_reports]) if len(all_reports) > 1 else [st.container()]
+        for tab, rd in zip(report_tabs, all_reports):
+            with tab:
+                # ── レポートをパースして構造化表示 ──
+                display_report_visual(rd["report"], rd["label"])
+
+                st.markdown("---")
+                st.markdown("**ダウンロード**")
+                dl_cols = st.columns(3)
+
+                # Excel
+                with dl_cols[0]:
+                    xlsx_data = build_xlsx(rd["report"], company_name, rd["label"], selected_phase)
                     st.download_button(
-                        "このレポートをダウンロード",
+                        "📊 Excel (.xlsx)",
+                        data=xlsx_data,
+                        file_name=f"AuditX_{company_name}_{rd['course_id']}_{selected_phase}_{now_str}.xlsx",
+                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        use_container_width=True,
+                        key=f"xl_{rd['course_id']}",
+                    )
+
+                # Word
+                with dl_cols[1]:
+                    docx_data = build_docx(rd["report"], company_name, rd["label"], selected_phase)
+                    st.download_button(
+                        "📝 Word (.docx)",
+                        data=docx_data,
+                        file_name=f"AuditX_{company_name}_{rd['course_id']}_{selected_phase}_{now_str}.docx",
+                        mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                        use_container_width=True,
+                        key=f"dx_{rd['course_id']}",
+                    )
+
+                # Markdown
+                with dl_cols[2]:
+                    st.download_button(
+                        "📄 Markdown (.md)",
                         data=rd["report"].encode("utf-8"),
                         file_name=f"AuditX_{company_name}_{rd['course_id']}_{selected_phase}_{now_str}.md",
                         mime="text/markdown",
-                        key=f"dl_{rd['course_id']}",
                         use_container_width=True,
+                        key=f"md_{rd['course_id']}",
                     )
-            all_combined = "\n\n---\n\n".join(r["report"] for r in all_reports)
-            st.download_button(
-                "全レポートをまとめてダウンロード",
-                data=all_combined.encode("utf-8"),
-                file_name=f"AuditX_{company_name}_全コース_{selected_phase}_{now_str}.md",
-                mime="text/markdown",
-                type="primary",
-                use_container_width=True,
-            )
 
     st.markdown('<hr class="divider">', unsafe_allow_html=True)
     st.caption("就業規則チェックツール（ヒューマックス）　v0.5")

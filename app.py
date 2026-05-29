@@ -1146,34 +1146,130 @@ if ca_seishain_selected:
     tp_col1, tp_col2, tp_col3 = st.columns(3)
     with tp_col1:
         st.markdown("**対象者の生年月日**（最年長者）")
-        target_dob = st.date_input(
-            "生年月日",
-            value=None,
-            min_value=datetime(1940, 1, 1).date(),
-            max_value=datetime.now().date(),
-            label_visibility="collapsed",
-            key="target_dob",
+
+        # 和暦変換テーブル
+        WAREKI = [
+            ("令和", 2019, "R"),
+            ("平成", 1989, "H"),
+            ("昭和", 1926, "S"),
+            ("大正", 1912, "T"),
+        ]
+
+        dob_mode = st.radio(
+            "入力方式", ["西暦", "和暦"],
+            horizontal=True, key="dob_mode", label_visibility="collapsed"
         )
+
+        target_dob = None
+        if dob_mode == "西暦":
+            target_dob = st.date_input(
+                "生年月日（西暦）",
+                value=None,
+                min_value=datetime(1940, 1, 1).date(),
+                max_value=datetime.now().date(),
+                label_visibility="collapsed",
+                key="target_dob",
+            )
+        else:
+            w_col1, w_col2, w_col3, w_col4 = st.columns([2, 1, 1, 1])
+            with w_col1:
+                gengou = st.selectbox("元号", [g for g, _, _ in WAREKI],
+                                      key="dob_gengou", label_visibility="collapsed")
+            with w_col2:
+                wareki_year = st.number_input("年", min_value=1, max_value=99,
+                                              value=1, key="dob_wy", label_visibility="collapsed")
+            with w_col3:
+                dob_month = st.number_input("月", min_value=1, max_value=12,
+                                            value=1, key="dob_m", label_visibility="collapsed")
+            with w_col4:
+                dob_day = st.number_input("日", min_value=1, max_value=31,
+                                          value=1, key="dob_d", label_visibility="collapsed")
+            # 西暦に変換
+            base_year = next(base for g, base, _ in WAREKI if g == gengou)
+            seireki_year = base_year + wareki_year - 1
+            try:
+                target_dob = datetime(seireki_year, dob_month, dob_day).date()
+                st.caption(f"→ 西暦 {seireki_year}年{dob_month}月{dob_day}日")
+            except ValueError:
+                st.error("日付が正しくありません")
+                target_dob = None
     with tp_col2:
         st.markdown("**対象者の入社日**（最も古い日付）")
-        target_hire = st.date_input(
-            "入社日",
-            value=None,
-            min_value=datetime(1980, 1, 1).date(),
-            max_value=datetime.now().date(),
-            label_visibility="collapsed",
-            key="target_hire",
+        hire_mode = st.radio(
+            "入力方式", ["西暦", "和暦"],
+            horizontal=True, key="hire_mode", label_visibility="collapsed"
         )
+        target_hire = None
+        if hire_mode == "西暦":
+            target_hire = st.date_input(
+                "入社日（西暦）",
+                value=None,
+                min_value=datetime(1980, 1, 1).date(),
+                max_value=datetime.now().date(),
+                label_visibility="collapsed",
+                key="target_hire",
+            )
+        else:
+            h_col1, h_col2, h_col3, h_col4 = st.columns([2, 1, 1, 1])
+            with h_col1:
+                hire_gengou = st.selectbox("元号", [g for g, _, _ in WAREKI],
+                                           key="hire_gengou", label_visibility="collapsed")
+            with h_col2:
+                hire_wy = st.number_input("年", min_value=1, max_value=99,
+                                          value=1, key="hire_wy", label_visibility="collapsed")
+            with h_col3:
+                hire_m = st.number_input("月", min_value=1, max_value=12,
+                                         value=1, key="hire_m", label_visibility="collapsed")
+            with h_col4:
+                hire_d = st.number_input("日", min_value=1, max_value=31,
+                                         value=1, key="hire_d", label_visibility="collapsed")
+            hire_base = next(base for g, base, _ in WAREKI if g == hire_gengou)
+            hire_year = hire_base + hire_wy - 1
+            try:
+                target_hire = datetime(hire_year, hire_m, hire_d).date()
+                st.caption(f"→ 西暦 {hire_year}年{hire_m}月{hire_d}日")
+            except ValueError:
+                st.error("日付が正しくありません")
+                target_hire = None
+
     with tp_col3:
         st.markdown("**転換予定日**")
-        target_convert = st.date_input(
-            "転換予定日",
-            value=None,
-            min_value=datetime.now().date(),
-            max_value=datetime(2030, 12, 31).date(),
-            label_visibility="collapsed",
-            key="target_convert",
+        convert_mode = st.radio(
+            "入力方式", ["西暦", "和暦"],
+            horizontal=True, key="convert_mode", label_visibility="collapsed"
         )
+        target_convert = None
+        if convert_mode == "西暦":
+            target_convert = st.date_input(
+                "転換予定日（西暦）",
+                value=None,
+                min_value=datetime(2020, 1, 1).date(),
+                max_value=datetime(2035, 12, 31).date(),
+                label_visibility="collapsed",
+                key="target_convert",
+            )
+        else:
+            c_col1, c_col2, c_col3, c_col4 = st.columns([2, 1, 1, 1])
+            with c_col1:
+                conv_gengou = st.selectbox("元号", ["令和", "平成"],
+                                           key="conv_gengou", label_visibility="collapsed")
+            with c_col2:
+                conv_wy = st.number_input("年", min_value=1, max_value=30,
+                                          value=7, key="conv_wy", label_visibility="collapsed")
+            with c_col3:
+                conv_m = st.number_input("月", min_value=1, max_value=12,
+                                         value=1, key="conv_m", label_visibility="collapsed")
+            with c_col4:
+                conv_d = st.number_input("日", min_value=1, max_value=31,
+                                         value=1, key="conv_d", label_visibility="collapsed")
+            conv_base = 2019 if conv_gengou == "令和" else 1989
+            conv_year = conv_base + conv_wy - 1
+            try:
+                target_convert = datetime(conv_year, conv_m, conv_d).date()
+                st.caption(f"→ 西暦 {conv_year}年{conv_m}月{conv_d}日")
+            except ValueError:
+                st.error("日付が正しくありません")
+                target_convert = None
 
     # 入力値の計算
     if target_dob and target_hire and target_convert:

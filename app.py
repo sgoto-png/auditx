@@ -12,7 +12,7 @@ import io
 import re
 
 import streamlit as st
-from audit_engine import PHASE_LABELS, extract_text, generate_report, run_audit
+from audit_engine import PHASE_LABELS, extract_text, generate_report, run_audit, extract_seishain_summary, SEISHAIN_SUMMARY_ITEMS
 
 # ============================================================
 # 定数
@@ -560,6 +560,76 @@ def build_xlsx(report_text: str, company: str, label: str, phase: str) -> bytes:
     return buf.getvalue()
 
 
+def build_xlsx_with_summary(report_text: str, company: str, label: str,
+                             phase: str, summary: dict) -> bytes:
+    """サマリーシート付きExcel生成（正社員化コース専用）"""
+    try:
+        import openpyxl
+        from openpyxl.styles import PatternFill, Font, Alignment, Border, Side
+    except ImportError:
+        return build_xlsx(report_text, company, label, phase)
+
+    # 通常のチェック結果シートを先に生成
+    base_bytes = build_xlsx(report_text, company, label, phase)
+    buf_in = io.BytesIO(base_bytes)
+    wb = openpyxl.load_workbook(buf_in)
+
+    # サマリーシートを追加
+    ws_sum = wb.create_sheet("就業規則サマリー", 0)  # 先頭に挿入
+
+    # ヘッダー
+    header_fill = PatternFill("solid", fgColor="0D1B30")
+    header_font = Font(bold=True, color="C8A84A", size=11)
+    gold_fill   = PatternFill("solid", fgColor="FFF8E7")
+    red_fill    = PatternFill("solid", fgColor="FFE4E4")
+    thin = Side(style="thin", color="DDDDDD")
+    border = Border(left=thin, right=thin, top=thin, bottom=thin)
+
+    headers = ["項目", "条文番号", "就業規則の記載内容", "⚠️要確認", "実態確認欄（手書き）"]
+    col_widths = [22, 14, 55, 10, 30]
+    for ci, (h, w) in enumerate(zip(headers, col_widths), 1):
+        cell = ws_sum.cell(row=1, column=ci, value=h)
+        cell.fill = header_fill
+        cell.font = header_font
+        cell.alignment = Alignment(horizontal="center", vertical="center")
+        ws_sum.column_dimensions[cell.column_letter].width = w
+    ws_sum.row_dimensions[1].height = 25
+
+    # タイトル行を挿入
+    ws_sum.insert_rows(1)
+    title_cell = ws_sum.cell(row=1, column=1, value=f"就業規則サマリー　{company}　{datetime.now().strftime('%Y年%m月%d日')}")
+    title_cell.font = Font(bold=True, size=13, color="0D1B30")
+    ws_sum.merge_cells(start_row=1, start_column=1, end_row=1, end_column=5)
+    ws_sum.row_dimensions[1].height = 30
+
+    # データ行
+    for ri, (item, _) in enumerate(SEISHAIN_SUMMARY_ITEMS, 3):
+        data = summary.get(item, {})
+        if isinstance(data, dict):
+            jibun   = data.get("条文", "—")
+            naiyou  = data.get("内容", "記載なし")
+            yocheck = data.get("要確認", False)
+        else:
+            jibun, naiyou, yocheck = "—", str(data), False
+
+        fill = red_fill if yocheck or naiyou == "記載なし" else gold_fill
+        row_data = [item, jibun, naiyou, "⚠️" if yocheck else "", ""]
+        for ci, val in enumerate(row_data, 1):
+            cell = ws_sum.cell(row=ri, column=ci, value=val)
+            cell.fill = fill
+            cell.border = border
+            cell.alignment = Alignment(vertical="top", wrap_text=True)
+            if ci == 1:
+                cell.font = Font(bold=True, size=10)
+            else:
+                cell.font = Font(size=10)
+        ws_sum.row_dimensions[ri].height = 40
+
+    buf_out = io.BytesIO()
+    wb.save(buf_out)
+    return buf_out.getvalue()
+
+
 # ============================================================
 # Word生成
 # ============================================================
@@ -714,6 +784,154 @@ def build_docx(report_text: str, company: str, label: str, phase: str) -> bytes:
         bottom.set(qn("w:color"), "DDDDDD")
         pBdr.append(bottom)
         pPr.append(pBdr)
+
+    buf = io.BytesIO()
+    doc.save(buf)
+    return buf.getvalue()
+
+
+def build_docx_with_summary(report_text: str, company: str, label: str,
+                              phase: str, summary: dict) -> bytes:
+    """サマリーページ付きWord生成（正社員化コース専用）"""
+    try:
+        from docx import Document as DocxDocument
+        from docx.shared import Pt, RGBColor
+        from docx.enum.text import WD_ALIGN_PARAGRAPH
+        from docx.oxml.ns import qn
+        from docx.oxml import OxmlElement
+        import re
+    except ImportError:
+        return build_docx(report_text, company, label, phase)
+
+    doc = DocxDocument()
+
+    # ページ設定（XMLで直接指定）
+    body = doc.element.body
+    sectPr = body.get_or_add_sectPr()
+    pgSz = sectPr.find(qn("w:pgSz"))
+    if pgSz is None:
+        pgSz = OxmlElement("w:pgSz")
+        sectPr.insert(0, pgSz)
+    pgSz.set(qn("w:w"), "11906")
+    pgSz.set(qn("w:h"), "16838")
+    pgMar = sectPr.find(qn("w:pgMar"))
+    if pgMar is None:
+        pgMar = OxmlElement("w:pgMar")
+        sectPr.insert(1, pgMar)
+    for attr, val in [("w:top","1134"),("w:right","1134"),("w:bottom","1134"),
+                       ("w:left","1134"),("w:header","708"),("w:footer","708"),("w:gutter","0")]:
+        pgMar.set(qn(attr), val)
+
+    def add_shading(cell, fill_hex):
+        tc = cell._tc
+        tcPr = tc.get_or_add_tcPr()
+        shd = OxmlElement("w:shd")
+        shd.set(qn("w:fill"), fill_hex)
+        shd.set(qn("w:val"), "clear")
+        tcPr.append(shd)
+
+    # ── サマリーページ ──
+    t = doc.add_paragraph()
+    t.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    r = t.add_run("就業規則サマリー（正社員）")
+    r.bold = True; r.font.size = Pt(16)
+    r.font.color.rgb = RGBColor(0x0D, 0x1B, 0x30)
+
+    s = doc.add_paragraph()
+    s.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    s.add_run(f"{company}　{datetime.now().strftime('%Y年%m月%d日')}").font.size = Pt(10)
+
+    doc.add_paragraph()
+    note = doc.add_paragraph()
+    nr = note.add_run("⚠️ 赤背景の項目は「記載なし」または「要確認」です。労働条件通知書・出勤簿・給与明細と照合してください。")
+    nr.font.size = Pt(9); nr.font.color.rgb = RGBColor(0xC5, 0x3B, 0x3B)
+    doc.add_paragraph()
+
+    # サマリーテーブル
+    tbl = doc.add_table(rows=1, cols=4)
+    tbl.style = "Table Grid"
+    hdr = tbl.rows[0].cells
+    for ci, txt in enumerate(["項目", "条文番号", "就業規則の記載内容", "要確認"]):
+        hdr[ci].text = txt
+        add_shading(hdr[ci], "0D1B30")
+        if hdr[ci].paragraphs[0].runs:
+            run = hdr[ci].paragraphs[0].runs[0]
+            run.bold = True; run.font.size = Pt(9)
+            run.font.color.rgb = RGBColor(0xC8, 0xA8, 0x4A)
+
+    for item, _ in SEISHAIN_SUMMARY_ITEMS:
+        data = summary.get(item, {})
+        if isinstance(data, dict):
+            jibun   = data.get("条文", "—")
+            naiyou  = data.get("内容", "記載なし")
+            yocheck = data.get("要確認", False)
+        else:
+            jibun, naiyou, yocheck = "—", str(data), False
+
+        row = tbl.add_row().cells
+        row[0].text = item; row[1].text = jibun
+        row[2].text = naiyou; row[3].text = "⚠️" if yocheck else ""
+        fill = "FFE4E4" if (yocheck or naiyou == "記載なし") else "FFFFFF"
+        for cell in row:
+            add_shading(cell, fill)
+            for para in cell.paragraphs:
+                for run in para.runs:
+                    run.font.size = Pt(9)
+        if row[0].paragraphs[0].runs:
+            row[0].paragraphs[0].runs[0].bold = True
+
+    doc.add_page_break()
+
+    # ── チェック結果ページ ──
+    at = doc.add_paragraph()
+    at.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    r2 = at.add_run("就業規則チェックレポート")
+    r2.bold = True; r2.font.size = Pt(16)
+    r2.font.color.rgb = RGBColor(0x0D, 0x1B, 0x30)
+
+    level_rgb = {
+        "CRITICAL": RGBColor(0xC5,0x3B,0x3B), "WARNING": RGBColor(0xB7,0x79,0x10),
+        "CAUTION":  RGBColor(0xC0,0x5A,0x10), "HUMAN_CHECK": RGBColor(0x3B,0x5B,0xC5),
+        "OK":       RGBColor(0x27,0x7A,0x4A),
+    }
+    icons = {"CRITICAL":"🔴","WARNING":"🟡","CAUTION":"🟠","HUMAN_CHECK":"👤","OK":"🟢"}
+
+    for sec in re.split(r"\n#{2,4} ", report_text)[1:]:
+        lines_s = sec.strip().split("\n")
+        sec_title = lines_s[0].strip()
+        sec_body  = "\n".join(lines_s[1:])
+        level = None
+        for key in ["CRITICAL","WARNING","CAUTION","HUMAN_CHECK","OK"]:
+            if re.search(rf"判定[：:][^\n]{{0,40}}{key}", sec_body):
+                level = key; break
+        if level is None:
+            continue
+        icon = icons.get(level,""); rgb = level_rgb.get(level, RGBColor(0x33,0x33,0x33))
+        p = doc.add_paragraph()
+        rt = p.add_run(f"{icon} {sec_title}")
+        rt.bold = True; rt.font.size = Pt(10.5)
+        rt.font.color.rgb = RGBColor(0x0D,0x1B,0x30)
+        p2 = doc.add_paragraph()
+        rl = p2.add_run(f"　判定：{icon} {level}")
+        rl.bold = True; rl.font.size = Pt(9.5); rl.font.color.rgb = rgb
+
+        for fname in ["問題の内容","該当箇所","修正案","根拠"]:
+            esc = re.escape(fname)
+            m = re.search(rf"\*\*{esc}[：:]\*\*[ \t]*\n?(.*?)(?=\n\*\*[^\n]+[：:]\*\*|\n---|\Z)", sec_body, re.DOTALL)
+            val = m.group(1).strip() if m else ""
+            if not val:
+                continue
+            pl = doc.add_paragraph()
+            pl.paragraph_format.left_indent = Pt(8)
+            rl2 = pl.add_run(f"【{fname}】")
+            rl2.bold = True; rl2.font.size = Pt(9)
+            for line in val.split("\n"):
+                if not line.strip(): continue
+                pv = doc.add_paragraph()
+                pv.paragraph_format.left_indent = Pt(20)
+                pv.paragraph_format.space_after = Pt(1)
+                pv.add_run(line.strip()).font.size = Pt(9)
+        doc.add_paragraph().paragraph_format.space_after = Pt(3)
 
     buf = io.BytesIO()
     doc.save(buf)
@@ -1162,10 +1380,20 @@ if run_button and can_run:
                     result, company_name, ci["course_id"],
                     selected_phase, rk, target_filenames,
                 )
+                # 正社員化コースはサマリーも抽出
+                seishain_summary = {}
+                if ci["course_id"] == "CA_seishain":
+                    st.write("就業規則サマリーを抽出中...")
+                    try:
+                        seishain_summary = extract_seishain_summary(combined_text, api_key)
+                    except Exception as e_sum:
+                        st.warning(f"サマリー抽出エラー：{e_sum}")
+
                 all_reports.append({
                     "course_id": ci["course_id"],
                     "label":     f"{ci['group']}　{ci['name']}",
                     "report":    report,
+                    "seishain_summary": seishain_summary,
                 })
                 status.update(label=f"完了：{ci['name']}", state="complete")
             except Exception as e:
@@ -1194,7 +1422,11 @@ if run_button and can_run:
 
                 # Excel
                 with dl_cols[0]:
-                    xlsx_data = build_xlsx(rd["report"], company_name, rd["label"], selected_phase)
+                    _summary = rd.get("seishain_summary", {})
+                    if rd["course_id"] == "CA_seishain" and _summary:
+                        xlsx_data = build_xlsx_with_summary(rd["report"], company_name, rd["label"], selected_phase, _summary)
+                    else:
+                        xlsx_data = build_xlsx(rd["report"], company_name, rd["label"], selected_phase)
                     st.download_button(
                         "📊 Excel (.xlsx)",
                         data=xlsx_data,
@@ -1206,7 +1438,11 @@ if run_button and can_run:
 
                 # Word
                 with dl_cols[1]:
-                    docx_data = build_docx(rd["report"], company_name, rd["label"], selected_phase)
+                    _summary = rd.get("seishain_summary", {})
+                    if rd["course_id"] == "CA_seishain" and _summary:
+                        docx_data = build_docx_with_summary(rd["report"], company_name, rd["label"], selected_phase, _summary)
+                    else:
+                        docx_data = build_docx(rd["report"], company_name, rd["label"], selected_phase)
                     st.download_button(
                         "📝 Word (.docx)",
                         data=docx_data,

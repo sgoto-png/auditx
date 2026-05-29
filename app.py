@@ -57,7 +57,7 @@ st.markdown("""
 
 html, body, [class*="css"] {
     font-family: 'Noto Sans JP', sans-serif;
-    background-color: #eceef2;
+    background-color: #dde0e7;
     color: #1e293b;
 }
 .block-container { padding: 2.5rem 2rem 5rem; max-width: 1100px; }
@@ -171,30 +171,44 @@ section[data-testid="stSidebar"] strong { color: #e8dfc0 !important; }
     color: #a07a28 !important;
 }
 
-.btn-active > div > button {
+.btn-active > div > button,
+.btn-active > div > button:focus,
+.btn-active > div > button:active,
+.btn-active button,
+.btn-active [data-testid="stBaseButton-secondary"] {
     background: #0d1b30 !important;
+    background-color: #0d1b30 !important;
     color: #c8a84a !important;
     border: 2px solid #c8a84a !important;
     box-shadow: 0 3px 12px rgba(13,27,48,0.35) !important;
     font-weight: 700 !important;
     letter-spacing: 0.05em !important;
 }
-.btn-active > div > button:hover {
+.btn-active > div > button:hover,
+.btn-active button:hover {
     background: #162540 !important;
+    background-color: #162540 !important;
+    color: #c8a84a !important;
 }
 
-.stButton > button[kind="primary"] {
+.stButton > button[kind="primary"],
+[data-testid="stBaseButton-primary"] {
     background: #0d1b30 !important;
+    background-color: #0d1b30 !important;
     color: #c8a84a !important;
-    border: 1.5px solid #c8a84a !important;
+    border: 2px solid #c8a84a !important;
     border-radius: 10px !important;
     font-size: 1rem !important;
     font-weight: 700 !important;
     letter-spacing: 0.5px !important;
     box-shadow: 0 4px 14px rgba(13,27,48,0.25) !important;
+    padding: 0.6rem 1rem !important;
 }
-.stButton > button[kind="primary"]:hover {
+.stButton > button[kind="primary"]:hover,
+[data-testid="stBaseButton-primary"]:hover {
     background: #162540 !important;
+    background-color: #162540 !important;
+    color: #c8a84a !important;
     box-shadow: 0 6px 18px rgba(13,27,48,0.35) !important;
     transform: translateY(-1px) !important;
 }

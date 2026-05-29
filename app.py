@@ -334,35 +334,18 @@ def parse_report(report_text: str) -> list:
     """
     items = []
 
-    EMOJI_MAP = {
-        "問題の内容": "❗",
-        "該当箇所":   "📌",
-        "修正案":     "✏",
-        "審査官の目線": "👁",
-        "根拠":       "📎",
-    }
-
     def extract_field(body, field_name):
         esc = re.escape(field_name)
-        # パターン1: **フィールド名：** + 改行 + 内容 + 次の**まで
-        pat1 = rf'\*\*{esc}[：:]\*\*[ \t]*\n?(.*?)(?=\n\*\*|\Z)'
-        m = re.search(pat1, body, re.DOTALL)
+        # **フィールド名：** の後から次の **〜：** または --- または末尾まで
+        pat = (
+            rf'\*\*{esc}[：:]\*\*'
+            rf'[ \t]*\n?'
+            rf'(.*?)'
+            rf'(?=\n\*\*[^\n]+[：:]\*\*|\n---|\Z)'
+        )
+        m = re.search(pat, body, re.DOTALL)
         if m:
-            val = m.group(1).strip()
-            if val and val != "**":
-                return val
-        # パターン2: 絵文字 + フィールド名 + 全角/半角スペース + 内容
-        emoji = EMOJI_MAP.get(field_name, "")
-        if emoji:
-            pat2 = rf'{re.escape(emoji)}[^\n]*{esc}[^\n]*[　 ]+(.*?)(?=\n[❗📌✏👁📎]|\n\*\*|\Z)'
-            m2 = re.search(pat2, body, re.DOTALL)
-            if m2:
-                return m2.group(1).strip()
-        # パターン3: フィールド名：内容（同一行）
-        pat3 = rf'{esc}[：:][　 ]*(.*?)(?=\n[❗📌✏👁📎]|\n\*\*|\Z)'
-        m3 = re.search(pat3, body, re.DOTALL)
-        if m3:
-            return m3.group(1).strip()
+            return m.group(1).strip()
         return ""
 
     # ブロックを行単位で分割

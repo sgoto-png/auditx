@@ -24,7 +24,7 @@ except ImportError:
 # ============================================================
 
 MODEL = "gemini-2.5-flash"
-MAX_TOKENS = 8192
+MAX_TOKENS = 65536
 
 PHASE_LABELS = {
     "phase1": "Phase1：助成金申請準備開始時（就業規則新規作成後）",

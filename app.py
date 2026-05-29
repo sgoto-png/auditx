@@ -57,10 +57,10 @@ st.markdown("""
 
 html, body, [class*="css"] {
     font-family: 'Noto Sans JP', sans-serif;
-    background-color: #f5f6f9;
+    background-color: #eceef2;
     color: #1e293b;
 }
-.block-container { padding: 2.5rem 3rem 5rem; max-width: 1000px; }
+.block-container { padding: 2.5rem 2rem 5rem; max-width: 1100px; }
 
 section[data-testid="stSidebar"] {
     background: #0d1b30;
@@ -106,10 +106,10 @@ section[data-testid="stSidebar"] strong { color: #e8dfc0 !important; }
 }
 
 .phase-active {
-    background: #ffffff;
-    border: 1.5px solid #c8a84a;
+    background: #fffdf5;
+    border: 2.5px solid #c8a84a;
     border-radius: 10px; padding: 0.9rem 1rem; margin-bottom: 6px;
-    box-shadow: 0 4px 14px rgba(200,168,74,0.18);
+    box-shadow: 0 4px 16px rgba(200,168,74,0.28);
 }
 .phase-inactive {
     background: #ffffff; border: 1.5px solid #dde2ea;
@@ -117,7 +117,7 @@ section[data-testid="stSidebar"] strong { color: #e8dfc0 !important; }
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 .phase-num-active {
-    font-size: 0.68rem; font-weight: 700; color: #c8a84a;
+    font-size: 0.68rem; font-weight: 700; color: #a07a28;
     text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 3px;
 }
 .phase-num-inactive {
@@ -125,7 +125,7 @@ section[data-testid="stSidebar"] strong { color: #e8dfc0 !important; }
     text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 3px;
 }
 .phase-title-active {
-    font-size: 0.9rem; font-weight: 700; color: #0d1b30; margin-bottom: 2px;
+    font-size: 0.95rem; font-weight: 800; color: #0d1b30; margin-bottom: 2px;
 }
 .phase-title-inactive {
     font-size: 0.9rem; font-weight: 500; color: #94a3b8; margin-bottom: 2px;
@@ -174,9 +174,10 @@ section[data-testid="stSidebar"] strong { color: #e8dfc0 !important; }
 .btn-active > div > button {
     background: #0d1b30 !important;
     color: #c8a84a !important;
-    border: 1.5px solid #c8a84a !important;
-    box-shadow: 0 3px 10px rgba(13,27,48,0.25) !important;
+    border: 2px solid #c8a84a !important;
+    box-shadow: 0 3px 12px rgba(13,27,48,0.35) !important;
     font-weight: 700 !important;
+    letter-spacing: 0.05em !important;
 }
 .btn-active > div > button:hover {
     background: #162540 !important;

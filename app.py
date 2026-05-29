@@ -328,14 +328,11 @@ def parse_report(report_text: str) -> list:
     """Markdownレポートをチェック項目リストに変換"""
     items = []
     # ### で始まるセクションを分割
-    sections = re.split(r'
-### ', report_text)
+    sections = re.split(r'\n### ', report_text)
     for sec in sections[1:]:  # 最初はヘッダー部分
-        lines = sec.strip().split('
-')
+        lines = sec.strip().split('\n')
         title = lines[0].strip()
-        body = '
-'.join(lines[1:])
+        body = '\n'.join(lines[1:])
 
         # 判定レベルを抽出
         level = "INFO"
@@ -346,8 +343,7 @@ def parse_report(report_text: str) -> list:
 
         # 各フィールドを抽出
         def extract_field(text, field_name):
-            pattern = rf'\*\*{field_name}[：:]\*\*\s*(.*?)(?=
-\*\*|\Z)'
+            pattern = rf'\*\*{field_name}[：:]\*\*\s*(.*?)(?=\n\*\*|\Z)'
             m = re.search(pattern, text, re.DOTALL)
             return m.group(1).strip() if m else ""
 

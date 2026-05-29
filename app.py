@@ -1482,24 +1482,11 @@ if run_button and can_run:
                     result, company_name, ci["course_id"],
                     selected_phase, rk, target_filenames,
                 )
-                # 正社員化コースはサマリーも抽出
-                seishain_summary = {}
-                if ci["course_id"] == "CA_seishain":
-                    st.write("就業規則サマリーを抽出中...")
-                    try:
-                        seishain_summary = extract_seishain_summary(combined_text, api_key)
-                        if seishain_summary:
-                            st.write(f"サマリー抽出完了（{len(seishain_summary)}項目）")
-                        else:
-                            st.warning("サマリーの抽出結果が空でした。再度お試しください。")
-                    except Exception as e_sum:
-                        st.error(f"サマリー抽出エラー：{e_sum}")
-
                 all_reports.append({
                     "course_id": ci["course_id"],
                     "label":     f"{ci['group']}　{ci['name']}",
                     "report":    report,
-                    "seishain_summary": seishain_summary,
+                    "seishain_summary": {},
                 })
                 status.update(label=f"完了：{ci['name']}", state="complete")
             except Exception as e:
@@ -1521,6 +1508,34 @@ if run_button and can_run:
             with tab:
                 # ── レポートをパースして構造化表示 ──
                 display_report_visual(rd["report"], rd["label"])
+
+                # 正社員化コース：サマリー抽出ボタン
+                if rd["course_id"] == "CA_seishain":
+                    st.markdown("---")
+                    st.markdown(
+                        '<div class="phase-hint">📋　<strong>就業規則サマリー</strong>　'
+                        '所定労働時間・手当・昇給等の記載内容を一覧化します。'
+                        'チェック完了後に個別で実行してください。</div>',
+                        unsafe_allow_html=True,
+                    )
+                    sum_key = f"sum_btn_{rd['course_id']}"
+                    if st.button("📋 就業規則サマリーを抽出する", key=sum_key, use_container_width=True):
+                        with st.spinner("就業規則サマリーを抽出中...（30秒〜1分）"):
+                            try:
+                                extracted = extract_seishain_summary(combined_text, api_key)
+                                if extracted:
+                                    # session_stateのreportsを更新
+                                    for i, r in enumerate(st.session_state.saved_reports):
+                                        if r["course_id"] == rd["course_id"]:
+                                            st.session_state.saved_reports[i]["seishain_summary"] = extracted
+                                            break
+                                    rd["seishain_summary"] = extracted
+                                    st.success(f"サマリー抽出完了（{len(extracted)}項目）")
+                                    st.rerun()
+                                else:
+                                    st.warning("抽出結果が空でした。時間をおいて再度お試しください。")
+                            except Exception as e_sum:
+                                st.error(f"抽出エラー：{e_sum}")
 
                 st.markdown("---")
                 st.markdown("**ダウンロード**")

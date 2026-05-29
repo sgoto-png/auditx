@@ -327,36 +327,65 @@ ALERT_CONFIG = {
 def parse_report(report_text: str) -> list:
     """Markdownレポートをチェック項目リストに変換"""
     items = []
-    # ### で始まるセクションを分割
-    sections = re.split(r'\n### ', report_text)
-    for sec in sections[1:]:  # 最初はヘッダー部分
-        lines = sec.strip().split('\n')
-        title = lines[0].strip()
-        body = '\n'.join(lines[1:])
 
-        # 判定レベルを抽出
-        level = "INFO"
+    def extract_field(body, field_name):
+        """フィールド名の後のテキストを次のフィールドまで抽出"""
+        esc = re.escape(field_name)
+        # **フィールド名：** の後から次の **〜：** または末尾まで
+        pat = rf'(?:\*\*{esc}[：:]\*\*|{esc}[：:])[ \t]*\n?(.*?)(?=(?:\n\*\*[^\n]{{1,20}}[：:]\*\*|\Z))'
+        m = re.search(pat, body, re.DOTALL)
+        return m.group(1).strip() if m else ""
+
+    # --- ブロック単位で分割（## または ### の見出し）---
+    # レポート全体を行で処理
+    lines = report_text.split('\n')
+    current_title = None
+    current_body_lines = []
+
+    def flush_block(title, body_lines):
+        body = '\n'.join(body_lines).strip()
+        if not title or not body:
+            return None
+        # 判定レベルを検出
+        level = None
         for key in ALERT_CONFIG:
-            if f"判定：{key}" in body or f"**判定：{key}" in body:
+            # 「判定：CRITICAL」「**判定：CRITICAL**」などにマッチ
+            if re.search(rf'判定[：:][^\n]{{0,30}}{key}', body):
                 level = key
                 break
-
-        # 各フィールドを抽出
-        def extract_field(text, field_name):
-            pattern = rf'\*\*{field_name}[：:]\*\*\s*(.*?)(?=\n\*\*|\Z)'
-            m = re.search(pattern, text, re.DOTALL)
-            return m.group(1).strip() if m else ""
-
-        items.append({
+        if level is None:
+            return None
+        return {
             "title": title,
             "level": level,
-            "該当箇所": extract_field(body, "該当箇所"),
             "問題の内容": extract_field(body, "問題の内容"),
+            "該当箇所":   extract_field(body, "該当箇所"),
+            "修正案":     extract_field(body, "修正案"),
             "審査官の目線": extract_field(body, "審査官の目線"),
-            "修正案": extract_field(body, "修正案"),
-            "根拠": extract_field(body, "根拠"),
+            "根拠":       extract_field(body, "根拠"),
             "raw": body,
-        })
+        }
+
+    for line in lines:
+        heading = re.match(r'^#{2,4}\s+(.*)', line)
+        if heading:
+            # 前のブロックを確定
+            if current_title is not None:
+                item = flush_block(current_title, current_body_lines)
+                if item:
+                    items.append(item)
+            current_title = heading.group(1).strip()
+            current_body_lines = []
+        else:
+            if current_title is not None:
+                current_body_lines.append(line)
+
+    # 最後のブロック
+    if current_title is not None:
+        item = flush_block(current_title, current_body_lines)
+        if item:
+            items.append(item)
+
     return items
 
 
@@ -625,7 +654,7 @@ def build_docx(report_text: str, company: str, label: str, phase: str) -> bytes:
                 label_run = p.add_run(f"{fname}　")
                 label_run.bold = True
                 label_run.font.size = Pt(9.5)
-                val_run = p.add_run(fval[:500])
+                val_run = p.add_run(fval)
                 val_run.font.size = Pt(9.5)
 
         doc.add_paragraph()
@@ -900,6 +929,12 @@ if not can_run:
 # チェック実行
 # ============================================================
 
+# session_stateにレポートを保持（ダウンロード後のリセット防止）
+if "saved_reports" not in st.session_state:
+    st.session_state.saved_reports = []
+if "saved_meta" not in st.session_state:
+    st.session_state.saved_meta = {}
+
 if run_button and can_run:
 
     st.markdown('<hr class="divider">', unsafe_allow_html=True)
@@ -981,6 +1016,12 @@ if run_button and can_run:
                 status.update(label=f"エラー：{ci['name']}", state="error")
 
     if all_reports:
+        st.session_state.saved_reports = all_reports
+        st.session_state.saved_meta = {
+            "company": company_name,
+            "phase": selected_phase,
+            "now_str": datetime.now().strftime("%Y%m%d_%H%M"),
+        }
         st.success(f"チェック完了　{len(all_reports)} コース")
         now_str = datetime.now().strftime("%Y%m%d_%H%M")
 
@@ -1034,3 +1075,39 @@ if run_button and can_run:
     st.caption(
         "※ 本ツールは実務補助用です。最終判断は必ず担当社会保険労務士が行ってください。"
     )
+
+# ── チェック済みレポートが session_state にある場合は常に表示 ──
+elif st.session_state.get("saved_reports"):
+    all_reports = st.session_state.saved_reports
+    meta = st.session_state.saved_meta
+    company_name_s = meta.get("company", "")
+    selected_phase_s = meta.get("phase", "phase1")
+    now_str = meta.get("now_str", datetime.now().strftime("%Y%m%d_%H%M"))
+
+    st.markdown('<hr class="divider">', unsafe_allow_html=True)
+    st.markdown('<div class="sec-label">チェック結果（保存済み）</div>', unsafe_allow_html=True)
+    st.info("💾 前回のチェック結果が保存されています。新しいチェックを行うと上書きされます。")
+
+    report_tabs = st.tabs([r["label"] for r in all_reports]) if len(all_reports) > 1 else [st.container()]
+    for tab, rd in zip(report_tabs, all_reports):
+        with tab:
+            display_report_visual(rd["report"], rd["label"])
+            st.markdown("---")
+            st.markdown("**ダウンロード**")
+            dl_cols = st.columns(3)
+            with dl_cols[0]:
+                xlsx_data = build_xlsx(rd["report"], company_name_s, rd["label"], selected_phase_s)
+                st.download_button("📊 Excel (.xlsx)", data=xlsx_data,
+                    file_name=f"AuditX_{company_name_s}_{rd['course_id']}_{selected_phase_s}_{now_str}.xlsx",
+                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    use_container_width=True, key=f"xl2_{rd['course_id']}")
+            with dl_cols[1]:
+                docx_data = build_docx(rd["report"], company_name_s, rd["label"], selected_phase_s)
+                st.download_button("📝 Word (.docx)", data=docx_data,
+                    file_name=f"AuditX_{company_name_s}_{rd['course_id']}_{selected_phase_s}_{now_str}.docx",
+                    mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                    use_container_width=True, key=f"dx2_{rd['course_id']}")
+            with dl_cols[2]:
+                st.download_button("📄 Markdown (.md)", data=rd["report"].encode("utf-8"),
+                    file_name=f"AuditX_{company_name_s}_{rd['course_id']}_{selected_phase_s}_{now_str}.md",
+                    mime="text/markdown", use_container_width=True, key=f"md2_{rd['course_id']}")

@@ -84,7 +84,8 @@ def extract_text(file_path: str) -> str:
 # ============================================================
 
 def build_prompt(rule_knowledge: dict, course_id: str, phase: str,
-                 rules_text: str, additional_courses: list = None) -> str:
+                 rules_text: str, additional_courses: list = None,
+                 target_person_info: dict = None) -> str:
     course_name = rule_knowledge.get("meta", {}).get("course_name", course_id)
     year = rule_knowledge.get("meta", {}).get("year", "")
     eff_date = rule_knowledge.get("meta", {}).get("effective_date", "")
@@ -138,6 +139,25 @@ C. 支給申請書類との整合性
 上記コースとの規定の矛盾・整合性も確認すること。
 """
 
+    person_info_text = ""
+    if target_person_info:
+        person_info_text = f"""
+【対象者情報（正社員化コース）】
+※ この情報を元に、年齢・在籍期間・転換タイミングに関する要件を厳密にチェックすること。
+
+- 生年月日：{target_person_info.get("生年月日", "不明")}（現在{target_person_info.get("年齢", "不明")}）
+- 入社日：{target_person_info.get("入社日", "不明")}（在籍期間：{target_person_info.get("在籍期間", "不明")}）
+- 転換予定日：{target_person_info.get("転換予定日", "不明")}（転換まで{target_person_info.get("転換まで", "不明")}）
+
+【対象者情報に基づく必須チェック項目】
+1. 転換予定日時点で6ヶ月以上の雇用期間を満たしているか
+2. 雇用保険の加入要件（週所定労働時間20時間以上）を就業規則で確認できるか
+3. 転換後の賃金が転換前より3%以上増加する規定があるか
+4. 転換予定日から6ヶ月後の賃金支払いが確認できる規定か
+5. 有期→無期→正規の転換ステップに問題はないか
+6. 転換予定日時点の年齢と定年規定に矛盾がないか（定年まで6ヶ月以上あるか）
+"""
+
     return f"""あなたは雇用関係助成金の申請業務に特化した社会保険労務士法人のベテラン監査官AIです。
 就業規則を助成金の支給要領・Q&A・パンフレットに照らして厳格にチェックし、
 不支給リスクをゼロにするための実務的な監査レポートを作成します。
@@ -170,6 +190,7 @@ C. 支給申請書類との整合性
 {phase_instruction}
 
 {additional_info}
+{person_info_text}
 
 【出力形式】
 必ず以下の構造でMarkdownレポートを出力してください。
@@ -233,6 +254,7 @@ def run_audit(
     course_id: str,
     phase: str,
     additional_courses: list = None,
+    target_person_info: dict = None,
 ) -> str:
     api_key = os.getenv("GOOGLE_API_KEY")
     if not api_key:
@@ -249,7 +271,7 @@ def run_audit(
 
     client = genai.Client(api_key=api_key)
 
-    prompt = build_prompt(rule_knowledge, course_id, phase, rules_text, additional_courses)
+    prompt = build_prompt(rule_knowledge, course_id, phase, rules_text, additional_courses, target_person_info)
 
     response = client.models.generate_content(
         model=MODEL,

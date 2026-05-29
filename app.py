@@ -870,6 +870,100 @@ st.markdown('<hr class="divider">', unsafe_allow_html=True)
 
 
 # ============================================================
+# STEP 3.5 : 正社員化コース対象者情報
+# ============================================================
+
+ca_seishain_selected = any(c["course_id"] == "CA_seishain" for c in selected_courses)
+
+target_person_info = {}
+
+if ca_seishain_selected:
+    st.markdown(
+        '<div class="sec-label">STEP 3.5　正社員化コース：対象者情報（必須）</div>',
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        '<div class="phase-hint">&#9888;&#160;' 
+        '<strong>正社員化コースは対象者の情報が審査に直結します。</strong>'
+        '　複数名いる場合は、最も不利な条件（最年長・最古入社・最も近い転換予定日）の方の情報を入力してください。'
+        '</div>',
+        unsafe_allow_html=True,
+    )
+
+    tp_col1, tp_col2, tp_col3 = st.columns(3)
+    with tp_col1:
+        st.markdown("**対象者の生年月日**（最年長者）")
+        target_dob = st.date_input(
+            "生年月日",
+            value=None,
+            min_value=datetime(1940, 1, 1).date(),
+            max_value=datetime.now().date(),
+            label_visibility="collapsed",
+            key="target_dob",
+        )
+    with tp_col2:
+        st.markdown("**対象者の入社日**（最も古い日付）")
+        target_hire = st.date_input(
+            "入社日",
+            value=None,
+            min_value=datetime(1980, 1, 1).date(),
+            max_value=datetime.now().date(),
+            label_visibility="collapsed",
+            key="target_hire",
+        )
+    with tp_col3:
+        st.markdown("**転換予定日**")
+        target_convert = st.date_input(
+            "転換予定日",
+            value=None,
+            min_value=datetime.now().date(),
+            max_value=datetime(2030, 12, 31).date(),
+            label_visibility="collapsed",
+            key="target_convert",
+        )
+
+    # 入力値の計算
+    if target_dob and target_hire and target_convert:
+        today = datetime.now().date()
+        age = today.year - target_dob.year - (
+            (today.month, today.day) < (target_dob.month, target_dob.day)
+        )
+        hire_months = (today.year - target_hire.year) * 12 + (today.month - target_hire.month)
+        convert_days = (target_convert - today).days
+
+        info_cols = st.columns(3)
+        with info_cols[0]:
+            st.metric("現在の年齢", f"{age}歳")
+        with info_cols[1]:
+            st.metric("在籍期間", f"{hire_months}ヶ月（{hire_months//12}年{hire_months%12}ヶ月）")
+        with info_cols[2]:
+            st.metric("転換まで", f"{convert_days}日")
+
+        # 簡易要件チェック
+        warnings = []
+        if hire_months < 6:
+            warnings.append("⚠️ 在籍期間が6ヶ月未満です（正社員化コースは原則6ヶ月以上の雇用が必要）")
+        if convert_days < 0:
+            warnings.append("⚠️ 転換予定日が過去の日付になっています")
+        for w in warnings:
+            st.warning(w)
+
+        target_person_info = {
+            "生年月日": target_dob.strftime("%Y年%m月%d日"),
+            "年齢": f"{age}歳",
+            "入社日": target_hire.strftime("%Y年%m月%d日"),
+            "在籍期間": f"{hire_months}ヶ月",
+            "転換予定日": target_convert.strftime("%Y年%m月%d日"),
+            "転換まで": f"{convert_days}日",
+        }
+    else:
+        st.info("対象者の生年月日・入社日・転換予定日をすべて入力してください。")
+        target_person_info = {}
+
+    st.markdown('<hr class="divider">', unsafe_allow_html=True)
+
+
+# ============================================================
 # STEP 4 : ファイルアップロード
 # ============================================================
 
@@ -926,12 +1020,16 @@ st.markdown('<hr class="divider">', unsafe_allow_html=True)
 # ============================================================
 
 valid_courses = [c for c in selected_courses if c["rule_exists"]]
-can_run = bool(company_name) and bool(valid_courses) and bool(uploaded_files)
+# 正社員化コース選択時は対象者情報も必須
+ca_selected_in_valid = any(c["course_id"] == "CA_seishain" for c in valid_courses)
+person_info_ok = (not ca_selected_in_valid) or bool(target_person_info)
+can_run = bool(company_name) and bool(valid_courses) and bool(uploaded_files) and person_info_ok
 
 missing = []
 if not company_name:   missing.append("会社名")
 if not valid_courses:  missing.append("助成金コース")
 if not uploaded_files: missing.append("就業規則ファイル")
+if ca_selected_in_valid and not person_info_ok: missing.append("対象者情報（生年月日・入社日・転換予定日）")
 if missing:
     st.caption("未入力の項目：" + "　/　".join(missing))
 
@@ -1018,9 +1116,12 @@ if run_button and can_run:
                     f"{c['group']}　{c['name']}"
                     for c in valid_courses if c["course_id"] != ci["course_id"]
                 ]
+                # 正社員化コースの場合は対象者情報を渡す
+                person_info = target_person_info if ci["course_id"] == "CA_seishain" else {}
                 result = run_audit(
                     combined_text, rk, ci["course_id"],
                     selected_phase, others or None,
+                    target_person_info=person_info,
                 )
                 report = generate_report(
                     result, company_name, ci["course_id"],

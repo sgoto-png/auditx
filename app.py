@@ -577,14 +577,15 @@ def build_docx(report_text: str, company: str, label: str, phase: str) -> bytes:
     items = parse_report(report_text)
     doc = DocxDocument()
 
-    # ページ設定
+    # ページ設定（A4横: 1EMU = 1/914400インチ、1cm = 360000EMU）
+    from docx.shared import Emu
     section = doc.sections[0]
-    section.page_width  = int(11906)
-    section.page_height = int(16838)
-    section.left_margin   = Cm(2)
-    section.right_margin  = Cm(2)
-    section.top_margin    = Cm(2)
-    section.bottom_margin = Cm(2)
+    section.page_width    = Emu(11906 * 914400 // 12700)  # A4幅 21cm
+    section.page_height   = Emu(16838 * 914400 // 12700)  # A4高 29.7cm
+    section.left_margin   = Emu(720000)   # 2cm
+    section.right_margin  = Emu(720000)   # 2cm
+    section.top_margin    = Emu(720000)   # 2cm
+    section.bottom_margin = Emu(720000)   # 2cm
 
     # タイトル
     title = doc.add_paragraph()
@@ -671,14 +672,36 @@ def build_docx(report_text: str, company: str, label: str, phase: str) -> bytes:
         ]
         for fname, fval in fields:
             if fval:
-                p = doc.add_paragraph()
-                label_run = p.add_run(f"{fname}　")
+                # フィールドラベル
+                p_label = doc.add_paragraph()
+                label_run = p_label.add_run(fname)
                 label_run.bold = True
                 label_run.font.size = Pt(9.5)
-                val_run = p.add_run(fval)
-                val_run.font.size = Pt(9.5)
+                label_run.font.color.rgb = RGBColor(0x0D, 0x1B, 0x30)
+                p_label.paragraph_format.space_after = Pt(2)
+                # フィールド内容（改行を段落に変換）
+                for line in fval.split("\n"):
+                    line = line.strip()
+                    if not line:
+                        continue
+                    p_val = doc.add_paragraph()
+                    p_val.paragraph_format.left_indent = Pt(16)
+                    p_val.paragraph_format.space_after = Pt(1)
+                    val_run = p_val.add_run(line)
+                    val_run.font.size = Pt(9.5)
 
-        doc.add_paragraph()
+        # 区切り線代わりの空行
+        sep = doc.add_paragraph()
+        sep.paragraph_format.space_after = Pt(4)
+        pPr = sep._p.get_or_add_pPr()
+        pBdr = OxmlElement("w:pBdr")
+        bottom = OxmlElement("w:bottom")
+        bottom.set(qn("w:val"), "single")
+        bottom.set(qn("w:sz"), "4")
+        bottom.set(qn("w:space"), "1")
+        bottom.set(qn("w:color"), "DDDDDD")
+        pBdr.append(bottom)
+        pPr.append(pBdr)
 
     buf = io.BytesIO()
     doc.save(buf)

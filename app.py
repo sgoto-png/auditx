@@ -57,66 +57,67 @@ st.markdown("""
 
 html, body, [class*="css"] {
     font-family: 'Noto Sans JP', sans-serif;
-    background-color: #e8ecf2;
+    background-color: #f5f6f9;
     color: #1e293b;
 }
 .block-container { padding: 2.5rem 3rem 5rem; max-width: 1000px; }
 
-/* サイドバー */
 section[data-testid="stSidebar"] {
-    background: #1e2a40;
+    background: #0d1b30;
     border-right: none;
 }
-section[data-testid="stSidebar"] * { color: #cbd5e1 !important; }
+section[data-testid="stSidebar"] * { color: #b0bec5 !important; }
 section[data-testid="stSidebar"] h1,
 section[data-testid="stSidebar"] h2,
 section[data-testid="stSidebar"] h3,
-section[data-testid="stSidebar"] strong { color: #e2e8f0 !important; }
+section[data-testid="stSidebar"] strong { color: #e8dfc0 !important; }
 
-/* ページヘッダー */
 .page-eyebrow {
     font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em;
-    color: #64748b; text-transform: uppercase; margin-bottom: 0.5rem;
+    color: #c8a84a; text-transform: uppercase; margin-bottom: 0.5rem;
 }
 .page-title {
     font-size: 2.1rem; font-weight: 700; color: #0f172a;
     margin: 0 0 0.4rem; letter-spacing: -0.5px; line-height: 1.2;
 }
 .page-subtitle {
-    font-size: 0.85rem; color: #475569; font-weight: 400; margin: 0 0 2rem;
+    font-size: 0.85rem; color: #64748b; font-weight: 400; margin: 0 0 2rem;
 }
-.page-divider { border: none; border-top: 2px solid #cbd5e1; margin: 0 0 2rem; }
+.page-divider { border: none; border-top: 2px solid #dde2ea; margin: 0 0 2rem; }
 
-/* セクションラベル */
 .sec-label {
-    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em;
-    color: #1e40af; text-transform: uppercase;
-    background: #dbeafe; border-radius: 4px;
-    display: inline-block; padding: 3px 10px;
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em;
+    color: #c8a84a; text-transform: uppercase;
+    display: flex; align-items: center; gap: 12px;
     margin: 2rem 0 1rem;
 }
+.sec-label::after {
+    content: '';
+    flex: 1;
+    height: 1.5px;
+    background: linear-gradient(to right, #c8a84a55, transparent);
+}
 
-/* カード */
 .card {
-    background: #ffffff; border: 1px solid #c8d4e4;
+    background: #ffffff; border: 1px solid #dde2ea;
     border-radius: 12px; padding: 1.4rem 1.6rem;
     margin-bottom: 0.8rem;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
-/* フェーズカード */
 .phase-active {
-    background: #1d4ed8; border: 2px solid #1d4ed8;
+    background: #ffffff;
+    border: 1.5px solid #c8a84a;
     border-radius: 10px; padding: 0.9rem 1rem; margin-bottom: 6px;
-    box-shadow: 0 4px 12px rgba(29,78,216,0.3);
+    box-shadow: 0 4px 14px rgba(200,168,74,0.18);
 }
 .phase-inactive {
-    background: #ffffff; border: 1.5px solid #c8d4e4;
+    background: #ffffff; border: 1.5px solid #dde2ea;
     border-radius: 10px; padding: 0.9rem 1rem; margin-bottom: 6px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 .phase-num-active {
-    font-size: 0.68rem; font-weight: 700; color: #93c5fd;
+    font-size: 0.68rem; font-weight: 700; color: #c8a84a;
     text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 3px;
 }
 .phase-num-inactive {
@@ -124,34 +125,32 @@ section[data-testid="stSidebar"] strong { color: #e2e8f0 !important; }
     text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 3px;
 }
 .phase-title-active {
-    font-size: 0.9rem; font-weight: 700; color: #ffffff; margin-bottom: 2px;
+    font-size: 0.9rem; font-weight: 700; color: #0f172a; margin-bottom: 2px;
 }
 .phase-title-inactive {
-    font-size: 0.9rem; font-weight: 600; color: #334155; margin-bottom: 2px;
+    font-size: 0.9rem; font-weight: 600; color: #64748b; margin-bottom: 2px;
 }
-.phase-desc-active { font-size: 0.75rem; color: #bfdbfe; }
-.phase-desc-inactive { font-size: 0.75rem; color: #64748b; }
+.phase-desc-active  { font-size: 0.75rem; color: #475569; }
+.phase-desc-inactive { font-size: 0.75rem; color: #94a3b8; }
 
-/* フェーズ説明バー */
 .phase-hint {
-    background: #dbeafe; border: 1px solid #93c5fd;
-    border-left: 4px solid #1d4ed8;
+    background: #faf7ee;
+    border: 1px solid #e8dfc0;
+    border-left: 4px solid #c8a84a;
     border-radius: 0 8px 8px 0;
     padding: 0.75rem 1.1rem;
-    font-size: 0.85rem; color: #1e3a8a; font-weight: 500;
+    font-size: 0.85rem; color: #5a4a1a; font-weight: 500;
     margin: 0.8rem 0 1.5rem;
 }
 
-/* コースグループラベル */
 .group-label {
     font-size: 0.73rem; font-weight: 700; letter-spacing: 0.1em;
-    color: #475569; text-transform: uppercase;
-    background: #e2e8f0; border-radius: 4px;
+    color: #64748b; text-transform: uppercase;
+    background: #f0f1f4; border-radius: 4px;
     display: inline-block; padding: 2px 8px;
     margin: 1rem 0 0.5rem;
 }
 
-/* ボタン共通 */
 .stButton > button {
     font-family: 'Noto Sans JP', sans-serif !important;
     border-radius: 8px !important;
@@ -160,74 +159,80 @@ section[data-testid="stSidebar"] strong { color: #e2e8f0 !important; }
     transition: all 0.15s !important;
 }
 
-/* 未選択フェーズボタン */
 .btn-inactive > div > button {
-    background: #f1f5f9 !important;
-    color: #475569 !important;
-    border: 1.5px solid #c8d4e4 !important;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.06) !important;
+    background: #f1f3f7 !important;
+    color: #64748b !important;
+    border: 1.5px solid #dde2ea !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05) !important;
 }
 .btn-inactive > div > button:hover {
-    background: #e2e8f0 !important;
-    border-color: #3b82f6 !important;
-    color: #1d4ed8 !important;
+    background: #e8eaf0 !important;
+    border-color: #c8a84a !important;
+    color: #a07a28 !important;
 }
 
-/* 選択中フェーズボタン */
 .btn-active > div > button {
-    background: #1d4ed8 !important;
-    color: #ffffff !important;
-    border: none !important;
-    box-shadow: 0 3px 10px rgba(29,78,216,0.35) !important;
+    background: #0d1b30 !important;
+    color: #c8a84a !important;
+    border: 1.5px solid #c8a84a !important;
+    box-shadow: 0 3px 10px rgba(13,27,48,0.25) !important;
     font-weight: 700 !important;
 }
 .btn-active > div > button:hover {
-    background: #1e40af !important;
+    background: #162540 !important;
 }
 
-/* 実行ボタン */
 .stButton > button[kind="primary"] {
-    background: #1d4ed8 !important;
-    color: #ffffff !important;
-    border: none !important;
+    background: #0d1b30 !important;
+    color: #c8a84a !important;
+    border: 1.5px solid #c8a84a !important;
     border-radius: 10px !important;
     font-size: 1rem !important;
     font-weight: 700 !important;
     letter-spacing: 0.5px !important;
-    box-shadow: 0 4px 14px rgba(29,78,216,0.35) !important;
+    box-shadow: 0 4px 14px rgba(13,27,48,0.25) !important;
 }
 .stButton > button[kind="primary"]:hover {
-    background: #1e40af !important;
-    box-shadow: 0 6px 18px rgba(29,78,216,0.45) !important;
+    background: #162540 !important;
+    box-shadow: 0 6px 18px rgba(13,27,48,0.35) !important;
     transform: translateY(-1px) !important;
 }
 .stButton > button:disabled {
-    background: #e2e8f0 !important;
-    color: #94a3b8 !important;
+    background: #f0f1f4 !important;
+    color: #a0aab8 !important;
     box-shadow: none !important;
-    border: 1px solid #cbd5e1 !important;
+    border: 1px solid #dde2ea !important;
     transform: none !important;
 }
 
-/* ダウンロードボタン */
 .stDownloadButton > button {
     background: #ffffff !important;
-    border: 1.5px solid #2563eb !important;
-    color: #1d4ed8 !important;
+    border: 1.5px solid #c8a84a !important;
+    color: #a07a28 !important;
     border-radius: 8px !important;
     font-family: 'Noto Sans JP', sans-serif !important;
     font-weight: 600 !important;
 }
+.stDownloadButton > button:hover {
+    background: #faf7ee !important;
+}
 
-/* 入力フィールド */
 .stTextInput > div > div > input {
-    background: #ffffff !important; border-color: #c8d4e4 !important;
-    color: #1e293b !important; border-radius: 8px !important;
+    background: #ffffff !important;
+    border-color: #dde2ea !important;
+    border-bottom: 1.5px solid #c8a84a !important;
+    color: #1e293b !important;
+    border-radius: 8px !important;
     font-family: 'Noto Sans JP', sans-serif !important;
     font-size: 0.9rem !important;
 }
+.stTextInput > div > div > input:focus {
+    border-color: #c8a84a !important;
+    box-shadow: 0 0 0 2px rgba(200,168,74,0.15) !important;
+}
 .stSelectbox > div > div {
-    background: #ffffff !important; border-color: #c8d4e4 !important;
+    background: #ffffff !important;
+    border-color: #dde2ea !important;
     color: #1e293b !important;
     font-family: 'Noto Sans JP', sans-serif !important;
 }
@@ -237,26 +242,25 @@ section[data-testid="stSidebar"] strong { color: #e2e8f0 !important; }
     font-weight: 500 !important;
 }
 
-/* 区切り線 */
-.divider { border: none; border-top: 1.5px solid #c8d4e4; margin: 2rem 0; }
+.divider { border: none; border-top: 1.5px solid #dde2ea; margin: 2rem 0; }
 
-/* サイドバー内 */
 .sb-brand {
     padding: 0.8rem 0 1.2rem;
-    border-bottom: 1px solid #2d3f5c; margin-bottom: 1.2rem;
+    border-bottom: 1px solid #1e3050; margin-bottom: 1.2rem;
 }
 .sb-brand-eye {
     font-size: 0.63rem; font-weight: 700; letter-spacing: 0.18em;
-    color: #475569; text-transform: uppercase; margin-bottom: 5px;
+    color: #c8a84a; text-transform: uppercase; margin-bottom: 5px;
 }
 .sb-brand-title {
-    font-size: 1rem; font-weight: 700; color: #e2e8f0; margin: 0;
+    font-size: 1rem; font-weight: 700; color: #e8dfc0; margin: 0;
 }
-.sb-brand-sub { font-size: 0.72rem; color: #64748b; margin: 3px 0 0; }
+.sb-brand-sub { font-size: 0.72rem; color: #607080; margin: 3px 0 0; }
 .sb-rule-item {
-    background: #162032; border: 1px solid #2d4a6e;
+    background: #0a1525;
+    border: 1px solid #c8a84a44;
     border-radius: 7px; padding: 6px 10px;
-    font-size: 0.77rem; color: #60a5fa;
+    font-size: 0.77rem; color: #c8a84a;
     margin-bottom: 5px; display: block;
 }
 .sb-footer {
@@ -325,7 +329,7 @@ with st.sidebar:
         st.caption(pdesc)
 
     st.markdown(
-        '<div class="sb-footer">AuditX v0.5　Powered by Gemini API</div>'
+        '<div class="sb-footer">AuditX v0.5　Powered by Gemini API</div>',
         unsafe_allow_html=True,
     )
 

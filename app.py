@@ -1144,16 +1144,16 @@ if ca_seishain_selected:
     )
 
     tp_col1, tp_col2, tp_col3 = st.columns(3)
+    # 和暦変換テーブル（全日付入力で共通使用）
+    WAREKI = [
+        ("令和", 2019, "R"),
+        ("平成", 1989, "H"),
+        ("昭和", 1926, "S"),
+        ("大正", 1912, "T"),
+    ]
+
     with tp_col1:
         st.markdown("**対象者の生年月日**（最年長者）")
-
-        # 和暦変換テーブル
-        WAREKI = [
-            ("令和", 2019, "R"),
-            ("平成", 1989, "H"),
-            ("昭和", 1926, "S"),
-            ("大正", 1912, "T"),
-        ]
 
         dob_mode = st.radio(
             "入力方式", ["西暦", "和暦"],
@@ -1589,13 +1589,21 @@ elif st.session_state.get("saved_reports"):
             st.markdown("**ダウンロード**")
             dl_cols = st.columns(3)
             with dl_cols[0]:
-                xlsx_data = build_xlsx(rd["report"], company_name_s, rd["label"], selected_phase_s)
+                _sum2 = rd.get("seishain_summary", {})
+                if rd["course_id"] == "CA_seishain" and _sum2:
+                    xlsx_data = build_xlsx_with_summary(rd["report"], company_name_s, rd["label"], selected_phase_s, _sum2)
+                else:
+                    xlsx_data = build_xlsx(rd["report"], company_name_s, rd["label"], selected_phase_s)
                 st.download_button("📊 Excel (.xlsx)", data=xlsx_data,
                     file_name=f"AuditX_{company_name_s}_{rd['course_id']}_{selected_phase_s}_{now_str}.xlsx",
                     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                     use_container_width=True, key=f"xl2_{rd['course_id']}")
             with dl_cols[1]:
-                docx_data = build_docx(rd["report"], company_name_s, rd["label"], selected_phase_s)
+                _sum2 = rd.get("seishain_summary", {})
+                if rd["course_id"] == "CA_seishain" and _sum2:
+                    docx_data = build_docx_with_summary(rd["report"], company_name_s, rd["label"], selected_phase_s, _sum2)
+                else:
+                    docx_data = build_docx(rd["report"], company_name_s, rd["label"], selected_phase_s)
                 st.download_button("📝 Word (.docx)", data=docx_data,
                     file_name=f"AuditX_{company_name_s}_{rd['course_id']}_{selected_phase_s}_{now_str}.docx",
                     mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",

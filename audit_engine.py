@@ -244,7 +244,7 @@ def run_audit(
                         api_key = line.split("=", 1)[1].strip()
                         break
     if not api_key:
-        raise ValueError("GOOGLE_API_KEY が設定されていません。")
+        raise ValueError("GOOGLE_API_KEY が設定されていません。.env ファイルを確認してください。")
 
     genai.configure(api_key=api_key)
     model = genai.GenerativeModel(MODEL)

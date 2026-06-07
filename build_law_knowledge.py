@@ -182,7 +182,7 @@ def build_law_knowledge(law_id: str, pdf_path: str):
     output_dir.mkdir(parents=True, exist_ok=True)
 
     if not Path(pdf_path).exists():
-        print(f"❌ PDFが見つかりません: {pdf_path}")
+        print(f"[ERROR] PDFが見つかりません: {pdf_path}")
         sys.exit(1)
 
     print(f"\n{'='*60}")
@@ -203,7 +203,7 @@ def build_law_knowledge(law_id: str, pdf_path: str):
                     api_key = line.split("=", 1)[1].strip()
                     break
     if not api_key:
-        print("❌ GOOGLE_API_KEY が設定されていません。")
+        print("[ERROR] GOOGLE_API_KEY が設定されていません。")
         sys.exit(1)
 
     client = genai.Client(api_key=api_key)
@@ -223,21 +223,21 @@ def build_law_knowledge(law_id: str, pdf_path: str):
                 pdf_bytes = extract_page_range_bytes(pdf_path, batch_start, batch_end)
                 result = extract_rules_from_batch(client, pdf_bytes, law_name, batch_label)
                 extractions.append({"pages": batch_label, "data": result})
-                print(" ✅")
+                print(" [OK]")
                 time.sleep(5)
                 break
             except Exception as e:
                 err_str = str(e)
                 if "503" in err_str or "UNAVAILABLE" in err_str or "429" in err_str:
                     wait = 30 * (attempt + 1)
-                    print(f" ⏳ サーバー混雑（{attempt+1}回目）{wait}秒待機...")
+                    print(f" [WAIT] サーバー混雑（{attempt+1}回目）{wait}秒待機...")
                     time.sleep(wait)
                 else:
-                    print(f" ❌ エラー: {e}")
+                    print(f" [ERROR] エラー: {e}")
                     time.sleep(10)
                     break
         else:
-            print(f" ❌ {batch_label} は5回試行後も失敗しました。スキップします。")
+            print(f" [ERROR] {batch_label} は5回試行後も失敗しました。スキップします。")
 
     print(f"\n🔄 {len(extractions)}バッチのデータを統合中...")
     final = None
@@ -249,19 +249,19 @@ def build_law_knowledge(law_id: str, pdf_path: str):
             err_str = str(e)
             if "503" in err_str or "UNAVAILABLE" in err_str or "429" in err_str:
                 wait = 30 * (attempt + 1)
-                print(f"  ⏳ サーバー混雑（{attempt+1}回目）{wait}秒待機...")
+                print(f"  [WAIT] サーバー混雑（{attempt+1}回目）{wait}秒待機...")
                 time.sleep(wait)
             else:
-                print(f"  ❌ 統合エラー: {e}")
+                print(f"  [ERROR] 統合エラー: {e}")
                 break
     if final is None:
-        print("❌ 統合ステップが5回試行後も失敗しました。")
+        print("[ERROR] 統合ステップが5回試行後も失敗しました。")
         sys.exit(1)
 
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(final, f, ensure_ascii=False, indent=2)
 
-    print(f"\n✅ 完了！")
+    print(f"\n[OK] 完了！")
     print(f"  出力: {output_path}")
     print(f"  サイズ: {output_path.stat().st_size:,} バイト")
     print(f"\n⚠️ 生成されたJSONは必ず社労士スタッフが確認・修正してください。")

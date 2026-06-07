@@ -48,6 +48,26 @@ MODEL = "gemini-2.5-flash-lite"
 MAX_TOKENS = 8192
 PAGE_BATCH_SIZE = 15
 
+# 共通PDFフォルダの定義（auto_build.py と同じ内容に保つこと）
+# コース専用フォルダが空のときに参照する共通フォルダ。
+COMMON_PDF_FOLDERS = {
+    "_CA_common":   ["CA_seishain", "CA_shoyo"],
+    "_RY_common":   ["RY_funin", "RY_juman", "RY_shussei", "RY_kaigo", "RY_ikukyu", "RY_daitai"],
+    "_KO65_common": ["KO65_keizoku", "KO65_tenkan"],
+    "_JK_common":   ["JK_kanri", "JK_hyoka"],
+}
+
+def _get_common_pdf_folder(year_date_dir: str, course_id: str):
+    """コースIDに対応する共通PDFフォルダ（PDFが入っているもの）を返す。なければNone。"""
+    for folder_name, course_ids in COMMON_PDF_FOLDERS.items():
+        if course_id in course_ids:
+            common_path = os.path.join(year_date_dir, folder_name)
+            if os.path.isdir(common_path) and any(
+                f.lower().endswith(".pdf") for f in os.listdir(common_path)
+            ):
+                return common_path
+    return None
+
 # ============================================================
 # PDFユーティリティ
 # ============================================================
@@ -225,10 +245,30 @@ def merge_and_finalize(
 # メイン処理
 # ============================================================
 
-def build_rule_knowledge(course_id: str, year: str, date: str):
+def build_rule_knowledge(course_id: str, year: str, date: str, pdf_folder: str = None):
     script_dir = os.path.dirname(os.path.abspath(__file__))
     folder_key = f"{year}_{date}"
-    pdf_folder = os.path.join(script_dir, "knowledge", folder_key, course_id)
+
+    # PDFフォルダの決定:
+    #   1. 呼び出し元から --pdf-folder で明示指定されていればそれを最優先で使う
+    #      （auto_build.py が共通フォルダを解決して渡してくる）
+    #   2. 指定がなければコース専用フォルダ knowledge\{年度}_{日付}\{コースID}\
+    #   3. それも空なら共通フォルダ（_RY_common 等）にフォールバック
+    #      （build_rule_knowledge.py を単体で手動実行したときの保険）
+    if pdf_folder:
+        pdf_folder = os.path.abspath(pdf_folder)
+    else:
+        year_date_dir = os.path.join(script_dir, "knowledge", folder_key)
+        course_folder = os.path.join(year_date_dir, course_id)
+        pdf_folder = course_folder
+        has_pdf = os.path.isdir(course_folder) and any(
+            f.lower().endswith(".pdf") for f in os.listdir(course_folder)
+        )
+        if not has_pdf:
+            common_folder = _get_common_pdf_folder(year_date_dir, course_id)
+            if common_folder:
+                pdf_folder = common_folder
+
     output_dir = os.path.join(script_dir, "rule_knowledge")
     output_path = os.path.join(output_dir, f"{folder_key}_{course_id}.json")
     os.makedirs(output_dir, exist_ok=True)
@@ -331,5 +371,8 @@ if __name__ == "__main__":
     parser.add_argument("--course", required=True)
     parser.add_argument("--year", required=True)
     parser.add_argument("--date", required=True)
+    parser.add_argument("--pdf-folder", dest="pdf_folder", default=None,
+                        help="PDFが入っているフォルダを明示指定（共通フォルダ対応）。"
+                             "省略時はコース専用→共通フォルダの順に自動探索する。")
     args = parser.parse_args()
-    build_rule_knowledge(args.course, args.year, args.date)
+    build_rule_knowledge(args.course, args.year, args.date, args.pdf_folder)

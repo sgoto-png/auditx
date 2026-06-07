@@ -45,6 +45,26 @@ COURSE_IDS = [
     "RY_kaigo", "RY_ikukyu", "RY_daitai",
 ]
 
+# 共通PDFフォルダの定義
+# _フォルダ名: [対応するコースIDリスト]
+COMMON_PDF_FOLDERS = {
+    "_CA_common": ["CA_seishain", "CA_shoyo"],
+    "_RY_common": ["RY_funin", "RY_juman", "RY_shussei", "RY_kaigo", "RY_ikukyu", "RY_daitai"],
+    "_KO65_common": ["KO65_keizoku", "KO65_tenkan"],
+    "_JK_common": ["JK_kanri", "JK_hyoka"],
+}
+
+def get_common_pdf_folder(year_date_dir: Path, course_id: str) -> Path:
+    """コースIDに対応する共通PDFフォルダを返す。なければNone。"""
+    for folder_name, course_ids in COMMON_PDF_FOLDERS.items():
+        if course_id in course_ids:
+            common_path = year_date_dir / folder_name
+            if common_path.exists():
+                pdfs = list(common_path.glob("*.pdf"))
+                if pdfs:
+                    return common_path
+    return None
+
 # 法令PDFの法令ID（ファイル名から自動判定）
 LAW_PDF_TO_ID = {
     "rodo_kijunho.pdf":        "rodo_kijunho",
@@ -104,23 +124,32 @@ def find_course_tasks() -> list:
             if course_id not in COURSE_IDS:
                 continue
 
-            # PDFがあるか確認
-            pdfs = list(course_dir.glob("*.pdf"))
-            if not pdfs:
-                continue
-
-            # 出力JSONが既に存在するか確認
+            # 出力JSONが既に存在するか確認（先にチェック）
             output_json = rule_dir / f"{year}_{date}_{course_id}.json"
             if output_json.exists():
                 log.info(f"  スキップ（既存）: {year}_{date}_{course_id}")
                 continue
+
+            # PDFがあるか確認（コース専用フォルダ優先、なければ共通フォルダ）
+            pdfs = list(course_dir.glob("*.pdf"))
+            pdf_folder = course_dir
+            if not pdfs:
+                common_folder = get_common_pdf_folder(year_date_dir, course_id)
+                if common_folder:
+                    pdfs = list(common_folder.glob("*.pdf"))
+                    pdf_folder = common_folder
+                    log.info(f"  共通PDFフォルダを使用: {common_folder.name} → {course_id}")
+                else:
+                    continue
 
             tasks.append({
                 "type":      "course",
                 "course_id": course_id,
                 "year":      year,
                 "date":      date,
-                "folder":    str(course_dir),
+                # 実際にPDFが入っているフォルダ（共通フォルダの場合もある）を保存する。
+                # course_dir ではなく解決済みの pdf_folder を渡すのが重要。
+                "folder":    str(pdf_folder),
                 "output":    str(output_json),
             })
 
@@ -203,6 +232,8 @@ def execute_course_task(task: dict) -> bool:
         "--course", task["course_id"],
         "--year",   task["year"],
         "--date",   task["date"],
+        # 検出時に解決したPDFフォルダ（共通フォルダの場合もある）を明示的に渡す
+        "--pdf-folder", task["folder"],
     ]
     return run_with_retry(cmd, f"{task['year']}_{task['date']}_{task['course_id']}")
 

@@ -1,1210 +1,544 @@
-2026-06-07 16:11:51,510 [INFO] ============================================================
-2026-06-07 16:11:51,511 [INFO]   AuditX 自動ビルドスクリプト 開始
-2026-06-07 16:11:51,512 [INFO]   開始時刻: 2026年06月07日 16:11:51
-2026-06-07 16:11:51,512 [INFO] ============================================================
-2026-06-07 16:11:51,512 [INFO] 
-✅ 処理対象のPDFが見つかりませんでした。
-2026-06-07 16:11:51,512 [INFO]    以下のフォルダにPDFを配置してから再実行してください:
-2026-06-07 16:11:51,512 [INFO]    助成金: knowledge\{年度}_{日付}\{コースID}\
-2026-06-07 16:11:51,512 [INFO]    法令:   knowledge\rodo_kijun\
-2026-06-07 16:41:33,538 [INFO] ============================================================
-2026-06-07 16:41:33,541 [INFO]   AuditX 自動ビルドスクリプト 開始
-2026-06-07 16:41:33,546 [INFO]   開始時刻: 2026年06月07日 16:41:33
-2026-06-07 16:41:33,546 [INFO] ============================================================
-2026-06-07 16:41:33,553 [INFO]   スキップ（既存）: law_dotsu_chingin
-2026-06-07 16:41:33,553 [INFO]   スキップ（既存）: law_dotsu_chingin_leaf
-2026-06-07 16:41:33,553 [INFO]   スキップ（既存）: law_hatarakikata
-2026-06-07 16:41:33,554 [INFO]   スキップ（既存）: law_ikukyu_ho
-2026-06-07 16:41:33,554 [INFO]   スキップ（既存）: law_rodo_kijunho
-2026-06-07 16:41:33,554 [INFO]   スキップ（既存）: law_rodo_kijunho_qa
-2026-06-07 16:41:33,554 [INFO] 
-📋 処理対象: 15件
-2026-06-07 16:41:33,555 [INFO]   [助成金] R05_0401_JH_kyuka
-2026-06-07 16:41:33,555 [INFO]   [助成金] R05_0401_KO65_tenkan
-2026-06-07 16:41:33,555 [INFO]   [助成金] R05_0626_JH_kyuka
-2026-06-07 16:41:33,555 [INFO]   [助成金] R05_0626_KO65_tenkan
-2026-06-07 16:41:33,555 [INFO]   [助成金] R06_0401_JH_kyuka
-2026-06-07 16:41:33,555 [INFO]   [助成金] R06_0401_JK_hyoka
-2026-06-07 16:41:33,555 [INFO]   [助成金] R06_0401_KO65_tenkan
-2026-06-07 16:41:33,556 [INFO]   [助成金] R07_0401_JH_kyuka
-2026-06-07 16:41:33,556 [INFO]   [助成金] R07_0401_JK_kanri
-2026-06-07 16:41:33,556 [INFO]   [助成金] R07_0401_KO65_tenkan
-2026-06-07 16:41:33,556 [INFO]   [助成金] R08_0408_JH_kyuka
-2026-06-07 16:41:33,556 [INFO]   [助成金] R08_0408_JK_kanri
-2026-06-07 16:41:33,556 [INFO]   [助成金] R08_0408_KO65_keizoku
-2026-06-07 16:41:33,556 [INFO]   [助成金] R08_0408_KO65_tenkan
-2026-06-07 16:41:33,556 [INFO]   [法令]   law_ikukyu_detail
-2026-06-07 16:41:33,556 [INFO] 
-2026-06-07 16:41:33,556 [INFO] 
-[1/15] 処理中: JH_kyuka
-2026-06-07 16:41:33,557 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JH_kyuka --year R05 --date 0401
-2026-06-07 16:41:36,551 [ERROR]   ❌ エラー（スキップ）: R05_0401_JH_kyuka
-2026-06-07 16:41:36,552 [ERROR]      7, in <module>
-    build_rule_knowledge(args.course, args.year, args.date)
-    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\s_got\Desktop\�N���[�h�R�[�h\auditx\build_rule_knowledge.py", line 242, in build_rule_knowledge
-    print(f"\u274c �G���[: '{pdf_folder}' ��PDF�t�@�C����������܂���B")
-    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-UnicodeEncodeError: 'cp932' codec can't encode character '\u274c' in position 0: illegal multibyte sequence
+2026-06-08 02:34:10,198 [INFO] ============================================================
+2026-06-08 02:34:10,199 [INFO]   AuditX 自動ビルドスクリプト 開始
+2026-06-08 02:34:10,199 [INFO]   開始時刻: 2026年06月08日 02:34:10
+2026-06-08 02:34:10,199 [INFO] ============================================================
+2026-06-08 02:34:10,199 [INFO] 
+[OK] 処理対象のPDFが見つかりませんでした。
+2026-06-08 02:34:10,199 [INFO]    以下のフォルダにPDFを配置してから再実行してください:
+2026-06-08 02:34:10,199 [INFO]    助成金: knowledge\{年度}_{日付}\{コースID}\
+2026-06-08 02:34:10,200 [INFO]    法令:   knowledge\rodo_kijun\
+2026-06-08 02:34:37,475 [INFO] ============================================================
+2026-06-08 02:34:37,475 [INFO]   AuditX 自動ビルドスクリプト 開始
+2026-06-08 02:34:37,475 [INFO]   開始時刻: 2026年06月08日 02:34:37
+2026-06-08 02:34:37,475 [INFO] ============================================================
+2026-06-08 02:34:37,476 [INFO]   スキップ（既存）: R05_0401_JH_kyuka
+2026-06-08 02:34:37,476 [INFO]   スキップ（既存）: R05_0401_KO65_tenkan
+2026-06-08 02:34:37,477 [INFO]   スキップ（既存）: R05_0626_JH_kyuka
+2026-06-08 02:34:37,477 [INFO]   スキップ（既存）: R05_0626_KO65_tenkan
+2026-06-08 02:34:37,477 [INFO]   スキップ（既存）: R05_0626_RY_ikukyu
+2026-06-08 02:34:37,477 [INFO]   スキップ（既存）: R06_0101_RY_daitai
+2026-06-08 02:34:37,478 [INFO]   スキップ（既存）: R06_0101_RY_ikukyu
+2026-06-08 02:34:37,478 [INFO]   スキップ（既存）: R06_0401_JH_kyuka
+2026-06-08 02:34:37,478 [INFO]   スキップ（既存）: R06_0401_JK_hyoka
+2026-06-08 02:34:37,478 [INFO]   スキップ（既存）: R06_0401_KO65_tenkan
+2026-06-08 02:34:37,479 [INFO]   共通PDFフォルダを使用: _RY_common → RY_daitai
+2026-06-08 02:34:37,480 [INFO]   共通PDFフォルダを使用: _RY_common → RY_funin
+2026-06-08 02:34:37,480 [INFO]   共通PDFフォルダを使用: _RY_common → RY_ikukyu
+2026-06-08 02:34:37,481 [INFO]   共通PDFフォルダを使用: _RY_common → RY_juman
+2026-06-08 02:34:37,481 [INFO]   共通PDFフォルダを使用: _RY_common → RY_kaigo
+2026-06-08 02:34:37,482 [INFO]   共通PDFフォルダを使用: _RY_common → RY_shussei
+2026-06-08 02:34:37,482 [INFO]   スキップ（既存）: R06_1217_RY_daitai
+2026-06-08 02:34:37,482 [INFO]   スキップ（既存）: R07_0401_JH_kyuka
+2026-06-08 02:34:37,482 [INFO]   スキップ（既存）: R07_0401_JK_kanri
+2026-06-08 02:34:37,482 [INFO]   スキップ（既存）: R07_0401_KO65_tenkan
+2026-06-08 02:34:37,483 [INFO]   共通PDFフォルダを使用: _RY_common → RY_daitai
+2026-06-08 02:34:37,483 [INFO]   共通PDFフォルダを使用: _RY_common → RY_funin
+2026-06-08 02:34:37,483 [INFO]   共通PDFフォルダを使用: _RY_common → RY_ikukyu
+2026-06-08 02:34:37,484 [INFO]   共通PDFフォルダを使用: _RY_common → RY_juman
+2026-06-08 02:34:37,484 [INFO]   共通PDFフォルダを使用: _RY_common → RY_kaigo
+2026-06-08 02:34:37,484 [INFO]   共通PDFフォルダを使用: _RY_common → RY_shussei
+2026-06-08 02:34:37,485 [INFO]   共通PDFフォルダを使用: _CA_common → CA_seishain
+2026-06-08 02:34:37,485 [INFO]   共通PDFフォルダを使用: _CA_common → CA_shoyo
+2026-06-08 02:34:37,488 [INFO]   共通PDFフォルダを使用: _RY_common → RY_daitai
+2026-06-08 02:34:37,489 [INFO]   共通PDFフォルダを使用: _RY_common → RY_funin
+2026-06-08 02:34:37,489 [INFO]   共通PDFフォルダを使用: _RY_common → RY_ikukyu
+2026-06-08 02:34:37,490 [INFO]   共通PDFフォルダを使用: _RY_common → RY_juman
+2026-06-08 02:34:37,490 [INFO]   共通PDFフォルダを使用: _RY_common → RY_kaigo
+2026-06-08 02:34:37,490 [INFO]   共通PDFフォルダを使用: _RY_common → RY_shussei
+2026-06-08 02:34:37,491 [INFO]   スキップ（既存）: R08_0408_JH_kyuka
+2026-06-08 02:34:37,492 [INFO]   スキップ（既存）: R08_0408_JK_kanri
+2026-06-08 02:34:37,492 [INFO]   スキップ（既存）: R08_0408_KO65_keizoku
+2026-06-08 02:34:37,492 [INFO]   スキップ（既存）: R08_0408_KO65_tenkan
+2026-06-08 02:34:37,492 [INFO]   共通PDFフォルダを使用: _RY_common → RY_daitai
+2026-06-08 02:34:37,492 [INFO]   共通PDFフォルダを使用: _RY_common → RY_funin
+2026-06-08 02:34:37,493 [INFO]   共通PDFフォルダを使用: _RY_common → RY_ikukyu
+2026-06-08 02:34:37,493 [INFO]   共通PDFフォルダを使用: _RY_common → RY_juman
+2026-06-08 02:34:37,493 [INFO]   共通PDFフォルダを使用: _RY_common → RY_kaigo
+2026-06-08 02:34:37,493 [INFO]   共通PDFフォルダを使用: _RY_common → RY_shussei
+2026-06-08 02:34:37,494 [INFO]   スキップ（既存）: law_dotsu_chingin
+2026-06-08 02:34:37,494 [INFO]   スキップ（既存）: law_dotsu_chingin_leaf
+2026-06-08 02:34:37,494 [INFO]   スキップ（既存）: law_hatarakikata
+2026-06-08 02:34:37,494 [INFO]   スキップ（既存）: law_ikukyu_detail
+2026-06-08 02:34:37,494 [INFO]   スキップ（既存）: law_ikukyu_ho
+2026-06-08 02:34:37,494 [INFO]   スキップ（既存）: law_rodo_kijunho
+2026-06-08 02:34:37,494 [INFO]   スキップ（既存）: law_rodo_kijunho_qa
+2026-06-08 02:34:37,494 [INFO] 
+[LIST] 処理対象: 26件
+2026-06-08 02:34:37,494 [INFO]   [助成金] R06_0401_RY_daitai
+2026-06-08 02:34:37,494 [INFO]   [助成金] R06_0401_RY_funin
+2026-06-08 02:34:37,494 [INFO]   [助成金] R06_0401_RY_ikukyu
+2026-06-08 02:34:37,495 [INFO]   [助成金] R06_0401_RY_juman
+2026-06-08 02:34:37,495 [INFO]   [助成金] R06_0401_RY_kaigo
+2026-06-08 02:34:37,495 [INFO]   [助成金] R06_0401_RY_shussei
+2026-06-08 02:34:37,495 [INFO]   [助成金] R07_0401_RY_daitai
+2026-06-08 02:34:37,495 [INFO]   [助成金] R07_0401_RY_funin
+2026-06-08 02:34:37,495 [INFO]   [助成金] R07_0401_RY_ikukyu
+2026-06-08 02:34:37,495 [INFO]   [助成金] R07_0401_RY_juman
+2026-06-08 02:34:37,495 [INFO]   [助成金] R07_0401_RY_kaigo
+2026-06-08 02:34:37,495 [INFO]   [助成金] R07_0401_RY_shussei
+2026-06-08 02:34:37,495 [INFO]   [助成金] R07_0701_CA_seishain
+2026-06-08 02:34:37,495 [INFO]   [助成金] R07_0701_CA_shoyo
+2026-06-08 02:34:37,495 [INFO]   [助成金] R07_1001_RY_daitai
+2026-06-08 02:34:37,495 [INFO]   [助成金] R07_1001_RY_funin
+2026-06-08 02:34:37,495 [INFO]   [助成金] R07_1001_RY_ikukyu
+2026-06-08 02:34:37,495 [INFO]   [助成金] R07_1001_RY_juman
+2026-06-08 02:34:37,495 [INFO]   [助成金] R07_1001_RY_kaigo
+2026-06-08 02:34:37,495 [INFO]   [助成金] R07_1001_RY_shussei
+2026-06-08 02:34:37,495 [INFO]   [助成金] R08_0408_RY_daitai
+2026-06-08 02:34:37,495 [INFO]   [助成金] R08_0408_RY_funin
+2026-06-08 02:34:37,495 [INFO]   [助成金] R08_0408_RY_ikukyu
+2026-06-08 02:34:37,496 [INFO]   [助成金] R08_0408_RY_juman
+2026-06-08 02:34:37,496 [INFO]   [助成金] R08_0408_RY_kaigo
+2026-06-08 02:34:37,496 [INFO]   [助成金] R08_0408_RY_shussei
+2026-06-08 02:34:37,496 [INFO] 
+2026-06-08 02:34:37,496 [INFO] 
+[1/26] 処理中: RY_daitai
+2026-06-08 02:34:37,496 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course RY_daitai --year R06 --date 0401
+2026-06-08 02:34:38,719 [ERROR]   [ERROR] エラー（スキップ）: R06_0401_RY_daitai
+2026-06-08 02:34:38,719 [ERROR]      Users\s_got\Desktop\クロードコード\auditx\knowledge\R06_0401\RY_daitai' にPDFファイルが見つかりません。
+C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
 
-2026-06-07 16:41:36,552 [INFO]   10秒待機中...
-2026-06-07 16:41:46,555 [INFO] 
-[2/15] 処理中: KO65_tenkan
-2026-06-07 16:41:46,556 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course KO65_tenkan --year R05 --date 0401
-2026-06-07 16:41:47,898 [ERROR]   ❌ エラー（スキップ）: R05_0401_KO65_tenkan
-2026-06-07 16:41:47,898 [ERROR]      7, in <module>
-    build_rule_knowledge(args.course, args.year, args.date)
-    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\s_got\Desktop\�N���[�h�R�[�h\auditx\build_rule_knowledge.py", line 242, in build_rule_knowledge
-    print(f"\u274c �G���[: '{pdf_folder}' ��PDF�t�@�C����������܂���B")
-    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-UnicodeEncodeError: 'cp932' codec can't encode character '\u274c' in position 0: illegal multibyte sequence
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
 
-2026-06-07 16:41:47,899 [INFO]   10秒待機中...
-2026-06-07 16:41:57,899 [INFO] 
-[3/15] 処理中: JH_kyuka
-2026-06-07 16:41:57,900 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JH_kyuka --year R05 --date 0626
-2026-06-07 16:41:59,343 [ERROR]   ❌ エラー（スキップ）: R05_0626_JH_kyuka
-2026-06-07 16:41:59,344 [ERROR]      7, in <module>
-    build_rule_knowledge(args.course, args.year, args.date)
-    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\s_got\Desktop\�N���[�h�R�[�h\auditx\build_rule_knowledge.py", line 242, in build_rule_knowledge
-    print(f"\u274c �G���[: '{pdf_folder}' ��PDF�t�@�C����������܂���B")
-    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-UnicodeEncodeError: 'cp932' codec can't encode character '\u274c' in position 0: illegal multibyte sequence
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
 
-2026-06-07 16:41:59,344 [INFO]   10秒待機中...
-2026-06-07 16:42:09,345 [INFO] 
-[4/15] 処理中: KO65_tenkan
-2026-06-07 16:42:09,346 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course KO65_tenkan --year R05 --date 0626
-2026-06-07 16:42:10,726 [ERROR]   ❌ エラー（スキップ）: R05_0626_KO65_tenkan
-2026-06-07 16:42:10,727 [ERROR]      7, in <module>
-    build_rule_knowledge(args.course, args.year, args.date)
-    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\s_got\Desktop\�N���[�h�R�[�h\auditx\build_rule_knowledge.py", line 242, in build_rule_knowledge
-    print(f"\u274c �G���[: '{pdf_folder}' ��PDF�t�@�C����������܂���B")
-    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-UnicodeEncodeError: 'cp932' codec can't encode character '\u274c' in position 0: illegal multibyte sequence
+  import google.generativeai as genai
 
-2026-06-07 16:42:10,728 [INFO]   10秒待機中...
-2026-06-07 16:42:20,805 [INFO] 
-[5/15] 処理中: JH_kyuka
-2026-06-07 16:42:20,822 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JH_kyuka --year R06 --date 0401
-2026-06-07 16:42:22,127 [ERROR]   ❌ エラー（スキップ）: R06_0401_JH_kyuka
-2026-06-07 16:42:22,127 [ERROR]      7, in <module>
-    build_rule_knowledge(args.course, args.year, args.date)
-    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\s_got\Desktop\�N���[�h�R�[�h\auditx\build_rule_knowledge.py", line 242, in build_rule_knowledge
-    print(f"\u274c �G���[: '{pdf_folder}' ��PDF�t�@�C����������܂���B")
-    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-UnicodeEncodeError: 'cp932' codec can't encode character '\u274c' in position 0: illegal multibyte sequence
+2026-06-08 02:34:38,720 [INFO]   10秒待機中...
+2026-06-08 02:34:48,720 [INFO] 
+[2/26] 処理中: RY_funin
+2026-06-08 02:34:48,721 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course RY_funin --year R06 --date 0401
+2026-06-08 02:34:49,924 [ERROR]   [ERROR] エラー（スキップ）: R06_0401_RY_funin
+2026-06-08 02:34:49,924 [ERROR]      \Users\s_got\Desktop\クロードコード\auditx\knowledge\R06_0401\RY_funin' にPDFファイルが見つかりません。
+C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
 
-2026-06-07 16:42:22,127 [INFO]   10秒待機中...
-2026-06-07 16:42:32,128 [INFO] 
-[6/15] 処理中: JK_hyoka
-2026-06-07 16:42:32,130 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JK_hyoka --year R06 --date 0401
-2026-06-07 16:42:33,489 [ERROR]   ❌ エラー（スキップ）: R06_0401_JK_hyoka
-2026-06-07 16:42:33,490 [ERROR]      7, in <module>
-    build_rule_knowledge(args.course, args.year, args.date)
-    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\s_got\Desktop\�N���[�h�R�[�h\auditx\build_rule_knowledge.py", line 242, in build_rule_knowledge
-    print(f"\u274c �G���[: '{pdf_folder}' ��PDF�t�@�C����������܂���B")
-    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-UnicodeEncodeError: 'cp932' codec can't encode character '\u274c' in position 0: illegal multibyte sequence
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
 
-2026-06-07 16:42:33,491 [INFO]   10秒待機中...
-2026-06-07 16:42:43,492 [INFO] 
-[7/15] 処理中: KO65_tenkan
-2026-06-07 16:42:43,492 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course KO65_tenkan --year R06 --date 0401
-2026-06-07 16:42:44,815 [ERROR]   ❌ エラー（スキップ）: R06_0401_KO65_tenkan
-2026-06-07 16:42:44,815 [ERROR]      7, in <module>
-    build_rule_knowledge(args.course, args.year, args.date)
-    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\s_got\Desktop\�N���[�h�R�[�h\auditx\build_rule_knowledge.py", line 242, in build_rule_knowledge
-    print(f"\u274c �G���[: '{pdf_folder}' ��PDF�t�@�C����������܂���B")
-    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-UnicodeEncodeError: 'cp932' codec can't encode character '\u274c' in position 0: illegal multibyte sequence
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
 
-2026-06-07 16:42:44,816 [INFO]   10秒待機中...
-2026-06-07 16:42:54,820 [INFO] 
-[8/15] 処理中: JH_kyuka
-2026-06-07 16:42:54,821 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JH_kyuka --year R07 --date 0401
-2026-06-07 16:42:56,218 [ERROR]   ❌ エラー（スキップ）: R07_0401_JH_kyuka
-2026-06-07 16:42:56,219 [ERROR]      7, in <module>
-    build_rule_knowledge(args.course, args.year, args.date)
-    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\s_got\Desktop\�N���[�h�R�[�h\auditx\build_rule_knowledge.py", line 242, in build_rule_knowledge
-    print(f"\u274c �G���[: '{pdf_folder}' ��PDF�t�@�C����������܂���B")
-    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-UnicodeEncodeError: 'cp932' codec can't encode character '\u274c' in position 0: illegal multibyte sequence
+  import google.generativeai as genai
 
-2026-06-07 16:42:56,219 [INFO]   10秒待機中...
-2026-06-07 16:43:06,220 [INFO] 
-[9/15] 処理中: JK_kanri
-2026-06-07 16:43:06,220 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JK_kanri --year R07 --date 0401
-2026-06-07 16:43:07,566 [ERROR]   ❌ エラー（スキップ）: R07_0401_JK_kanri
-2026-06-07 16:43:07,566 [ERROR]      7, in <module>
-    build_rule_knowledge(args.course, args.year, args.date)
-    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\s_got\Desktop\�N���[�h�R�[�h\auditx\build_rule_knowledge.py", line 242, in build_rule_knowledge
-    print(f"\u274c �G���[: '{pdf_folder}' ��PDF�t�@�C����������܂���B")
-    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-UnicodeEncodeError: 'cp932' codec can't encode character '\u274c' in position 0: illegal multibyte sequence
+2026-06-08 02:34:49,924 [INFO]   10秒待機中...
+2026-06-08 02:34:59,925 [INFO] 
+[3/26] 処理中: RY_ikukyu
+2026-06-08 02:34:59,926 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course RY_ikukyu --year R06 --date 0401
+2026-06-08 02:35:01,277 [ERROR]   [ERROR] エラー（スキップ）: R06_0401_RY_ikukyu
+2026-06-08 02:35:01,277 [ERROR]      Users\s_got\Desktop\クロードコード\auditx\knowledge\R06_0401\RY_ikukyu' にPDFファイルが見つかりません。
+C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
 
-2026-06-07 16:43:07,566 [INFO]   10秒待機中...
-2026-06-07 16:43:17,567 [INFO] 
-[10/15] 処理中: KO65_tenkan
-2026-06-07 16:43:17,568 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course KO65_tenkan --year R07 --date 0401
-2026-06-07 16:43:18,948 [ERROR]   ❌ エラー（スキップ）: R07_0401_KO65_tenkan
-2026-06-07 16:43:18,949 [ERROR]      7, in <module>
-    build_rule_knowledge(args.course, args.year, args.date)
-    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\s_got\Desktop\�N���[�h�R�[�h\auditx\build_rule_knowledge.py", line 242, in build_rule_knowledge
-    print(f"\u274c �G���[: '{pdf_folder}' ��PDF�t�@�C����������܂���B")
-    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-UnicodeEncodeError: 'cp932' codec can't encode character '\u274c' in position 0: illegal multibyte sequence
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
 
-2026-06-07 16:43:18,949 [INFO]   10秒待機中...
-2026-06-07 16:43:28,950 [INFO] 
-[11/15] 処理中: JH_kyuka
-2026-06-07 16:43:28,953 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JH_kyuka --year R08 --date 0408
-2026-06-07 16:43:30,230 [ERROR]   ❌ エラー（スキップ）: R08_0408_JH_kyuka
-2026-06-07 16:43:30,230 [ERROR]      7, in <module>
-    build_rule_knowledge(args.course, args.year, args.date)
-    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\s_got\Desktop\�N���[�h�R�[�h\auditx\build_rule_knowledge.py", line 242, in build_rule_knowledge
-    print(f"\u274c �G���[: '{pdf_folder}' ��PDF�t�@�C����������܂���B")
-    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-UnicodeEncodeError: 'cp932' codec can't encode character '\u274c' in position 0: illegal multibyte sequence
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
 
-2026-06-07 16:43:30,231 [INFO]   10秒待機中...
-2026-06-07 16:43:40,232 [INFO] 
-[12/15] 処理中: JK_kanri
-2026-06-07 16:43:40,237 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JK_kanri --year R08 --date 0408
-2026-06-07 16:43:41,475 [ERROR]   ❌ エラー（スキップ）: R08_0408_JK_kanri
-2026-06-07 16:43:41,476 [ERROR]      7, in <module>
-    build_rule_knowledge(args.course, args.year, args.date)
-    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\s_got\Desktop\�N���[�h�R�[�h\auditx\build_rule_knowledge.py", line 242, in build_rule_knowledge
-    print(f"\u274c �G���[: '{pdf_folder}' ��PDF�t�@�C����������܂���B")
-    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-UnicodeEncodeError: 'cp932' codec can't encode character '\u274c' in position 0: illegal multibyte sequence
+  import google.generativeai as genai
 
-2026-06-07 16:43:41,477 [INFO]   10秒待機中...
-2026-06-07 16:43:51,482 [INFO] 
-[13/15] 処理中: KO65_keizoku
-2026-06-07 16:43:51,487 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course KO65_keizoku --year R08 --date 0408
-2026-06-07 16:43:53,084 [ERROR]   ❌ エラー（スキップ）: R08_0408_KO65_keizoku
-2026-06-07 16:43:53,086 [ERROR]      7, in <module>
-    build_rule_knowledge(args.course, args.year, args.date)
-    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\s_got\Desktop\�N���[�h�R�[�h\auditx\build_rule_knowledge.py", line 242, in build_rule_knowledge
-    print(f"\u274c �G���[: '{pdf_folder}' ��PDF�t�@�C����������܂���B")
-    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-UnicodeEncodeError: 'cp932' codec can't encode character '\u274c' in position 0: illegal multibyte sequence
+2026-06-08 02:35:01,278 [INFO]   10秒待機中...
+2026-06-08 02:35:11,279 [INFO] 
+[4/26] 処理中: RY_juman
+2026-06-08 02:35:11,280 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course RY_juman --year R06 --date 0401
+2026-06-08 02:35:12,689 [ERROR]   [ERROR] エラー（スキップ）: R06_0401_RY_juman
+2026-06-08 02:35:12,690 [ERROR]      \Users\s_got\Desktop\クロードコード\auditx\knowledge\R06_0401\RY_juman' にPDFファイルが見つかりません。
+C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
 
-2026-06-07 16:43:53,087 [INFO]   10秒待機中...
-2026-06-07 16:44:03,088 [INFO] 
-[14/15] 処理中: KO65_tenkan
-2026-06-07 16:44:03,092 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course KO65_tenkan --year R08 --date 0408
-2026-06-07 16:44:04,438 [ERROR]   ❌ エラー（スキップ）: R08_0408_KO65_tenkan
-2026-06-07 16:44:04,443 [ERROR]      7, in <module>
-    build_rule_knowledge(args.course, args.year, args.date)
-    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\s_got\Desktop\�N���[�h�R�[�h\auditx\build_rule_knowledge.py", line 242, in build_rule_knowledge
-    print(f"\u274c �G���[: '{pdf_folder}' ��PDF�t�@�C����������܂���B")
-    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-UnicodeEncodeError: 'cp932' codec can't encode character '\u274c' in position 0: illegal multibyte sequence
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
 
-2026-06-07 16:44:04,444 [INFO]   10秒待機中...
-2026-06-07 16:44:14,445 [INFO] 
-[15/15] 処理中: ikukyu_detail
-2026-06-07 16:44:14,449 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_law_knowledge.py --law ikukyu_detail --pdf C:\Users\s_got\Desktop\クロードコード\auditx\knowledge\rodo_kijun\ikukyu_detail.pdf
-2026-06-07 16:44:17,273 [ERROR]   ❌ エラー（スキップ）: law_ikukyu_detail
-2026-06-07 16:44:17,273 [ERROR]      ine 275, in <module>
-    build_law_knowledge(args.law, args.pdf)
-    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\s_got\Desktop\�N���[�h�R�[�h\auditx\build_law_knowledge.py", line 213, in build_law_knowledge
-    print(f"\U0001f4c4 �S{total_pages}�y�[�W / {len(batch_ranges)}�o�b�`�ŏ������܂�\n")
-    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-UnicodeEncodeError: 'cp932' codec can't encode character '\U0001f4c4' in position 0: illegal multibyte sequence
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
 
-2026-06-07 16:44:17,274 [INFO] 
+  import google.generativeai as genai
+
+2026-06-08 02:35:12,692 [INFO]   10秒待機中...
+2026-06-08 02:35:22,698 [INFO] 
+[5/26] 処理中: RY_kaigo
+2026-06-08 02:35:22,702 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course RY_kaigo --year R06 --date 0401
+2026-06-08 02:35:24,214 [ERROR]   [ERROR] エラー（スキップ）: R06_0401_RY_kaigo
+2026-06-08 02:35:24,215 [ERROR]      \Users\s_got\Desktop\クロードコード\auditx\knowledge\R06_0401\RY_kaigo' にPDFファイルが見つかりません。
+C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+
+2026-06-08 02:35:24,215 [INFO]   10秒待機中...
+2026-06-08 02:35:34,217 [INFO] 
+[6/26] 処理中: RY_shussei
+2026-06-08 02:35:34,219 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course RY_shussei --year R06 --date 0401
+2026-06-08 02:35:35,699 [ERROR]   [ERROR] エラー（スキップ）: R06_0401_RY_shussei
+2026-06-08 02:35:35,705 [ERROR]      sers\s_got\Desktop\クロードコード\auditx\knowledge\R06_0401\RY_shussei' にPDFファイルが見つかりません。
+C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+
+2026-06-08 02:35:35,706 [INFO]   10秒待機中...
+2026-06-08 02:35:45,706 [INFO] 
+[7/26] 処理中: RY_daitai
+2026-06-08 02:35:45,708 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course RY_daitai --year R07 --date 0401
+2026-06-08 02:35:47,167 [ERROR]   [ERROR] エラー（スキップ）: R07_0401_RY_daitai
+2026-06-08 02:35:47,168 [ERROR]      Users\s_got\Desktop\クロードコード\auditx\knowledge\R07_0401\RY_daitai' にPDFファイルが見つかりません。
+C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+
+2026-06-08 02:35:47,168 [INFO]   10秒待機中...
+2026-06-08 02:35:57,169 [INFO] 
+[8/26] 処理中: RY_funin
+2026-06-08 02:35:57,176 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course RY_funin --year R07 --date 0401
+2026-06-08 02:35:58,497 [ERROR]   [ERROR] エラー（スキップ）: R07_0401_RY_funin
+2026-06-08 02:35:58,498 [ERROR]      \Users\s_got\Desktop\クロードコード\auditx\knowledge\R07_0401\RY_funin' にPDFファイルが見つかりません。
+C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+
+2026-06-08 02:35:58,498 [INFO]   10秒待機中...
+2026-06-08 02:36:08,500 [INFO] 
+[9/26] 処理中: RY_ikukyu
+2026-06-08 02:36:08,501 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course RY_ikukyu --year R07 --date 0401
+2026-06-08 02:36:09,963 [ERROR]   [ERROR] エラー（スキップ）: R07_0401_RY_ikukyu
+2026-06-08 02:36:09,964 [ERROR]      Users\s_got\Desktop\クロードコード\auditx\knowledge\R07_0401\RY_ikukyu' にPDFファイルが見つかりません。
+C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+
+2026-06-08 02:36:09,964 [INFO]   10秒待機中...
+2026-06-08 02:36:19,964 [INFO] 
+[10/26] 処理中: RY_juman
+2026-06-08 02:36:19,972 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course RY_juman --year R07 --date 0401
+2026-06-08 02:36:21,354 [ERROR]   [ERROR] エラー（スキップ）: R07_0401_RY_juman
+2026-06-08 02:36:21,354 [ERROR]      \Users\s_got\Desktop\クロードコード\auditx\knowledge\R07_0401\RY_juman' にPDFファイルが見つかりません。
+C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+
+2026-06-08 02:36:21,354 [INFO]   10秒待機中...
+2026-06-08 02:36:31,355 [INFO] 
+[11/26] 処理中: RY_kaigo
+2026-06-08 02:36:31,357 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course RY_kaigo --year R07 --date 0401
+2026-06-08 02:36:32,722 [ERROR]   [ERROR] エラー（スキップ）: R07_0401_RY_kaigo
+2026-06-08 02:36:32,723 [ERROR]      \Users\s_got\Desktop\クロードコード\auditx\knowledge\R07_0401\RY_kaigo' にPDFファイルが見つかりません。
+C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+
+2026-06-08 02:36:32,724 [INFO]   10秒待機中...
+2026-06-08 02:36:42,725 [INFO] 
+[12/26] 処理中: RY_shussei
+2026-06-08 02:36:42,740 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course RY_shussei --year R07 --date 0401
+2026-06-08 02:36:44,220 [ERROR]   [ERROR] エラー（スキップ）: R07_0401_RY_shussei
+2026-06-08 02:36:44,221 [ERROR]      sers\s_got\Desktop\クロードコード\auditx\knowledge\R07_0401\RY_shussei' にPDFファイルが見つかりません。
+C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+
+2026-06-08 02:36:44,221 [INFO]   10秒待機中...
+2026-06-08 02:36:54,222 [INFO] 
+[13/26] 処理中: CA_seishain
+2026-06-08 02:36:54,231 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course CA_seishain --year R07 --date 0701
+2026-06-08 02:36:55,593 [ERROR]   [ERROR] エラー（スキップ）: R07_0701_CA_seishain
+2026-06-08 02:36:55,594 [ERROR]      ers\s_got\Desktop\クロードコード\auditx\knowledge\R07_0701\CA_seishain' にPDFファイルが見つかりません。
+C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+
+2026-06-08 02:36:55,594 [INFO]   10秒待機中...
+2026-06-08 02:37:05,596 [INFO] 
+[14/26] 処理中: CA_shoyo
+2026-06-08 02:37:05,599 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course CA_shoyo --year R07 --date 0701
+2026-06-08 02:37:07,158 [ERROR]   [ERROR] エラー（スキップ）: R07_0701_CA_shoyo
+2026-06-08 02:37:07,159 [ERROR]      \Users\s_got\Desktop\クロードコード\auditx\knowledge\R07_0701\CA_shoyo' にPDFファイルが見つかりません。
+C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+
+2026-06-08 02:37:07,159 [INFO]   10秒待機中...
+2026-06-08 02:37:17,169 [INFO] 
+[15/26] 処理中: RY_daitai
+2026-06-08 02:37:17,175 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course RY_daitai --year R07 --date 1001
+2026-06-08 02:37:18,618 [ERROR]   [ERROR] エラー（スキップ）: R07_1001_RY_daitai
+2026-06-08 02:37:18,619 [ERROR]      Users\s_got\Desktop\クロードコード\auditx\knowledge\R07_1001\RY_daitai' にPDFファイルが見つかりません。
+C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+
+2026-06-08 02:37:18,619 [INFO]   10秒待機中...
+2026-06-08 02:37:28,621 [INFO] 
+[16/26] 処理中: RY_funin
+2026-06-08 02:37:28,623 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course RY_funin --year R07 --date 1001
+2026-06-08 02:37:30,028 [ERROR]   [ERROR] エラー（スキップ）: R07_1001_RY_funin
+2026-06-08 02:37:30,028 [ERROR]      \Users\s_got\Desktop\クロードコード\auditx\knowledge\R07_1001\RY_funin' にPDFファイルが見つかりません。
+C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+
+2026-06-08 02:37:30,029 [INFO]   10秒待機中...
+2026-06-08 02:37:40,030 [INFO] 
+[17/26] 処理中: RY_ikukyu
+2026-06-08 02:37:40,031 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course RY_ikukyu --year R07 --date 1001
+2026-06-08 02:37:41,513 [ERROR]   [ERROR] エラー（スキップ）: R07_1001_RY_ikukyu
+2026-06-08 02:37:41,514 [ERROR]      Users\s_got\Desktop\クロードコード\auditx\knowledge\R07_1001\RY_ikukyu' にPDFファイルが見つかりません。
+C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+
+2026-06-08 02:37:41,514 [INFO]   10秒待機中...
+2026-06-08 02:37:51,514 [INFO] 
+[18/26] 処理中: RY_juman
+2026-06-08 02:37:51,515 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course RY_juman --year R07 --date 1001
+2026-06-08 02:37:52,836 [ERROR]   [ERROR] エラー（スキップ）: R07_1001_RY_juman
+2026-06-08 02:37:52,836 [ERROR]      \Users\s_got\Desktop\クロードコード\auditx\knowledge\R07_1001\RY_juman' にPDFファイルが見つかりません。
+C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+
+2026-06-08 02:37:52,836 [INFO]   10秒待機中...
+2026-06-08 02:38:02,842 [INFO] 
+[19/26] 処理中: RY_kaigo
+2026-06-08 02:38:02,846 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course RY_kaigo --year R07 --date 1001
+2026-06-08 02:38:04,186 [ERROR]   [ERROR] エラー（スキップ）: R07_1001_RY_kaigo
+2026-06-08 02:38:04,187 [ERROR]      \Users\s_got\Desktop\クロードコード\auditx\knowledge\R07_1001\RY_kaigo' にPDFファイルが見つかりません。
+C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+
+2026-06-08 02:38:04,187 [INFO]   10秒待機中...
+2026-06-08 02:38:14,188 [INFO] 
+[20/26] 処理中: RY_shussei
+2026-06-08 02:38:14,189 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course RY_shussei --year R07 --date 1001
+2026-06-08 02:38:15,582 [ERROR]   [ERROR] エラー（スキップ）: R07_1001_RY_shussei
+2026-06-08 02:38:15,582 [ERROR]      sers\s_got\Desktop\クロードコード\auditx\knowledge\R07_1001\RY_shussei' にPDFファイルが見つかりません。
+C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+
+2026-06-08 02:38:15,582 [INFO]   10秒待機中...
+2026-06-08 02:38:25,583 [INFO] 
+[21/26] 処理中: RY_daitai
+2026-06-08 02:38:25,585 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course RY_daitai --year R08 --date 0408
+2026-06-08 02:38:26,900 [ERROR]   [ERROR] エラー（スキップ）: R08_0408_RY_daitai
+2026-06-08 02:38:26,901 [ERROR]      Users\s_got\Desktop\クロードコード\auditx\knowledge\R08_0408\RY_daitai' にPDFファイルが見つかりません。
+C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+
+2026-06-08 02:38:26,901 [INFO]   10秒待機中...
+2026-06-08 02:38:36,902 [INFO] 
+[22/26] 処理中: RY_funin
+2026-06-08 02:38:36,903 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course RY_funin --year R08 --date 0408
+2026-06-08 02:38:38,233 [ERROR]   [ERROR] エラー（スキップ）: R08_0408_RY_funin
+2026-06-08 02:38:38,234 [ERROR]      \Users\s_got\Desktop\クロードコード\auditx\knowledge\R08_0408\RY_funin' にPDFファイルが見つかりません。
+C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+
+2026-06-08 02:38:38,235 [INFO]   10秒待機中...
+2026-06-08 02:38:48,236 [INFO] 
+[23/26] 処理中: RY_ikukyu
+2026-06-08 02:38:48,238 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course RY_ikukyu --year R08 --date 0408
+2026-06-08 02:38:49,723 [ERROR]   [ERROR] エラー（スキップ）: R08_0408_RY_ikukyu
+2026-06-08 02:38:49,724 [ERROR]      Users\s_got\Desktop\クロードコード\auditx\knowledge\R08_0408\RY_ikukyu' にPDFファイルが見つかりません。
+C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+
+2026-06-08 02:38:49,724 [INFO]   10秒待機中...
+2026-06-08 02:38:59,726 [INFO] 
+[24/26] 処理中: RY_juman
+2026-06-08 02:38:59,732 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course RY_juman --year R08 --date 0408
+2026-06-08 02:39:01,150 [ERROR]   [ERROR] エラー（スキップ）: R08_0408_RY_juman
+2026-06-08 02:39:01,150 [ERROR]      \Users\s_got\Desktop\クロードコード\auditx\knowledge\R08_0408\RY_juman' にPDFファイルが見つかりません。
+C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+
+2026-06-08 02:39:01,150 [INFO]   10秒待機中...
+2026-06-08 02:39:11,151 [INFO] 
+[25/26] 処理中: RY_kaigo
+2026-06-08 02:39:11,152 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course RY_kaigo --year R08 --date 0408
+2026-06-08 02:39:12,484 [ERROR]   [ERROR] エラー（スキップ）: R08_0408_RY_kaigo
+2026-06-08 02:39:12,484 [ERROR]      \Users\s_got\Desktop\クロードコード\auditx\knowledge\R08_0408\RY_kaigo' にPDFファイルが見つかりません。
+C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+
+2026-06-08 02:39:12,485 [INFO]   10秒待機中...
+2026-06-08 02:39:22,485 [INFO] 
+[26/26] 処理中: RY_shussei
+2026-06-08 02:39:22,487 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course RY_shussei --year R08 --date 0408
+2026-06-08 02:39:23,894 [ERROR]   [ERROR] エラー（スキップ）: R08_0408_RY_shussei
+2026-06-08 02:39:23,895 [ERROR]      sers\s_got\Desktop\クロードコード\auditx\knowledge\R08_0408\RY_shussei' にPDFファイルが見つかりません。
+C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+
+2026-06-08 02:39:23,896 [INFO] 
 ============================================================
-2026-06-07 16:44:17,274 [INFO]   処理完了
-2026-06-07 16:44:17,274 [INFO]   ✅ 成功: 0件
-2026-06-07 16:44:17,274 [INFO]   ❌ 失敗: 15件
-2026-06-07 16:44:17,274 [INFO]   失敗したタスク:
-2026-06-07 16:44:17,275 [INFO]     - JH_kyuka
-2026-06-07 16:44:17,275 [INFO]     - KO65_tenkan
-2026-06-07 16:44:17,275 [INFO]     - JH_kyuka
-2026-06-07 16:44:17,275 [INFO]     - KO65_tenkan
-2026-06-07 16:44:17,275 [INFO]     - JH_kyuka
-2026-06-07 16:44:17,275 [INFO]     - JK_hyoka
-2026-06-07 16:44:17,275 [INFO]     - KO65_tenkan
-2026-06-07 16:44:17,275 [INFO]     - JH_kyuka
-2026-06-07 16:44:17,275 [INFO]     - JK_kanri
-2026-06-07 16:44:17,276 [INFO]     - KO65_tenkan
-2026-06-07 16:44:17,276 [INFO]     - JH_kyuka
-2026-06-07 16:44:17,276 [INFO]     - JK_kanri
-2026-06-07 16:44:17,276 [INFO]     - KO65_keizoku
-2026-06-07 16:44:17,276 [INFO]     - KO65_tenkan
-2026-06-07 16:44:17,276 [INFO]     - ikukyu_detail
-2026-06-07 16:44:17,276 [INFO]   終了時刻: 2026年06月07日 16:44:17
-2026-06-07 16:44:17,276 [INFO] ============================================================
-2026-06-07 16:44:17,277 [INFO] 
-📝 ログファイル: C:\Users\s_got\Desktop\クロードコード\auditx\auto_build.log
-2026-06-07 16:47:02,740 [INFO] ============================================================
-2026-06-07 16:47:02,740 [INFO]   AuditX 自動ビルドスクリプト 開始
-2026-06-07 16:47:02,740 [INFO]   開始時刻: 2026年06月07日 16:47:02
-2026-06-07 16:47:02,740 [INFO] ============================================================
-2026-06-07 16:47:02,742 [INFO]   スキップ（既存）: law_dotsu_chingin
-2026-06-07 16:47:02,743 [INFO]   スキップ（既存）: law_dotsu_chingin_leaf
-2026-06-07 16:47:02,744 [INFO]   スキップ（既存）: law_hatarakikata
-2026-06-07 16:47:02,744 [INFO]   スキップ（既存）: law_ikukyu_ho
-2026-06-07 16:47:02,744 [INFO]   スキップ（既存）: law_rodo_kijunho
-2026-06-07 16:47:02,744 [INFO]   スキップ（既存）: law_rodo_kijunho_qa
-2026-06-07 16:47:02,744 [INFO] 
-[LIST] 処理対象: 15件
-2026-06-07 16:47:02,744 [INFO]   [助成金] R05_0401_JH_kyuka
-2026-06-07 16:47:02,744 [INFO]   [助成金] R05_0401_KO65_tenkan
-2026-06-07 16:47:02,744 [INFO]   [助成金] R05_0626_JH_kyuka
-2026-06-07 16:47:02,744 [INFO]   [助成金] R05_0626_KO65_tenkan
-2026-06-07 16:47:02,744 [INFO]   [助成金] R06_0401_JH_kyuka
-2026-06-07 16:47:02,744 [INFO]   [助成金] R06_0401_JK_hyoka
-2026-06-07 16:47:02,744 [INFO]   [助成金] R06_0401_KO65_tenkan
-2026-06-07 16:47:02,745 [INFO]   [助成金] R07_0401_JH_kyuka
-2026-06-07 16:47:02,745 [INFO]   [助成金] R07_0401_JK_kanri
-2026-06-07 16:47:02,745 [INFO]   [助成金] R07_0401_KO65_tenkan
-2026-06-07 16:47:02,745 [INFO]   [助成金] R08_0408_JH_kyuka
-2026-06-07 16:47:02,745 [INFO]   [助成金] R08_0408_JK_kanri
-2026-06-07 16:47:02,745 [INFO]   [助成金] R08_0408_KO65_keizoku
-2026-06-07 16:47:02,745 [INFO]   [助成金] R08_0408_KO65_tenkan
-2026-06-07 16:47:02,745 [INFO]   [法令]   law_ikukyu_detail
-2026-06-07 16:47:02,745 [INFO] 
-2026-06-07 16:47:02,745 [INFO] 
-[1/15] 処理中: JH_kyuka
-2026-06-07 16:47:02,745 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JH_kyuka --year R05 --date 0401
-2026-06-07 16:47:03,956 [ERROR]   [ERROR] エラー（スキップ）: R05_0401_JH_kyuka
-2026-06-07 16:47:03,957 [ERROR]      \Users\s_got\Desktop\クロードコード\auditx\knowledge\R05_0401\JH_kyuka' にPDFファイルが見つかりません。
-C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
-
-All support for the `google.generativeai` package has ended. It will no longer be receiving 
-updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
-See README for more details:
-
-https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
-
-  import google.generativeai as genai
-
-2026-06-07 16:47:03,959 [INFO]   10秒待機中...
-2026-06-07 16:47:13,960 [INFO] 
-[2/15] 処理中: KO65_tenkan
-2026-06-07 16:47:13,962 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course KO65_tenkan --year R05 --date 0401
-2026-06-07 16:47:15,155 [ERROR]   [ERROR] エラー（スキップ）: R05_0401_KO65_tenkan
-2026-06-07 16:47:15,155 [ERROR]      ers\s_got\Desktop\クロードコード\auditx\knowledge\R05_0401\KO65_tenkan' にPDFファイルが見つかりません。
-C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
-
-All support for the `google.generativeai` package has ended. It will no longer be receiving 
-updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
-See README for more details:
-
-https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
-
-  import google.generativeai as genai
-
-2026-06-07 16:47:15,155 [INFO]   10秒待機中...
-2026-06-07 16:47:25,156 [INFO] 
-[3/15] 処理中: JH_kyuka
-2026-06-07 16:47:25,158 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JH_kyuka --year R05 --date 0626
-2026-06-07 16:47:26,535 [ERROR]   [ERROR] エラー（スキップ）: R05_0626_JH_kyuka
-2026-06-07 16:47:26,536 [ERROR]      \Users\s_got\Desktop\クロードコード\auditx\knowledge\R05_0626\JH_kyuka' にPDFファイルが見つかりません。
-C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
-
-All support for the `google.generativeai` package has ended. It will no longer be receiving 
-updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
-See README for more details:
-
-https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
-
-  import google.generativeai as genai
-
-2026-06-07 16:47:26,538 [INFO]   10秒待機中...
-2026-06-07 16:47:36,539 [INFO] 
-[4/15] 処理中: KO65_tenkan
-2026-06-07 16:47:36,540 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course KO65_tenkan --year R05 --date 0626
-2026-06-07 16:47:37,874 [ERROR]   [ERROR] エラー（スキップ）: R05_0626_KO65_tenkan
-2026-06-07 16:47:37,874 [ERROR]      ers\s_got\Desktop\クロードコード\auditx\knowledge\R05_0626\KO65_tenkan' にPDFファイルが見つかりません。
-C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
-
-All support for the `google.generativeai` package has ended. It will no longer be receiving 
-updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
-See README for more details:
-
-https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
-
-  import google.generativeai as genai
-
-2026-06-07 16:47:37,875 [INFO]   10秒待機中...
-2026-06-07 16:47:47,876 [INFO] 
-[5/15] 処理中: JH_kyuka
-2026-06-07 16:47:47,878 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JH_kyuka --year R06 --date 0401
-2026-06-07 16:47:49,197 [ERROR]   [ERROR] エラー（スキップ）: R06_0401_JH_kyuka
-2026-06-07 16:47:49,197 [ERROR]      \Users\s_got\Desktop\クロードコード\auditx\knowledge\R06_0401\JH_kyuka' にPDFファイルが見つかりません。
-C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
-
-All support for the `google.generativeai` package has ended. It will no longer be receiving 
-updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
-See README for more details:
-
-https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
-
-  import google.generativeai as genai
-
-2026-06-07 16:47:49,198 [INFO]   10秒待機中...
-2026-06-07 16:47:59,199 [INFO] 
-[6/15] 処理中: JK_hyoka
-2026-06-07 16:47:59,200 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JK_hyoka --year R06 --date 0401
-2026-06-07 16:48:00,606 [ERROR]   [ERROR] エラー（スキップ）: R06_0401_JK_hyoka
-2026-06-07 16:48:00,606 [ERROR]      \Users\s_got\Desktop\クロードコード\auditx\knowledge\R06_0401\JK_hyoka' にPDFファイルが見つかりません。
-C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
-
-All support for the `google.generativeai` package has ended. It will no longer be receiving 
-updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
-See README for more details:
-
-https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
-
-  import google.generativeai as genai
-
-2026-06-07 16:48:00,607 [INFO]   10秒待機中...
-2026-06-07 16:48:10,607 [INFO] 
-[7/15] 処理中: KO65_tenkan
-2026-06-07 16:48:10,626 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course KO65_tenkan --year R06 --date 0401
-2026-06-07 16:48:11,852 [ERROR]   [ERROR] エラー（スキップ）: R06_0401_KO65_tenkan
-2026-06-07 16:48:11,852 [ERROR]      ers\s_got\Desktop\クロードコード\auditx\knowledge\R06_0401\KO65_tenkan' にPDFファイルが見つかりません。
-C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
-
-All support for the `google.generativeai` package has ended. It will no longer be receiving 
-updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
-See README for more details:
-
-https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
-
-  import google.generativeai as genai
-
-2026-06-07 16:48:11,852 [INFO]   10秒待機中...
-2026-06-07 16:48:21,853 [INFO] 
-[8/15] 処理中: JH_kyuka
-2026-06-07 16:48:21,854 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JH_kyuka --year R07 --date 0401
-2026-06-07 16:48:23,342 [ERROR]   [ERROR] エラー（スキップ）: R07_0401_JH_kyuka
-2026-06-07 16:48:23,343 [ERROR]      \Users\s_got\Desktop\クロードコード\auditx\knowledge\R07_0401\JH_kyuka' にPDFファイルが見つかりません。
-C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
-
-All support for the `google.generativeai` package has ended. It will no longer be receiving 
-updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
-See README for more details:
-
-https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
-
-  import google.generativeai as genai
-
-2026-06-07 16:48:23,343 [INFO]   10秒待機中...
-2026-06-07 16:48:33,344 [INFO] 
-[9/15] 処理中: JK_kanri
-2026-06-07 16:48:33,345 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JK_kanri --year R07 --date 0401
-2026-06-07 16:48:34,619 [ERROR]   [ERROR] エラー（スキップ）: R07_0401_JK_kanri
-2026-06-07 16:48:34,620 [ERROR]      \Users\s_got\Desktop\クロードコード\auditx\knowledge\R07_0401\JK_kanri' にPDFファイルが見つかりません。
-C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
-
-All support for the `google.generativeai` package has ended. It will no longer be receiving 
-updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
-See README for more details:
-
-https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
-
-  import google.generativeai as genai
-
-2026-06-07 16:48:34,621 [INFO]   10秒待機中...
-2026-06-07 16:48:44,621 [INFO] 
-[10/15] 処理中: KO65_tenkan
-2026-06-07 16:48:44,624 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course KO65_tenkan --year R07 --date 0401
-2026-06-07 16:48:45,793 [ERROR]   [ERROR] エラー（スキップ）: R07_0401_KO65_tenkan
-2026-06-07 16:48:45,794 [ERROR]      ers\s_got\Desktop\クロードコード\auditx\knowledge\R07_0401\KO65_tenkan' にPDFファイルが見つかりません。
-C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
-
-All support for the `google.generativeai` package has ended. It will no longer be receiving 
-updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
-See README for more details:
-
-https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
-
-  import google.generativeai as genai
-
-2026-06-07 16:48:45,794 [INFO]   10秒待機中...
-2026-06-07 16:48:55,795 [INFO] 
-[11/15] 処理中: JH_kyuka
-2026-06-07 16:48:55,797 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JH_kyuka --year R08 --date 0408
-2026-06-07 16:48:57,180 [ERROR]   [ERROR] エラー（スキップ）: R08_0408_JH_kyuka
-2026-06-07 16:48:57,182 [ERROR]      \Users\s_got\Desktop\クロードコード\auditx\knowledge\R08_0408\JH_kyuka' にPDFファイルが見つかりません。
-C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
-
-All support for the `google.generativeai` package has ended. It will no longer be receiving 
-updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
-See README for more details:
-
-https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
-
-  import google.generativeai as genai
-
-2026-06-07 16:48:57,184 [INFO]   10秒待機中...
-2026-06-07 16:49:07,185 [INFO] 
-[12/15] 処理中: JK_kanri
-2026-06-07 16:49:07,185 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JK_kanri --year R08 --date 0408
-2026-06-07 16:49:08,539 [ERROR]   [ERROR] エラー（スキップ）: R08_0408_JK_kanri
-2026-06-07 16:49:08,539 [ERROR]      \Users\s_got\Desktop\クロードコード\auditx\knowledge\R08_0408\JK_kanri' にPDFファイルが見つかりません。
-C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
-
-All support for the `google.generativeai` package has ended. It will no longer be receiving 
-updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
-See README for more details:
-
-https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
-
-  import google.generativeai as genai
-
-2026-06-07 16:49:08,540 [INFO]   10秒待機中...
-2026-06-07 16:49:18,541 [INFO] 
-[13/15] 処理中: KO65_keizoku
-2026-06-07 16:49:18,542 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course KO65_keizoku --year R08 --date 0408
-2026-06-07 16:49:19,904 [ERROR]   [ERROR] エラー（スキップ）: R08_0408_KO65_keizoku
-2026-06-07 16:49:19,905 [ERROR]      rs\s_got\Desktop\クロードコード\auditx\knowledge\R08_0408\KO65_keizoku' にPDFファイルが見つかりません。
-C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
-
-All support for the `google.generativeai` package has ended. It will no longer be receiving 
-updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
-See README for more details:
-
-https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
-
-  import google.generativeai as genai
-
-2026-06-07 16:49:19,905 [INFO]   10秒待機中...
-2026-06-07 16:51:23,147 [INFO] ============================================================
-2026-06-07 16:51:23,147 [INFO]   AuditX 自動ビルドスクリプト 開始
-2026-06-07 16:51:23,148 [INFO]   開始時刻: 2026年06月07日 16:51:23
-2026-06-07 16:51:23,148 [INFO] ============================================================
-2026-06-07 16:51:23,151 [INFO]   スキップ（既存）: law_dotsu_chingin
-2026-06-07 16:51:23,151 [INFO]   スキップ（既存）: law_dotsu_chingin_leaf
-2026-06-07 16:51:23,151 [INFO]   スキップ（既存）: law_hatarakikata
-2026-06-07 16:51:23,151 [INFO]   スキップ（既存）: law_ikukyu_ho
-2026-06-07 16:51:23,151 [INFO]   スキップ（既存）: law_rodo_kijunho
-2026-06-07 16:51:23,151 [INFO]   スキップ（既存）: law_rodo_kijunho_qa
-2026-06-07 16:51:23,151 [INFO] 
-[LIST] 処理対象: 15件
-2026-06-07 16:51:23,151 [INFO]   [助成金] R05_0401_JH_kyuka
-2026-06-07 16:51:23,151 [INFO]   [助成金] R05_0401_KO65_tenkan
-2026-06-07 16:51:23,151 [INFO]   [助成金] R05_0626_JH_kyuka
-2026-06-07 16:51:23,151 [INFO]   [助成金] R05_0626_KO65_tenkan
-2026-06-07 16:51:23,151 [INFO]   [助成金] R06_0401_JH_kyuka
-2026-06-07 16:51:23,152 [INFO]   [助成金] R06_0401_JK_hyoka
-2026-06-07 16:51:23,152 [INFO]   [助成金] R06_0401_KO65_tenkan
-2026-06-07 16:51:23,152 [INFO]   [助成金] R07_0401_JH_kyuka
-2026-06-07 16:51:23,152 [INFO]   [助成金] R07_0401_JK_kanri
-2026-06-07 16:51:23,152 [INFO]   [助成金] R07_0401_KO65_tenkan
-2026-06-07 16:51:23,152 [INFO]   [助成金] R08_0408_JH_kyuka
-2026-06-07 16:51:23,152 [INFO]   [助成金] R08_0408_JK_kanri
-2026-06-07 16:51:23,152 [INFO]   [助成金] R08_0408_KO65_keizoku
-2026-06-07 16:51:23,152 [INFO]   [助成金] R08_0408_KO65_tenkan
-2026-06-07 16:51:23,152 [INFO]   [法令]   law_ikukyu_detail
-2026-06-07 16:51:23,152 [INFO] 
-2026-06-07 16:51:23,152 [INFO] 
-[1/15] 処理中: JH_kyuka
-2026-06-07 16:51:23,152 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JH_kyuka --year R05 --date 0401
-2026-06-07 16:51:24,338 [ERROR]   [ERROR] エラー（スキップ）: R05_0401_JH_kyuka
-2026-06-07 16:51:24,339 [ERROR]      \Users\s_got\Desktop\クロードコード\auditx\knowledge\R05_0401\JH_kyuka' にPDFファイルが見つかりません。
-C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
-
-All support for the `google.generativeai` package has ended. It will no longer be receiving 
-updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
-See README for more details:
-
-https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
-
-  import google.generativeai as genai
-
-2026-06-07 16:51:24,339 [INFO]   10秒待機中...
-2026-06-07 16:51:34,339 [INFO] 
-[2/15] 処理中: KO65_tenkan
-2026-06-07 16:51:34,340 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course KO65_tenkan --year R05 --date 0401
-2026-06-07 16:51:35,634 [ERROR]   [ERROR] エラー（スキップ）: R05_0401_KO65_tenkan
-2026-06-07 16:51:35,635 [ERROR]      ers\s_got\Desktop\クロードコード\auditx\knowledge\R05_0401\KO65_tenkan' にPDFファイルが見つかりません。
-C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
-
-All support for the `google.generativeai` package has ended. It will no longer be receiving 
-updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
-See README for more details:
-
-https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
-
-  import google.generativeai as genai
-
-2026-06-07 16:51:35,635 [INFO]   10秒待機中...
-2026-06-07 16:51:45,636 [INFO] 
-[3/15] 処理中: JH_kyuka
-2026-06-07 16:51:45,637 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JH_kyuka --year R05 --date 0626
-2026-06-07 16:51:46,862 [ERROR]   [ERROR] エラー（スキップ）: R05_0626_JH_kyuka
-2026-06-07 16:51:46,862 [ERROR]      \Users\s_got\Desktop\クロードコード\auditx\knowledge\R05_0626\JH_kyuka' にPDFファイルが見つかりません。
-C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
-
-All support for the `google.generativeai` package has ended. It will no longer be receiving 
-updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
-See README for more details:
-
-https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
-
-  import google.generativeai as genai
-
-2026-06-07 16:51:46,862 [INFO]   10秒待機中...
-2026-06-07 16:51:56,863 [INFO] 
-[4/15] 処理中: KO65_tenkan
-2026-06-07 16:51:56,864 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course KO65_tenkan --year R05 --date 0626
-2026-06-07 16:51:58,240 [ERROR]   [ERROR] エラー（スキップ）: R05_0626_KO65_tenkan
-2026-06-07 16:51:58,240 [ERROR]      ers\s_got\Desktop\クロードコード\auditx\knowledge\R05_0626\KO65_tenkan' にPDFファイルが見つかりません。
-C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
-
-All support for the `google.generativeai` package has ended. It will no longer be receiving 
-updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
-See README for more details:
-
-https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
-
-  import google.generativeai as genai
-
-2026-06-07 16:51:58,241 [INFO]   10秒待機中...
-2026-06-07 16:52:08,242 [INFO] 
-[5/15] 処理中: JH_kyuka
-2026-06-07 16:52:08,243 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JH_kyuka --year R06 --date 0401
-2026-06-07 16:52:09,675 [ERROR]   [ERROR] エラー（スキップ）: R06_0401_JH_kyuka
-2026-06-07 16:52:09,675 [ERROR]      \Users\s_got\Desktop\クロードコード\auditx\knowledge\R06_0401\JH_kyuka' にPDFファイルが見つかりません。
-C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
-
-All support for the `google.generativeai` package has ended. It will no longer be receiving 
-updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
-See README for more details:
-
-https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
-
-  import google.generativeai as genai
-
-2026-06-07 16:52:09,675 [INFO]   10秒待機中...
-2026-06-07 16:52:19,676 [INFO] 
-[6/15] 処理中: JK_hyoka
-2026-06-07 16:52:19,677 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JK_hyoka --year R06 --date 0401
-2026-06-07 16:52:21,018 [ERROR]   [ERROR] エラー（スキップ）: R06_0401_JK_hyoka
-2026-06-07 16:52:21,019 [ERROR]      \Users\s_got\Desktop\クロードコード\auditx\knowledge\R06_0401\JK_hyoka' にPDFファイルが見つかりません。
-C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
-
-All support for the `google.generativeai` package has ended. It will no longer be receiving 
-updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
-See README for more details:
-
-https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
-
-  import google.generativeai as genai
-
-2026-06-07 16:52:21,019 [INFO]   10秒待機中...
-2026-06-07 16:53:07,859 [INFO] ============================================================
-2026-06-07 16:53:07,861 [INFO]   AuditX 自動ビルドスクリプト 開始
-2026-06-07 16:53:07,863 [INFO]   開始時刻: 2026年06月07日 16:53:07
-2026-06-07 16:53:07,863 [INFO] ============================================================
-2026-06-07 16:53:07,869 [INFO]   スキップ（既存）: law_dotsu_chingin
-2026-06-07 16:53:07,869 [INFO]   スキップ（既存）: law_dotsu_chingin_leaf
-2026-06-07 16:53:07,872 [INFO]   スキップ（既存）: law_hatarakikata
-2026-06-07 16:53:07,873 [INFO]   スキップ（既存）: law_ikukyu_ho
-2026-06-07 16:53:07,873 [INFO]   スキップ（既存）: law_rodo_kijunho
-2026-06-07 16:53:07,873 [INFO]   スキップ（既存）: law_rodo_kijunho_qa
-2026-06-07 16:53:07,873 [INFO] 
-[LIST] 処理対象: 15件
-2026-06-07 16:53:07,874 [INFO]   [助成金] R05_0401_JH_kyuka
-2026-06-07 16:53:07,874 [INFO]   [助成金] R05_0401_KO65_tenkan
-2026-06-07 16:53:07,874 [INFO]   [助成金] R05_0626_JH_kyuka
-2026-06-07 16:53:07,874 [INFO]   [助成金] R05_0626_KO65_tenkan
-2026-06-07 16:53:07,874 [INFO]   [助成金] R06_0401_JH_kyuka
-2026-06-07 16:53:07,874 [INFO]   [助成金] R06_0401_JK_hyoka
-2026-06-07 16:53:07,874 [INFO]   [助成金] R06_0401_KO65_tenkan
-2026-06-07 16:53:07,875 [INFO]   [助成金] R07_0401_JH_kyuka
-2026-06-07 16:53:07,875 [INFO]   [助成金] R07_0401_JK_kanri
-2026-06-07 16:53:07,875 [INFO]   [助成金] R07_0401_KO65_tenkan
-2026-06-07 16:53:07,875 [INFO]   [助成金] R08_0408_JH_kyuka
-2026-06-07 16:53:07,875 [INFO]   [助成金] R08_0408_JK_kanri
-2026-06-07 16:53:07,875 [INFO]   [助成金] R08_0408_KO65_keizoku
-2026-06-07 16:53:07,875 [INFO]   [助成金] R08_0408_KO65_tenkan
-2026-06-07 16:53:07,876 [INFO]   [法令]   law_ikukyu_detail
-2026-06-07 16:53:07,876 [INFO] 
-2026-06-07 16:53:07,876 [INFO] 
-[1/15] 処理中: JH_kyuka
-2026-06-07 16:53:07,876 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JH_kyuka --year R05 --date 0401
-2026-06-07 16:53:09,190 [ERROR]   [ERROR] エラー（スキップ）: R05_0401_JH_kyuka
-2026-06-07 16:53:09,191 [ERROR]      \Users\s_got\Desktop\クロードコード\auditx\knowledge\R05_0401\JH_kyuka' にPDFファイルが見つかりません。
-C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
-
-All support for the `google.generativeai` package has ended. It will no longer be receiving 
-updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
-See README for more details:
-
-https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
-
-  import google.generativeai as genai
-
-2026-06-07 16:53:09,191 [INFO]   10秒待機中...
-2026-06-07 16:53:19,192 [INFO] 
-[2/15] 処理中: KO65_tenkan
-2026-06-07 16:53:19,199 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course KO65_tenkan --year R05 --date 0401
-2026-06-07 16:53:20,497 [ERROR]   [ERROR] エラー（スキップ）: R05_0401_KO65_tenkan
-2026-06-07 16:53:20,497 [ERROR]      ers\s_got\Desktop\クロードコード\auditx\knowledge\R05_0401\KO65_tenkan' にPDFファイルが見つかりません。
-C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
-
-All support for the `google.generativeai` package has ended. It will no longer be receiving 
-updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
-See README for more details:
-
-https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
-
-  import google.generativeai as genai
-
-2026-06-07 16:53:20,497 [INFO]   10秒待機中...
-2026-06-07 16:53:30,498 [INFO] 
-[3/15] 処理中: JH_kyuka
-2026-06-07 16:53:30,500 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JH_kyuka --year R05 --date 0626
-2026-06-07 16:53:31,736 [ERROR]   [ERROR] エラー（スキップ）: R05_0626_JH_kyuka
-2026-06-07 16:53:31,737 [ERROR]      \Users\s_got\Desktop\クロードコード\auditx\knowledge\R05_0626\JH_kyuka' にPDFファイルが見つかりません。
-C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
-
-All support for the `google.generativeai` package has ended. It will no longer be receiving 
-updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
-See README for more details:
-
-https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
-
-  import google.generativeai as genai
-
-2026-06-07 16:53:31,737 [INFO]   10秒待機中...
-2026-06-07 16:53:41,739 [INFO] 
-[4/15] 処理中: KO65_tenkan
-2026-06-07 16:53:41,742 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course KO65_tenkan --year R05 --date 0626
-2026-06-07 16:53:42,980 [ERROR]   [ERROR] エラー（スキップ）: R05_0626_KO65_tenkan
-2026-06-07 16:53:42,981 [ERROR]      ers\s_got\Desktop\クロードコード\auditx\knowledge\R05_0626\KO65_tenkan' にPDFファイルが見つかりません。
-C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
-
-All support for the `google.generativeai` package has ended. It will no longer be receiving 
-updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
-See README for more details:
-
-https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
-
-  import google.generativeai as genai
-
-2026-06-07 16:53:42,981 [INFO]   10秒待機中...
-2026-06-07 16:53:52,984 [INFO] 
-[5/15] 処理中: JH_kyuka
-2026-06-07 16:53:52,989 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JH_kyuka --year R06 --date 0401
-2026-06-07 16:53:54,413 [ERROR]   [ERROR] エラー（スキップ）: R06_0401_JH_kyuka
-2026-06-07 16:53:54,413 [ERROR]      \Users\s_got\Desktop\クロードコード\auditx\knowledge\R06_0401\JH_kyuka' にPDFファイルが見つかりません。
-C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
-
-All support for the `google.generativeai` package has ended. It will no longer be receiving 
-updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
-See README for more details:
-
-https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
-
-  import google.generativeai as genai
-
-2026-06-07 16:53:54,413 [INFO]   10秒待機中...
-2026-06-07 16:54:04,414 [INFO] 
-[6/15] 処理中: JK_hyoka
-2026-06-07 16:54:04,414 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JK_hyoka --year R06 --date 0401
-2026-06-07 16:54:05,748 [ERROR]   [ERROR] エラー（スキップ）: R06_0401_JK_hyoka
-2026-06-07 16:54:05,749 [ERROR]      \Users\s_got\Desktop\クロードコード\auditx\knowledge\R06_0401\JK_hyoka' にPDFファイルが見つかりません。
-C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
-
-All support for the `google.generativeai` package has ended. It will no longer be receiving 
-updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
-See README for more details:
-
-https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
-
-  import google.generativeai as genai
-
-2026-06-07 16:54:05,749 [INFO]   10秒待機中...
-2026-06-07 16:54:15,750 [INFO] 
-[7/15] 処理中: KO65_tenkan
-2026-06-07 16:54:15,751 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course KO65_tenkan --year R06 --date 0401
-2026-06-07 16:54:39,611 [INFO] ============================================================
-2026-06-07 16:54:39,612 [INFO]   AuditX 自動ビルドスクリプト 開始
-2026-06-07 16:54:39,612 [INFO]   開始時刻: 2026年06月07日 16:54:39
-2026-06-07 16:54:39,612 [INFO] ============================================================
-2026-06-07 16:54:39,614 [INFO]   スキップ（既存）: law_dotsu_chingin
-2026-06-07 16:54:39,614 [INFO]   スキップ（既存）: law_dotsu_chingin_leaf
-2026-06-07 16:54:39,614 [INFO]   スキップ（既存）: law_hatarakikata
-2026-06-07 16:54:39,614 [INFO]   スキップ（既存）: law_ikukyu_ho
-2026-06-07 16:54:39,615 [INFO]   スキップ（既存）: law_rodo_kijunho
-2026-06-07 16:54:39,615 [INFO]   スキップ（既存）: law_rodo_kijunho_qa
-2026-06-07 16:54:39,615 [INFO] 
-[LIST] 処理対象: 15件
-2026-06-07 16:54:39,615 [INFO]   [助成金] R05_0401_JH_kyuka
-2026-06-07 16:54:39,615 [INFO]   [助成金] R05_0401_KO65_tenkan
-2026-06-07 16:54:39,615 [INFO]   [助成金] R05_0626_JH_kyuka
-2026-06-07 16:54:39,615 [INFO]   [助成金] R05_0626_KO65_tenkan
-2026-06-07 16:54:39,615 [INFO]   [助成金] R06_0401_JH_kyuka
-2026-06-07 16:54:39,616 [INFO]   [助成金] R06_0401_JK_hyoka
-2026-06-07 16:54:39,616 [INFO]   [助成金] R06_0401_KO65_tenkan
-2026-06-07 16:54:39,616 [INFO]   [助成金] R07_0401_JH_kyuka
-2026-06-07 16:54:39,616 [INFO]   [助成金] R07_0401_JK_kanri
-2026-06-07 16:54:39,616 [INFO]   [助成金] R07_0401_KO65_tenkan
-2026-06-07 16:54:39,616 [INFO]   [助成金] R08_0408_JH_kyuka
-2026-06-07 16:54:39,616 [INFO]   [助成金] R08_0408_JK_kanri
-2026-06-07 16:54:39,616 [INFO]   [助成金] R08_0408_KO65_keizoku
-2026-06-07 16:54:39,616 [INFO]   [助成金] R08_0408_KO65_tenkan
-2026-06-07 16:54:39,616 [INFO]   [法令]   law_ikukyu_detail
-2026-06-07 16:54:39,616 [INFO] 
-2026-06-07 16:54:39,616 [INFO] 
-[1/15] 処理中: JH_kyuka
-2026-06-07 16:54:39,616 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JH_kyuka --year R05 --date 0401
-2026-06-07 16:54:40,867 [ERROR]   [ERROR] エラー（スキップ）: R05_0401_JH_kyuka
-2026-06-07 16:54:40,868 [ERROR]      \Users\s_got\Desktop\クロードコード\auditx\knowledge\R05_0401\JH_kyuka' にPDFファイルが見つかりません。
-C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
-
-All support for the `google.generativeai` package has ended. It will no longer be receiving 
-updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
-See README for more details:
-
-https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
-
-  import google.generativeai as genai
-
-2026-06-07 16:54:40,869 [INFO]   10秒待機中...
-2026-06-07 16:54:50,870 [INFO] 
-[2/15] 処理中: KO65_tenkan
-2026-06-07 16:54:50,871 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course KO65_tenkan --year R05 --date 0401
-2026-06-07 16:54:52,208 [ERROR]   [ERROR] エラー（スキップ）: R05_0401_KO65_tenkan
-2026-06-07 16:54:52,208 [ERROR]      ers\s_got\Desktop\クロードコード\auditx\knowledge\R05_0401\KO65_tenkan' にPDFファイルが見つかりません。
-C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
-
-All support for the `google.generativeai` package has ended. It will no longer be receiving 
-updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
-See README for more details:
-
-https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
-
-  import google.generativeai as genai
-
-2026-06-07 16:54:52,209 [INFO]   10秒待機中...
-2026-06-07 16:55:02,210 [INFO] 
-[3/15] 処理中: JH_kyuka
-2026-06-07 16:55:02,211 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JH_kyuka --year R05 --date 0626
-2026-06-07 16:55:03,631 [ERROR]   [ERROR] エラー（スキップ）: R05_0626_JH_kyuka
-2026-06-07 16:55:03,632 [ERROR]      \Users\s_got\Desktop\クロードコード\auditx\knowledge\R05_0626\JH_kyuka' にPDFファイルが見つかりません。
-C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
-
-All support for the `google.generativeai` package has ended. It will no longer be receiving 
-updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
-See README for more details:
-
-https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
-
-  import google.generativeai as genai
-
-2026-06-07 16:55:03,632 [INFO]   10秒待機中...
-2026-06-07 16:55:13,633 [INFO] 
-[4/15] 処理中: KO65_tenkan
-2026-06-07 16:55:13,634 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course KO65_tenkan --year R05 --date 0626
-2026-06-07 16:55:14,983 [ERROR]   [ERROR] エラー（スキップ）: R05_0626_KO65_tenkan
-2026-06-07 16:55:14,984 [ERROR]      ers\s_got\Desktop\クロードコード\auditx\knowledge\R05_0626\KO65_tenkan' にPDFファイルが見つかりません。
-C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
-
-All support for the `google.generativeai` package has ended. It will no longer be receiving 
-updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
-See README for more details:
-
-https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
-
-  import google.generativeai as genai
-
-2026-06-07 16:55:14,984 [INFO]   10秒待機中...
-2026-06-07 16:55:24,517 [INFO] ============================================================
-2026-06-07 16:55:24,517 [INFO]   AuditX 自動ビルドスクリプト 開始
-2026-06-07 16:55:24,517 [INFO]   開始時刻: 2026年06月07日 16:55:24
-2026-06-07 16:55:24,518 [INFO] ============================================================
-2026-06-07 16:55:24,521 [INFO]   スキップ（既存）: law_dotsu_chingin
-2026-06-07 16:55:24,521 [INFO]   スキップ（既存）: law_dotsu_chingin_leaf
-2026-06-07 16:55:24,521 [INFO]   スキップ（既存）: law_hatarakikata
-2026-06-07 16:55:24,521 [INFO]   スキップ（既存）: law_ikukyu_ho
-2026-06-07 16:55:24,522 [INFO]   スキップ（既存）: law_rodo_kijunho
-2026-06-07 16:55:24,522 [INFO]   スキップ（既存）: law_rodo_kijunho_qa
-2026-06-07 16:55:24,522 [INFO] 
-[LIST] 処理対象: 15件
-2026-06-07 16:55:24,522 [INFO]   [助成金] R05_0401_JH_kyuka
-2026-06-07 16:55:24,522 [INFO]   [助成金] R05_0401_KO65_tenkan
-2026-06-07 16:55:24,522 [INFO]   [助成金] R05_0626_JH_kyuka
-2026-06-07 16:55:24,522 [INFO]   [助成金] R05_0626_KO65_tenkan
-2026-06-07 16:55:24,522 [INFO]   [助成金] R06_0401_JH_kyuka
-2026-06-07 16:55:24,522 [INFO]   [助成金] R06_0401_JK_hyoka
-2026-06-07 16:55:24,522 [INFO]   [助成金] R06_0401_KO65_tenkan
-2026-06-07 16:55:24,523 [INFO]   [助成金] R07_0401_JH_kyuka
-2026-06-07 16:55:24,523 [INFO]   [助成金] R07_0401_JK_kanri
-2026-06-07 16:55:24,523 [INFO]   [助成金] R07_0401_KO65_tenkan
-2026-06-07 16:55:24,523 [INFO]   [助成金] R08_0408_JH_kyuka
-2026-06-07 16:55:24,523 [INFO]   [助成金] R08_0408_JK_kanri
-2026-06-07 16:55:24,523 [INFO]   [助成金] R08_0408_KO65_keizoku
-2026-06-07 16:55:24,524 [INFO]   [助成金] R08_0408_KO65_tenkan
-2026-06-07 16:55:24,524 [INFO]   [法令]   law_ikukyu_detail
-2026-06-07 16:55:24,525 [INFO] 
-2026-06-07 16:55:24,525 [INFO] 
-[1/15] 処理中: JH_kyuka
-2026-06-07 16:55:24,525 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JH_kyuka --year R05 --date 0401
-2026-06-07 16:55:25,777 [ERROR]   [ERROR] エラー（スキップ）: R05_0401_JH_kyuka
-2026-06-07 16:55:25,777 [ERROR]      \Users\s_got\Desktop\クロードコード\auditx\knowledge\R05_0401\JH_kyuka' にPDFファイルが見つかりません。
-C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
-
-All support for the `google.generativeai` package has ended. It will no longer be receiving 
-updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
-See README for more details:
-
-https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
-
-  import google.generativeai as genai
-
-2026-06-07 16:55:25,777 [INFO]   10秒待機中...
-2026-06-07 16:55:35,778 [INFO] 
-[2/15] 処理中: KO65_tenkan
-2026-06-07 16:55:35,787 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course KO65_tenkan --year R05 --date 0401
-2026-06-07 16:55:37,048 [ERROR]   [ERROR] エラー（スキップ）: R05_0401_KO65_tenkan
-2026-06-07 16:55:37,048 [ERROR]      ers\s_got\Desktop\クロードコード\auditx\knowledge\R05_0401\KO65_tenkan' にPDFファイルが見つかりません。
-C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
-
-All support for the `google.generativeai` package has ended. It will no longer be receiving 
-updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
-See README for more details:
-
-https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
-
-  import google.generativeai as genai
-
-2026-06-07 16:55:37,048 [INFO]   10秒待機中...
-2026-06-07 16:55:47,049 [INFO] 
-[3/15] 処理中: JH_kyuka
-2026-06-07 16:55:47,051 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JH_kyuka --year R05 --date 0626
-2026-06-07 16:55:48,328 [ERROR]   [ERROR] エラー（スキップ）: R05_0626_JH_kyuka
-2026-06-07 16:55:48,329 [ERROR]      \Users\s_got\Desktop\クロードコード\auditx\knowledge\R05_0626\JH_kyuka' にPDFファイルが見つかりません。
-C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
-
-All support for the `google.generativeai` package has ended. It will no longer be receiving 
-updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
-See README for more details:
-
-https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
-
-  import google.generativeai as genai
-
-2026-06-07 16:55:48,329 [INFO]   10秒待機中...
-2026-06-07 16:55:58,330 [INFO] 
-[4/15] 処理中: KO65_tenkan
-2026-06-07 16:55:58,330 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course KO65_tenkan --year R05 --date 0626
-2026-06-07 16:55:59,656 [ERROR]   [ERROR] エラー（スキップ）: R05_0626_KO65_tenkan
-2026-06-07 16:55:59,656 [ERROR]      ers\s_got\Desktop\クロードコード\auditx\knowledge\R05_0626\KO65_tenkan' にPDFファイルが見つかりません。
-C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
-
-All support for the `google.generativeai` package has ended. It will no longer be receiving 
-updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
-See README for more details:
-
-https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
-
-  import google.generativeai as genai
-
-2026-06-07 16:55:59,656 [INFO]   10秒待機中...
-2026-06-07 16:56:09,657 [INFO] 
-[5/15] 処理中: JH_kyuka
-2026-06-07 16:56:09,659 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JH_kyuka --year R06 --date 0401
-2026-06-07 16:56:11,077 [ERROR]   [ERROR] エラー（スキップ）: R06_0401_JH_kyuka
-2026-06-07 16:56:11,077 [ERROR]      \Users\s_got\Desktop\クロードコード\auditx\knowledge\R06_0401\JH_kyuka' にPDFファイルが見つかりません。
-C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
-
-All support for the `google.generativeai` package has ended. It will no longer be receiving 
-updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
-See README for more details:
-
-https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
-
-  import google.generativeai as genai
-
-2026-06-07 16:56:11,077 [INFO]   10秒待機中...
-2026-06-07 16:56:21,081 [INFO] 
-[6/15] 処理中: JK_hyoka
-2026-06-07 16:56:21,086 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JK_hyoka --year R06 --date 0401
-2026-06-07 16:56:22,401 [ERROR]   [ERROR] エラー（スキップ）: R06_0401_JK_hyoka
-2026-06-07 16:56:22,402 [ERROR]      \Users\s_got\Desktop\クロードコード\auditx\knowledge\R06_0401\JK_hyoka' にPDFファイルが見つかりません。
-C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
-
-All support for the `google.generativeai` package has ended. It will no longer be receiving 
-updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
-See README for more details:
-
-https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
-
-  import google.generativeai as genai
-
-2026-06-07 16:56:22,402 [INFO]   10秒待機中...
-2026-06-07 16:56:32,403 [INFO] 
-[7/15] 処理中: KO65_tenkan
-2026-06-07 16:56:32,404 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course KO65_tenkan --year R06 --date 0401
-2026-06-07 16:56:33,764 [ERROR]   [ERROR] エラー（スキップ）: R06_0401_KO65_tenkan
-2026-06-07 16:56:33,765 [ERROR]      ers\s_got\Desktop\クロードコード\auditx\knowledge\R06_0401\KO65_tenkan' にPDFファイルが見つかりません。
-C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py:19: FutureWarning: 
-
-All support for the `google.generativeai` package has ended. It will no longer be receiving 
-updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
-See README for more details:
-
-https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
-
-  import google.generativeai as genai
-
-2026-06-07 16:56:33,768 [INFO]   10秒待機中...
-2026-06-07 16:59:05,112 [INFO] ============================================================
-2026-06-07 16:59:05,113 [INFO]   AuditX 自動ビルドスクリプト 開始
-2026-06-07 16:59:05,113 [INFO]   開始時刻: 2026年06月07日 16:59:05
-2026-06-07 16:59:05,113 [INFO] ============================================================
-2026-06-07 16:59:05,118 [INFO]   スキップ（既存）: law_dotsu_chingin
-2026-06-07 16:59:05,118 [INFO]   スキップ（既存）: law_dotsu_chingin_leaf
-2026-06-07 16:59:05,118 [INFO]   スキップ（既存）: law_hatarakikata
-2026-06-07 16:59:05,118 [INFO]   スキップ（既存）: law_ikukyu_ho
-2026-06-07 16:59:05,118 [INFO]   スキップ（既存）: law_rodo_kijunho
-2026-06-07 16:59:05,119 [INFO]   スキップ（既存）: law_rodo_kijunho_qa
-2026-06-07 16:59:05,119 [INFO] 
-[LIST] 処理対象: 15件
-2026-06-07 16:59:05,119 [INFO]   [助成金] R05_0401_JH_kyuka
-2026-06-07 16:59:05,119 [INFO]   [助成金] R05_0401_KO65_tenkan
-2026-06-07 16:59:05,119 [INFO]   [助成金] R05_0626_JH_kyuka
-2026-06-07 16:59:05,119 [INFO]   [助成金] R05_0626_KO65_tenkan
-2026-06-07 16:59:05,119 [INFO]   [助成金] R06_0401_JH_kyuka
-2026-06-07 16:59:05,119 [INFO]   [助成金] R06_0401_JK_hyoka
-2026-06-07 16:59:05,119 [INFO]   [助成金] R06_0401_KO65_tenkan
-2026-06-07 16:59:05,119 [INFO]   [助成金] R07_0401_JH_kyuka
-2026-06-07 16:59:05,119 [INFO]   [助成金] R07_0401_JK_kanri
-2026-06-07 16:59:05,119 [INFO]   [助成金] R07_0401_KO65_tenkan
-2026-06-07 16:59:05,119 [INFO]   [助成金] R08_0408_JH_kyuka
-2026-06-07 16:59:05,119 [INFO]   [助成金] R08_0408_JK_kanri
-2026-06-07 16:59:05,119 [INFO]   [助成金] R08_0408_KO65_keizoku
-2026-06-07 16:59:05,119 [INFO]   [助成金] R08_0408_KO65_tenkan
-2026-06-07 16:59:05,119 [INFO]   [法令]   law_ikukyu_detail
-2026-06-07 16:59:05,119 [INFO] 
-2026-06-07 16:59:05,120 [INFO] 
-[1/15] 処理中: JH_kyuka
-2026-06-07 16:59:05,120 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JH_kyuka --year R05 --date 0401
-2026-06-07 16:59:35,435 [ERROR]   [ERROR] エラー（スキップ）: R05_0401_JH_kyuka
-2026-06-07 16:59:35,435 [ERROR]      eout.py", line 130, in func_with_timeout
-    return func(*args, **kwargs)
-  File "C:\Users\s_got\AppData\Roaming\Python\Python314\site-packages\google\api_core\grpc_helpers.py", line 77, in error_remapped_callable
-    raise exceptions.from_grpc_error(exc) from exc
-google.api_core.exceptions.NotFound: 404 models/gemini-1.5-pro is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.
-
-2026-06-07 16:59:35,436 [INFO]   10秒待機中...
-2026-06-07 16:59:45,444 [INFO] 
-[2/15] 処理中: KO65_tenkan
-2026-06-07 16:59:45,446 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course KO65_tenkan --year R05 --date 0401
-2026-06-07 17:00:27,588 [ERROR]   [ERROR] エラー（スキップ）: R05_0401_KO65_tenkan
-2026-06-07 17:00:27,589 [ERROR]      eout.py", line 130, in func_with_timeout
-    return func(*args, **kwargs)
-  File "C:\Users\s_got\AppData\Roaming\Python\Python314\site-packages\google\api_core\grpc_helpers.py", line 77, in error_remapped_callable
-    raise exceptions.from_grpc_error(exc) from exc
-google.api_core.exceptions.NotFound: 404 models/gemini-1.5-pro is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.
-
-2026-06-07 17:00:27,589 [INFO]   10秒待機中...
-2026-06-07 17:00:44,987 [INFO] ============================================================
-2026-06-07 17:00:44,988 [INFO]   AuditX 自動ビルドスクリプト 開始
-2026-06-07 17:00:44,988 [INFO]   開始時刻: 2026年06月07日 17:00:44
-2026-06-07 17:00:44,988 [INFO] ============================================================
-2026-06-07 17:00:44,992 [INFO]   スキップ（既存）: law_dotsu_chingin
-2026-06-07 17:00:44,992 [INFO]   スキップ（既存）: law_dotsu_chingin_leaf
-2026-06-07 17:00:44,992 [INFO]   スキップ（既存）: law_hatarakikata
-2026-06-07 17:00:44,992 [INFO]   スキップ（既存）: law_ikukyu_ho
-2026-06-07 17:00:44,992 [INFO]   スキップ（既存）: law_rodo_kijunho
-2026-06-07 17:00:44,992 [INFO]   スキップ（既存）: law_rodo_kijunho_qa
-2026-06-07 17:00:44,993 [INFO] 
-[LIST] 処理対象: 15件
-2026-06-07 17:00:44,993 [INFO]   [助成金] R05_0401_JH_kyuka
-2026-06-07 17:00:44,993 [INFO]   [助成金] R05_0401_KO65_tenkan
-2026-06-07 17:00:44,993 [INFO]   [助成金] R05_0626_JH_kyuka
-2026-06-07 17:00:44,993 [INFO]   [助成金] R05_0626_KO65_tenkan
-2026-06-07 17:00:44,993 [INFO]   [助成金] R06_0401_JH_kyuka
-2026-06-07 17:00:44,993 [INFO]   [助成金] R06_0401_JK_hyoka
-2026-06-07 17:00:44,993 [INFO]   [助成金] R06_0401_KO65_tenkan
-2026-06-07 17:00:44,993 [INFO]   [助成金] R07_0401_JH_kyuka
-2026-06-07 17:00:44,993 [INFO]   [助成金] R07_0401_JK_kanri
-2026-06-07 17:00:44,993 [INFO]   [助成金] R07_0401_KO65_tenkan
-2026-06-07 17:00:44,993 [INFO]   [助成金] R08_0408_JH_kyuka
-2026-06-07 17:00:44,993 [INFO]   [助成金] R08_0408_JK_kanri
-2026-06-07 17:00:44,993 [INFO]   [助成金] R08_0408_KO65_keizoku
-2026-06-07 17:00:44,993 [INFO]   [助成金] R08_0408_KO65_tenkan
-2026-06-07 17:00:44,993 [INFO]   [法令]   law_ikukyu_detail
-2026-06-07 17:00:44,993 [INFO] 
-2026-06-07 17:00:44,993 [INFO] 
-[1/15] 処理中: JH_kyuka
-2026-06-07 17:00:44,993 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JH_kyuka --year R05 --date 0401
-2026-06-07 17:03:44,756 [INFO] ============================================================
-2026-06-07 17:03:44,759 [INFO]   AuditX 自動ビルドスクリプト 開始
-2026-06-07 17:03:44,759 [INFO]   開始時刻: 2026年06月07日 17:03:44
-2026-06-07 17:03:44,759 [INFO] ============================================================
-2026-06-07 17:03:44,763 [INFO]   スキップ（既存）: law_dotsu_chingin
-2026-06-07 17:03:44,763 [INFO]   スキップ（既存）: law_dotsu_chingin_leaf
-2026-06-07 17:03:44,764 [INFO]   スキップ（既存）: law_hatarakikata
-2026-06-07 17:03:44,764 [INFO]   スキップ（既存）: law_ikukyu_ho
-2026-06-07 17:03:44,764 [INFO]   スキップ（既存）: law_rodo_kijunho
-2026-06-07 17:03:44,766 [INFO]   スキップ（既存）: law_rodo_kijunho_qa
-2026-06-07 17:03:44,766 [INFO] 
-[LIST] 処理対象: 15件
-2026-06-07 17:03:44,767 [INFO]   [助成金] R05_0401_JH_kyuka
-2026-06-07 17:03:44,767 [INFO]   [助成金] R05_0401_KO65_tenkan
-2026-06-07 17:03:44,767 [INFO]   [助成金] R05_0626_JH_kyuka
-2026-06-07 17:03:44,767 [INFO]   [助成金] R05_0626_KO65_tenkan
-2026-06-07 17:03:44,767 [INFO]   [助成金] R06_0401_JH_kyuka
-2026-06-07 17:03:44,767 [INFO]   [助成金] R06_0401_JK_hyoka
-2026-06-07 17:03:44,767 [INFO]   [助成金] R06_0401_KO65_tenkan
-2026-06-07 17:03:44,768 [INFO]   [助成金] R07_0401_JH_kyuka
-2026-06-07 17:03:44,768 [INFO]   [助成金] R07_0401_JK_kanri
-2026-06-07 17:03:44,768 [INFO]   [助成金] R07_0401_KO65_tenkan
-2026-06-07 17:03:44,768 [INFO]   [助成金] R08_0408_JH_kyuka
-2026-06-07 17:03:44,768 [INFO]   [助成金] R08_0408_JK_kanri
-2026-06-07 17:03:44,768 [INFO]   [助成金] R08_0408_KO65_keizoku
-2026-06-07 17:03:44,768 [INFO]   [助成金] R08_0408_KO65_tenkan
-2026-06-07 17:03:44,768 [INFO]   [法令]   law_ikukyu_detail
-2026-06-07 17:03:44,768 [INFO] 
-2026-06-07 17:03:44,769 [INFO] 
-[1/15] 処理中: JH_kyuka
-2026-06-07 17:03:44,769 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JH_kyuka --year R05 --date 0401
-2026-06-07 17:04:46,534 [INFO] ============================================================
-2026-06-07 17:04:46,534 [INFO]   AuditX 自動ビルドスクリプト 開始
-2026-06-07 17:04:46,534 [INFO]   開始時刻: 2026年06月07日 17:04:46
-2026-06-07 17:04:46,535 [INFO] ============================================================
-2026-06-07 17:04:46,538 [INFO]   スキップ（既存）: law_dotsu_chingin
-2026-06-07 17:04:46,538 [INFO]   スキップ（既存）: law_dotsu_chingin_leaf
-2026-06-07 17:04:46,538 [INFO]   スキップ（既存）: law_hatarakikata
-2026-06-07 17:04:46,538 [INFO]   スキップ（既存）: law_ikukyu_ho
-2026-06-07 17:04:46,539 [INFO]   スキップ（既存）: law_rodo_kijunho
-2026-06-07 17:04:46,539 [INFO]   スキップ（既存）: law_rodo_kijunho_qa
-2026-06-07 17:04:46,539 [INFO] 
-[LIST] 処理対象: 15件
-2026-06-07 17:04:46,539 [INFO]   [助成金] R05_0401_JH_kyuka
-2026-06-07 17:04:46,539 [INFO]   [助成金] R05_0401_KO65_tenkan
-2026-06-07 17:04:46,539 [INFO]   [助成金] R05_0626_JH_kyuka
-2026-06-07 17:04:46,539 [INFO]   [助成金] R05_0626_KO65_tenkan
-2026-06-07 17:04:46,539 [INFO]   [助成金] R06_0401_JH_kyuka
-2026-06-07 17:04:46,539 [INFO]   [助成金] R06_0401_JK_hyoka
-2026-06-07 17:04:46,539 [INFO]   [助成金] R06_0401_KO65_tenkan
-2026-06-07 17:04:46,540 [INFO]   [助成金] R07_0401_JH_kyuka
-2026-06-07 17:04:46,540 [INFO]   [助成金] R07_0401_JK_kanri
-2026-06-07 17:04:46,540 [INFO]   [助成金] R07_0401_KO65_tenkan
-2026-06-07 17:04:46,540 [INFO]   [助成金] R08_0408_JH_kyuka
-2026-06-07 17:04:46,540 [INFO]   [助成金] R08_0408_JK_kanri
-2026-06-07 17:04:46,540 [INFO]   [助成金] R08_0408_KO65_keizoku
-2026-06-07 17:04:46,540 [INFO]   [助成金] R08_0408_KO65_tenkan
-2026-06-07 17:04:46,541 [INFO]   [法令]   law_ikukyu_detail
-2026-06-07 17:04:46,541 [INFO] 
-2026-06-07 17:04:46,541 [INFO] 
-[1/15] 処理中: JH_kyuka
-2026-06-07 17:04:46,541 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JH_kyuka --year R05 --date 0401
-2026-06-07 17:06:38,374 [INFO]   [OK] 完了: R05_0401_JH_kyuka
-2026-06-07 17:06:38,374 [INFO]   10秒待機中...
-2026-06-07 17:06:48,375 [INFO] 
-[2/15] 処理中: KO65_tenkan
-2026-06-07 17:06:48,377 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course KO65_tenkan --year R05 --date 0401
-2026-06-07 17:09:06,193 [INFO]   [OK] 完了: R05_0401_KO65_tenkan
-2026-06-07 17:09:06,194 [INFO]   10秒待機中...
-2026-06-07 17:09:16,195 [INFO] 
-[3/15] 処理中: JH_kyuka
-2026-06-07 17:09:16,196 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JH_kyuka --year R05 --date 0626
-2026-06-07 17:10:58,293 [INFO]   [OK] 完了: R05_0626_JH_kyuka
-2026-06-07 17:10:58,293 [INFO]   10秒待機中...
-2026-06-07 17:11:08,294 [INFO] 
-[4/15] 処理中: KO65_tenkan
-2026-06-07 17:11:08,295 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course KO65_tenkan --year R05 --date 0626
-2026-06-07 17:13:31,377 [INFO]   [OK] 完了: R05_0626_KO65_tenkan
-2026-06-07 17:13:31,377 [INFO]   10秒待機中...
-2026-06-07 17:13:41,378 [INFO] 
-[5/15] 処理中: JH_kyuka
-2026-06-07 17:13:41,380 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JH_kyuka --year R06 --date 0401
-2026-06-07 17:15:29,204 [INFO]   [OK] 完了: R06_0401_JH_kyuka
-2026-06-07 17:15:29,204 [INFO] 
-[PUSH] GitHubにpush中...
-2026-06-07 17:15:32,149 [INFO]   [OK] push完了: Auto build: JH_kyuka, KO65_tenkan, JH_kyuka, KO65_tenkan, JH_kyuka [2026-06-07 17:15]
-2026-06-07 17:15:32,150 [INFO]   10秒待機中...
-2026-06-07 17:15:42,150 [INFO] 
-[6/15] 処理中: JK_hyoka
-2026-06-07 17:15:42,157 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JK_hyoka --year R06 --date 0401
-2026-06-07 17:16:56,368 [INFO]   [OK] 完了: R06_0401_JK_hyoka
-2026-06-07 17:16:56,369 [INFO]   10秒待機中...
-2026-06-07 17:17:06,371 [INFO] 
-[7/15] 処理中: KO65_tenkan
-2026-06-07 17:17:06,373 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course KO65_tenkan --year R06 --date 0401
-2026-06-07 17:19:16,716 [INFO]   [OK] 完了: R06_0401_KO65_tenkan
-2026-06-07 17:19:16,717 [INFO]   10秒待機中...
-2026-06-07 17:19:26,719 [INFO] 
-[8/15] 処理中: JH_kyuka
-2026-06-07 17:19:26,720 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JH_kyuka --year R07 --date 0401
-2026-06-07 17:21:31,548 [INFO]   [OK] 完了: R07_0401_JH_kyuka
-2026-06-07 17:21:31,548 [INFO]   10秒待機中...
-2026-06-07 17:21:41,549 [INFO] 
-[9/15] 処理中: JK_kanri
-2026-06-07 17:21:41,550 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JK_kanri --year R07 --date 0401
-2026-06-07 17:23:46,013 [INFO]   [OK] 完了: R07_0401_JK_kanri
-2026-06-07 17:23:46,014 [INFO]   10秒待機中...
-2026-06-07 17:23:56,017 [INFO] 
-[10/15] 処理中: KO65_tenkan
-2026-06-07 17:23:56,021 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course KO65_tenkan --year R07 --date 0401
-2026-06-07 17:26:00,257 [INFO]   [OK] 完了: R07_0401_KO65_tenkan
-2026-06-07 17:26:00,258 [INFO] 
-[PUSH] GitHubにpush中...
-2026-06-07 17:26:03,514 [INFO]   [OK] push完了: Auto build: JK_hyoka, KO65_tenkan, JH_kyuka, JK_kanri, KO65_tenkan [2026-06-07 17:26]
-2026-06-07 17:26:03,515 [INFO]   10秒待機中...
-2026-06-07 17:26:13,516 [INFO] 
-[11/15] 処理中: JH_kyuka
-2026-06-07 17:26:13,525 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JH_kyuka --year R08 --date 0408
-2026-06-07 17:28:15,183 [INFO]   [OK] 完了: R08_0408_JH_kyuka
-2026-06-07 17:28:15,183 [INFO]   10秒待機中...
-2026-06-07 17:28:25,184 [INFO] 
-[12/15] 処理中: JK_kanri
-2026-06-07 17:28:25,185 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JK_kanri --year R08 --date 0408
-2026-06-07 17:30:13,569 [INFO]   [OK] 完了: R08_0408_JK_kanri
-2026-06-07 17:30:13,569 [INFO]   10秒待機中...
-2026-06-07 17:30:23,571 [INFO] 
-[13/15] 処理中: KO65_keizoku
-2026-06-07 17:30:23,572 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course KO65_keizoku --year R08 --date 0408
-2026-06-07 17:32:43,006 [INFO]   [OK] 完了: R08_0408_KO65_keizoku
-2026-06-07 17:32:43,007 [INFO]   10秒待機中...
-2026-06-07 17:32:53,008 [INFO] 
-[14/15] 処理中: KO65_tenkan
-2026-06-07 17:32:53,010 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course KO65_tenkan --year R08 --date 0408
-2026-06-07 22:33:56,466 [INFO]   [OK] 完了: R08_0408_KO65_tenkan
-2026-06-07 22:33:56,467 [INFO]   10秒待機中...
-2026-06-07 22:34:06,468 [INFO] 
-[15/15] 処理中: ikukyu_detail
-2026-06-07 22:34:06,472 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_law_knowledge.py --law ikukyu_detail --pdf C:\Users\s_got\Desktop\クロードコード\auditx\knowledge\rodo_kijun\ikukyu_detail.pdf
-2026-06-07 22:36:48,987 [INFO]   [OK] 完了: law_ikukyu_detail
-2026-06-07 22:36:48,987 [INFO] 
-[PUSH] GitHubにpush中...
-2026-06-07 22:36:52,052 [INFO]   [OK] push完了: Auto build: JH_kyuka, JK_kanri, KO65_keizoku, KO65_tenkan, ikukyu_detail [2026-06-07 22:36]
-2026-06-07 22:36:52,053 [INFO] 
-[PUSH] GitHubにpush中...
-2026-06-07 22:36:54,925 [INFO]   [OK] push完了: Auto build: JH_kyuka, KO65_tenkan, JH_kyuka, KO65_tenkan, JH_kyuka, JK_hyoka, KO65_tenkan, JH_kyuka, JK_kanri, KO65_tenkan, JH_kyuka, JK_kanri, KO65_keizoku, KO65_tenkan, ikukyu_detail [2026-06-07 22:36]
-2026-06-07 22:36:54,926 [INFO] 
-============================================================
-2026-06-07 22:36:54,926 [INFO]   処理完了
-2026-06-07 22:36:54,926 [INFO]   [OK] 成功: 15件
-2026-06-07 22:36:54,927 [INFO]   [ERROR] 失敗: 0件
-2026-06-07 22:36:54,927 [INFO]   終了時刻: 2026年06月07日 22:36:54
-2026-06-07 22:36:54,927 [INFO] ============================================================
-2026-06-07 22:36:54,927 [INFO] 
+2026-06-08 02:39:23,896 [INFO]   処理完了
+2026-06-08 02:39:23,896 [INFO]   [OK] 成功: 0件
+2026-06-08 02:39:23,896 [INFO]   [ERROR] 失敗: 26件
+2026-06-08 02:39:23,896 [INFO]   失敗したタスク:
+2026-06-08 02:39:23,897 [INFO]     - RY_daitai
+2026-06-08 02:39:23,897 [INFO]     - RY_funin
+2026-06-08 02:39:23,897 [INFO]     - RY_ikukyu
+2026-06-08 02:39:23,898 [INFO]     - RY_juman
+2026-06-08 02:39:23,898 [INFO]     - RY_kaigo
+2026-06-08 02:39:23,898 [INFO]     - RY_shussei
+2026-06-08 02:39:23,899 [INFO]     - RY_daitai
+2026-06-08 02:39:23,899 [INFO]     - RY_funin
+2026-06-08 02:39:23,899 [INFO]     - RY_ikukyu
+2026-06-08 02:39:23,900 [INFO]     - RY_juman
+2026-06-08 02:39:23,900 [INFO]     - RY_kaigo
+2026-06-08 02:39:23,900 [INFO]     - RY_shussei
+2026-06-08 02:39:23,900 [INFO]     - CA_seishain
+2026-06-08 02:39:23,900 [INFO]     - CA_shoyo
+2026-06-08 02:39:23,900 [INFO]     - RY_daitai
+2026-06-08 02:39:23,900 [INFO]     - RY_funin
+2026-06-08 02:39:23,900 [INFO]     - RY_ikukyu
+2026-06-08 02:39:23,900 [INFO]     - RY_juman
+2026-06-08 02:39:23,900 [INFO]     - RY_kaigo
+2026-06-08 02:39:23,900 [INFO]     - RY_shussei
+2026-06-08 02:39:23,901 [INFO]     - RY_daitai
+2026-06-08 02:39:23,901 [INFO]     - RY_funin
+2026-06-08 02:39:23,901 [INFO]     - RY_ikukyu
+2026-06-08 02:39:23,901 [INFO]     - RY_juman
+2026-06-08 02:39:23,901 [INFO]     - RY_kaigo
+2026-06-08 02:39:23,901 [INFO]     - RY_shussei
+2026-06-08 02:39:23,901 [INFO]   終了時刻: 2026年06月08日 02:39:23
+2026-06-08 02:39:23,901 [INFO] ============================================================
+2026-06-08 02:39:23,902 [INFO] 
 [LOG] ログファイル: C:\Users\s_got\Desktop\クロードコード\auditx\auto_build.log

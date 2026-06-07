@@ -680,3 +680,31 @@ https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/READM
 2026-06-08 03:01:51,073 [INFO]   [OK] 完了: R07_0401_RY_juman
 2026-06-08 03:01:51,073 [INFO] 
 [PUSH] GitHubにpush中...
+2026-06-08 03:01:54,078 [INFO]   [OK] push完了: Auto build: RY_shussei, RY_daitai, RY_funin, RY_ikukyu, RY_juman [2026-06-08 03:01]
+2026-06-08 03:01:54,079 [INFO]   10秒待機中...
+2026-06-08 03:02:04,080 [INFO] 
+[11/26] 処理中: RY_kaigo
+2026-06-08 03:02:04,081 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course RY_kaigo --year R07 --date 0401 --pdf-folder C:\Users\s_got\Desktop\クロードコード\auditx\knowledge\R07_0401\_RY_common
+2026-06-08 03:03:13,518 [INFO]   [OK] 完了: R07_0401_RY_kaigo
+2026-06-08 03:03:13,518 [INFO]   10秒待機中...
+2026-06-08 03:03:23,519 [INFO] 
+[12/26] 処理中: RY_shussei
+2026-06-08 03:03:23,520 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course RY_shussei --year R07 --date 0401 --pdf-folder C:\Users\s_got\Desktop\クロードコード\auditx\knowledge\R07_0401\_RY_common
+2026-06-08 03:04:27,742 [INFO]   [OK] 完了: R07_0401_RY_shussei
+2026-06-08 03:04:27,742 [INFO]   10秒待機中...
+2026-06-08 03:04:37,743 [INFO] 
+[13/26] 処理中: CA_seishain
+2026-06-08 03:04:37,745 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course CA_seishain --year R07 --date 0701 --pdf-folder C:\Users\s_got\Desktop\クロードコード\auditx\knowledge\R07_0701\_CA_common
+2026-06-08 03:11:29,087 [INFO]   [OK] 完了: R07_0701_CA_seishain
+2026-06-08 03:11:29,088 [INFO]   10秒待機中...
+2026-06-08 03:11:39,089 [INFO] 
+[14/26] 処理中: CA_shoyo
+2026-06-08 03:11:39,093 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course CA_shoyo --year R07 --date 0701 --pdf-folder C:\Users\s_got\Desktop\クロードコード\auditx\knowledge\R07_0701\_CA_common
+2026-06-08 03:18:06,321 [INFO]   [OK] 完了: R07_0701_CA_shoyo
+2026-06-08 03:18:06,322 [INFO]   10秒待機中...
+2026-06-08 03:18:16,322 [INFO] 
+[15/26] 処理中: RY_daitai
+2026-06-08 03:18:16,323 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course RY_daitai --year R07 --date 1001 --pdf-folder C:\Users\s_got\Desktop\クロードコード\auditx\knowledge\R07_1001\_RY_common
+2026-06-08 03:19:22,551 [INFO]   [OK] 完了: R07_1001_RY_daitai
+2026-06-08 03:19:22,552 [INFO] 
+[PUSH] GitHubにpush中...

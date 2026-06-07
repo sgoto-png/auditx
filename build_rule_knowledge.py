@@ -59,10 +59,18 @@ def find_pdf_files(folder_path: str) -> dict:
     pdf_files = [f for f in os.listdir(folder_path) if f.lower().endswith(".pdf")]
     for pdf_file in pdf_files:
         pdf_lower = pdf_file.lower()
+        matched = False
         for doc_type, patterns in PDF_PATTERNS.items():
             if any(p.lower() in pdf_lower for p in patterns):
                 found[doc_type] = os.path.join(folder_path, pdf_file)
+                matched = True
                 break
+        if not matched:
+            keys = ['shikyo_yori', 'qa', 'pamphlet']
+            for k in keys:
+                if k not in found:
+                    found[k] = os.path.join(folder_path, pdf_file)
+                    break
     return found
 
 def extract_page_range_bytes(pdf_path: str, start: int, end: int) -> bytes:

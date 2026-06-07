@@ -309,6 +309,19 @@ def load_humax_knowledge(course_id):
             return json.load(f)
     return None
 
+@st.cache_data
+def load_law_knowledge():
+    """humax_knowledge内のlaw_*.jsonを全て読み込んで返す"""
+    law_dir = Path(__file__).parent / "rule_knowledge" / "humax_knowledge"
+    laws = {}
+    if law_dir.exists():
+        for jf in law_dir.glob("law_*.json"):
+            with open(jf, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                law_id = jf.stem.replace("law_", "")
+                laws[law_id] = data
+    return laws
+
 def get_available_keys():
     rule_dir = Path(__file__).parent / "rule_knowledge"
     keys = set()
@@ -1181,8 +1194,8 @@ if ca_shoyo_selected:
             seido_date = None
 
     ca_shoyo_info = {
-        "shoyo": shoyo_checked if 'shoyo_checked' in dir() else False,
-        "taishokukin": taishoku_checked if 'taishoku_checked' in dir() else False,
+        "shoyo": shoyo_checked,
+        "taishokukin": taishoku_checked,
         "status": seido_status,
         "introduction_date": seido_date,
     }
@@ -1550,12 +1563,14 @@ if run_button and can_run:
                 # 正社員化コースの場合は対象者情報を渡す
                 person_info = target_person_info if ci["course_id"] == "CA_seishain" else {}
                 humax_k = load_humax_knowledge(ci["course_id"])
+                law_k   = load_law_knowledge()
                 result = run_audit(
                     combined_text, rk, ci["course_id"],
                     selected_phase, others or None,
                     target_person_info=person_info,
                     humax_knowledge=humax_k,
                     ca_shoyo_info=ca_shoyo_info if ci["course_id"] == "CA_seishain" else {},
+                    law_knowledge=law_k,
                 )
                 report = generate_report(
                     result, company_name, ci["course_id"],

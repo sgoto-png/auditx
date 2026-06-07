@@ -87,7 +87,8 @@ def build_prompt(rule_knowledge: dict, course_id: str, phase: str,
                  rules_text: str, additional_courses: list = None,
                  target_person_info: dict = None,
                  humax_knowledge: dict = None,
-                 ca_shoyo_info: dict = None) -> str:
+                 ca_shoyo_info: dict = None,
+                 law_knowledge: dict = None) -> str:
     course_name = rule_knowledge.get("meta", {}).get("course_name", course_id)
     year = rule_knowledge.get("meta", {}).get("year", "")
     eff_date = rule_knowledge.get("meta", {}).get("effective_date", "")
@@ -152,6 +153,20 @@ C. 支給申請書類との整合性
 {_json.dumps(humax_knowledge, ensure_ascii=False, indent=2)}
 
 上記の各項目について、就業規則に該当するリスクがあれば必ずアラートを出すこと。
+"""
+
+    law_info = ""
+    if law_knowledge:
+        import json as _json3
+        law_info = f"""
+【労働法令チェック知識（就業規則が法令に違反していないか確認すること）】
+以下は労働基準法等の法令から抽出したチェックルールです。
+支給要領・ヒューマックス知識に加えて、以下の法令違反がないかも必ずチェックしてください。
+
+{_json3.dumps(law_knowledge, ensure_ascii=False, indent=2)}
+
+上記の prohibited_patterns・common_violations に該当する記載があればCRITICALまたはWARNINGで指摘すること。
+numeric_rules の数値要件を満たしていない場合もCRITICALで指摘すること。
 """
 
     ca_shoyo_text = ""
@@ -237,8 +252,13 @@ C. 支給申請書類との整合性
 
 【誤検知しやすいパターン（これらは問題なし・指摘不要）】
 - 「ただし、有期契約社員、パート社員については別段の定めをしたときはその定めによる」という表現は標準的な就業規則の記載であり問題なし
-- 「別段の定め」「別に定める」「別途定める」という留保表現は、対応する別規程が存在する限り問題なし
+- 「別段の定め」「別に定める」「別途定める」「別段の定めをしたときはその定めによる」という留保表現は問題なし。別規程がなくても問題なし。別規程が存在する場合のみ「再アップロードして確認を」とHUMAN_CHECKで案内する
 - 正社員用規程にパート・有期の適用除外規定があること自体は問題なし（むしろ適切な記載）
+- 「有期契約社員、パート社員については別段の定めをしたときはその定めによる」はCRITICALではなくOKまたはHUMAN_CHECK（別規程がある場合のみ確認）
+- 正社員が日給制であること自体は問題なし。日給制のみで統一されている場合はWARNINGやCRITICALを出さないこと
+- 正社員の給与形態は「月給制のみ」「日給制のみ」はOK。「月給制または日給制（混在）」は区分基準の記載がなければWARNING。「時給制」が正社員に適用されている場合のみCRITICAL
+- 昇給規定に「毎年●月に行う」「原則として毎年●月に行う」と昇給月が明記されていれば定期昇給の要件を満たしているためOK。その後に「業績を勘案して各人ごとに決定する」「臨時昇給・臨時降給の規定がある」という記載があってもOK。昇給月の記載がある条文全体をNGと判断しないこと
+- 正社員転換制度の条文について、転換要件として「勤続6ヶ月以上」「本人が希望する場合」「所属長の推薦」「面接試験合格」「正社員と同等の勤務時間・日数」などが記載されていればOK。転換時期が「随時」でもOK。客観性が不十分などの理由でWARNINGを出さないこと
 - 法定通りの記載（労基法・育介法等の条文をそのまま引用したもの）は問題なし
 
 【文章量の制約】★厳守★
@@ -254,6 +274,7 @@ C. 支給申請書類との整合性
 
 {additional_info}
 {humax_info}
+{law_info}
 {ca_shoyo_text}
 {person_info_text}
 
@@ -321,6 +342,7 @@ def run_audit(
     target_person_info: dict = None,
     humax_knowledge: dict = None,
     ca_shoyo_info: dict = None,
+    law_knowledge: dict = None,
 ) -> str:
     api_key = os.getenv("GOOGLE_API_KEY")
     if not api_key:
@@ -337,7 +359,7 @@ def run_audit(
 
     client = genai.Client(api_key=api_key)
 
-    prompt = build_prompt(rule_knowledge, course_id, phase, rules_text, additional_courses, target_person_info, humax_knowledge, ca_shoyo_info)
+    prompt = build_prompt(rule_knowledge, course_id, phase, rules_text, additional_courses, target_person_info, humax_knowledge, ca_shoyo_info, law_knowledge)
 
     response = client.models.generate_content(
         model=MODEL,

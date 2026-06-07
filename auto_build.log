@@ -1182,3 +1182,16 @@ google.api_core.exceptions.NotFound: 404 models/gemini-1.5-pro is not found for 
 2026-06-07 17:30:23,571 [INFO] 
 [13/15] 処理中: KO65_keizoku
 2026-06-07 17:30:23,572 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course KO65_keizoku --year R08 --date 0408
+2026-06-07 17:32:43,006 [INFO]   [OK] 完了: R08_0408_KO65_keizoku
+2026-06-07 17:32:43,007 [INFO]   10秒待機中...
+2026-06-07 17:32:53,008 [INFO] 
+[14/15] 処理中: KO65_tenkan
+2026-06-07 17:32:53,010 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course KO65_tenkan --year R08 --date 0408
+2026-06-07 22:33:56,466 [INFO]   [OK] 完了: R08_0408_KO65_tenkan
+2026-06-07 22:33:56,467 [INFO]   10秒待機中...
+2026-06-07 22:34:06,468 [INFO] 
+[15/15] 処理中: ikukyu_detail
+2026-06-07 22:34:06,472 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_law_knowledge.py --law ikukyu_detail --pdf C:\Users\s_got\Desktop\クロードコード\auditx\knowledge\rodo_kijun\ikukyu_detail.pdf
+2026-06-07 22:36:48,987 [INFO]   [OK] 完了: law_ikukyu_detail
+2026-06-07 22:36:48,987 [INFO] 
+[PUSH] GitHubにpush中...

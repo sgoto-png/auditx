@@ -301,6 +301,14 @@ def load_rule_knowledge(course_id, year, date):
             return json.load(f)
     return None
 
+@st.cache_data
+def load_humax_knowledge(course_id):
+    p = Path(__file__).parent / "rule_knowledge" / "humax_knowledge" / f"{course_id}.json"
+    if p.exists():
+        with open(p, "r", encoding="utf-8") as f:
+            return json.load(f)
+    return None
+
 def get_available_keys():
     rule_dir = Path(__file__).parent / "rule_knowledge"
     keys = set()
@@ -1125,6 +1133,74 @@ for course in COURSES:
             "rule_exists": rule_exists,
         })
 
+# CA_shoyo選択時の追加情報入力
+ca_shoyo_info = {}
+ca_shoyo_selected = any(c["course_id"] == "CA_shoyo" for c in selected_courses)
+
+if ca_shoyo_selected:
+    st.markdown(
+        '<div class="sec-label">STEP 3.2　賞与・退職金制度導入コース：制度情報</div>',
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        '<div class="phase-hint">&#9888;&#160;'
+        '<strong>制度導入前の場合、非正規雇用への適用なしが必須要件です。</strong>'
+        '正確に入力してください。</div>',
+        unsafe_allow_html=True,
+    )
+
+    sh_col1, sh_col2 = st.columns(2)
+
+    with sh_col1:
+        st.markdown("**導入予定制度**（複数選択可）")
+        shoyo_checked    = st.checkbox("賞与", key="shoyo_shoyo")
+        taishoku_checked = st.checkbox("退職金", key="shoyo_taishoku")
+
+    with sh_col2:
+        st.markdown("**制度の状態**")
+        seido_status = st.radio(
+            "制度状態",
+            ["制度導入前", "制度導入済み"],
+            key="shoyo_status",
+            label_visibility="collapsed",
+        )
+        if seido_status == "制度導入済み":
+            st.markdown("導入日")
+            s_col1, s_col2, s_col3 = st.columns(3)
+            with s_col1:
+                s_year = st.number_input("年", min_value=2000, max_value=2030,
+                                         value=2025, key="shoyo_year", label_visibility="collapsed")
+            with s_col2:
+                s_month = st.number_input("月", min_value=1, max_value=12,
+                                          value=1, key="shoyo_month", label_visibility="collapsed")
+            with s_col3:
+                s_day = st.number_input("日", min_value=1, max_value=31,
+                                        value=1, key="shoyo_day", label_visibility="collapsed")
+            seido_date = f"{s_year}年{s_month}月{s_day}日"
+        else:
+            seido_date = None
+
+    ca_shoyo_info = {
+        "shoyo": shoyo_checked if 'shoyo_checked' in dir() else False,
+        "taishokukin": taishoku_checked if 'taishoku_checked' in dir() else False,
+        "status": seido_status,
+        "introduction_date": seido_date,
+    }
+
+    # 警告表示
+    if seido_status == "制度導入前":
+        targets = []
+        if shoyo_checked:    targets.append("賞与")
+        if taishoku_checked: targets.append("退職金")
+        if targets:
+            st.warning(
+                f"⚠️ 制度導入前のため、非正規雇用労働者に"
+                f"{'・'.join(targets)}が適用されていないことが必須です。"
+                "就業規則を確認してください。"
+            )
+
+    st.markdown('<hr class="divider">', unsafe_allow_html=True)
+
 st.markdown('<hr class="divider">', unsafe_allow_html=True)
 
 
@@ -1473,10 +1549,13 @@ if run_button and can_run:
                 ]
                 # 正社員化コースの場合は対象者情報を渡す
                 person_info = target_person_info if ci["course_id"] == "CA_seishain" else {}
+                humax_k = load_humax_knowledge(ci["course_id"])
                 result = run_audit(
                     combined_text, rk, ci["course_id"],
                     selected_phase, others or None,
                     target_person_info=person_info,
+                    humax_knowledge=humax_k,
+                    ca_shoyo_info=ca_shoyo_info if ci["course_id"] == "CA_seishain" else {},
                 )
                 report = generate_report(
                     result, company_name, ci["course_id"],

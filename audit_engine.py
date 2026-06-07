@@ -85,7 +85,9 @@ def extract_text(file_path: str) -> str:
 
 def build_prompt(rule_knowledge: dict, course_id: str, phase: str,
                  rules_text: str, additional_courses: list = None,
-                 target_person_info: dict = None) -> str:
+                 target_person_info: dict = None,
+                 humax_knowledge: dict = None,
+                 ca_shoyo_info: dict = None) -> str:
     course_name = rule_knowledge.get("meta", {}).get("course_name", course_id)
     year = rule_knowledge.get("meta", {}).get("year", "")
     eff_date = rule_knowledge.get("meta", {}).get("effective_date", "")
@@ -137,6 +139,53 @@ C. 支給申請書類との整合性
 【同時申請中の他コース】
 {', '.join(additional_courses)}
 上記コースとの規定の矛盾・整合性も確認すること。
+"""
+
+    humax_info = ""
+    if humax_knowledge:
+        import json as _json
+        humax_info = f"""
+【ヒューマックス実務知識（支給要領に加えて必ずチェックすること）】
+以下は社会保険労務士法人ヒューマックスが実務で蓄積した知識です。
+支給要領ベースのチェックに加えて、以下の観点も必ずチェックしてください。
+
+{_json.dumps(humax_knowledge, ensure_ascii=False, indent=2)}
+
+上記の各項目について、就業規則に該当するリスクがあれば必ずアラートを出すこと。
+"""
+
+    ca_shoyo_text = ""
+    if ca_shoyo_info:
+        import json as _json2
+        status    = ca_shoyo_info.get("status", "")
+        shoyo     = ca_shoyo_info.get("shoyo", False)
+        taishoku  = ca_shoyo_info.get("taishokukin", False)
+        intro_date = ca_shoyo_info.get("introduction_date", "")
+        targets   = []
+        if shoyo:    targets.append("賞与")
+        if taishoku: targets.append("退職金")
+
+        ca_shoyo_text = f"""
+【賞与・退職金制度導入コース（CA_shoyo）との同時申請情報】
+- 導入予定制度：{"・".join(targets) if targets else "未選択"}
+- 制度の状態：{status}{"（導入日：" + intro_date + "）" if intro_date else ""}
+
+【CA_shoyo同時申請に基づく追加チェック指示】
+"""
+        if status == "制度導入前":
+            if shoyo:
+                ca_shoyo_text += """- 【CRITICAL必須】非正規雇用労働者（有期契約・パートタイム等）に賞与規定が適用されていないことを確認。適用されている場合は不支給要件に該当するためCRITICALで指摘すること。
+"""
+            if taishoku:
+                ca_shoyo_text += """- 【CRITICAL必須】非正規雇用労働者（有期契約・パートタイム等）に退職金規定が適用されていないことを確認。適用されている場合は不支給要件に該当するためCRITICALで指摘すること。
+- 【CRITICAL必須】退職金の支給額が「勤務月数×3,000円以上」の計算式になっているか確認。これはQ&Aに基づき正社員化コース単独申請でも判断基準として準用される。
+"""
+        elif status == "制度導入済み":
+            ca_shoyo_text += f"""- 就業規則に導入日（{intro_date}）が正しく反映されているか確認。
+- 導入後の規定内容が支給要領の要件を満たしているか確認。
+"""
+        if taishoku:
+            ca_shoyo_text += """- 退職金の支給額が「勤務月数×3,000円以上」の計算式になっているか確認（制度導入前・後いずれの場合も）。
 """
 
     person_info_text = ""
@@ -204,6 +253,8 @@ C. 支給申請書類との整合性
 {phase_instruction}
 
 {additional_info}
+{humax_info}
+{ca_shoyo_text}
 {person_info_text}
 
 【出力形式】
@@ -268,6 +319,8 @@ def run_audit(
     phase: str,
     additional_courses: list = None,
     target_person_info: dict = None,
+    humax_knowledge: dict = None,
+    ca_shoyo_info: dict = None,
 ) -> str:
     api_key = os.getenv("GOOGLE_API_KEY")
     if not api_key:
@@ -284,7 +337,7 @@ def run_audit(
 
     client = genai.Client(api_key=api_key)
 
-    prompt = build_prompt(rule_knowledge, course_id, phase, rules_text, additional_courses, target_person_info)
+    prompt = build_prompt(rule_knowledge, course_id, phase, rules_text, additional_courses, target_person_info, humax_knowledge, ca_shoyo_info)
 
     response = client.models.generate_content(
         model=MODEL,

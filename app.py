@@ -34,8 +34,35 @@ COURSES = [
     {"id": "RY_daitai",    "group": "両立支援等助成金",       "name": "育休中等業務代替支援コース"},
 ]
 
-YEAR_OPTIONS = ["R08", "R07", "R06"]
-DATE_OPTIONS = {"R08": ["0408", "0401"], "R07": ["0401"], "R06": ["0401"]}
+YEAR_OPTIONS = ["R09", "R08", "R07", "R06", "R05"]
+DATE_OPTIONS = {
+    "R09": ["0401"],
+    "R08": ["0408", "0401"],
+    "R07": ["0701", "0401"],
+    "R06": ["0401"],
+    "R05": ["0401"],
+}
+
+# コースごとの選択可能年度
+COURSE_YEAR_OPTIONS = {
+    # 令和7・8・9年度
+    "CA_seishain":  ["R09", "R08", "R07"],
+    "CA_shoyo":     ["R09", "R08", "R07"],
+    "JK_kanri":     ["R09", "R08", "R07"],
+    "RY_juman":     ["R09", "R08", "R07"],
+    # 令和8・9年度
+    "KO65_keizoku": ["R09", "R08"],
+    "RY_kaigo":     ["R09", "R08"],
+    "RY_shussei":   ["R09", "R08"],
+    "RY_funin":     ["R09", "R08"],
+    # 令和5・6・7・8・9年度
+    "KO65_tenkan":  ["R09", "R08", "R07", "R06", "R05"],
+    "JH_kyuka":     ["R09", "R08", "R07", "R06", "R05"],
+    "RY_ikukyu":    ["R09", "R08", "R07", "R06", "R05"],
+    "RY_daitai":    ["R09", "R08", "R07", "R06", "R05"],
+    # デフォルト（未定義コース）
+    "JK_hyoka":     ["R09", "R08", "R07"],
+}
 
 PHASE_ITEMS = {
     "phase1": ("PHASE 1", "申請準備開始時", "就業規則新規作成後の初回確認"),
@@ -1113,9 +1140,10 @@ for course in COURSES:
     if checked:
         c1, c2, c3 = st.columns([2, 2, 3])
         with c1:
+            course_years = COURSE_YEAR_OPTIONS.get(course["id"], ["R09", "R08", "R07"])
             year = st.selectbox(
                 "年度",
-                YEAR_OPTIONS,
+                course_years,
                 format_func=lambda x: f"令和{x[1:]}年度",
                 key=f"y_{course['id']}",
             )
@@ -1211,6 +1239,188 @@ if ca_shoyo_selected:
                 f"{'・'.join(targets)}が適用されていないことが必須です。"
                 "就業規則を確認してください。"
             )
+
+    st.markdown('<hr class="divider">', unsafe_allow_html=True)
+
+# RY_juman選択時の追加情報入力
+ry_juman_info = {}
+ry_juman_selected = any(c["course_id"] == "RY_juman" for c in selected_courses)
+
+if ry_juman_selected:
+    st.markdown(
+        '<div class="sec-label">STEP 3.4　柔軟な働き方選択制度等支援コース：申請内容</div>',
+        unsafe_allow_html=True,
+    )
+
+    JUMAN_SEIDOS = [
+        "フレックスタイム制度",
+        "短時間勤務制度",
+        "養育両立支援休暇制度",
+        "時差出勤制度",
+        "育児のためのテレワーク等",
+        "保育サービスの手配及び費用補助",
+    ]
+
+    juman_type = st.radio(
+        "申請する制度",
+        ["柔軟な働き方選択制度", "有給の子の看護等休暇制度"],
+        key="juman_type",
+        horizontal=True,
+        label_visibility="collapsed",
+    )
+
+    if juman_type == "柔軟な働き方選択制度":
+        st.markdown("**導入予定の制度**（3つ以上選択必須）")
+        st.caption("各制度の状態を選択してください")
+
+        selected_seidos = {}
+        cols_juman = st.columns(2)
+        for idx, seido in enumerate(JUMAN_SEIDOS):
+            with cols_juman[idx % 2]:
+                checked = st.checkbox(seido, key=f"juman_seido_{idx}")
+                if checked:
+                    status = st.radio(
+                        f"{seido}の状態",
+                        ["導入予定", "導入済み"],
+                        key=f"juman_status_{idx}",
+                        horizontal=True,
+                        label_visibility="collapsed",
+                    )
+                    selected_seidos[seido] = status
+
+        # 3つ以上チェック確認
+        if len(selected_seidos) > 0 and len(selected_seidos) < 3:
+            st.warning(f"⚠️ 3つ以上選択してください（現在{len(selected_seidos)}つ）")
+        elif len(selected_seidos) >= 3:
+            st.success(f"✅ {len(selected_seidos)}つ選択済み")
+
+        st.markdown("**制度利用期間延長制度（加算申請）**")
+        kazan = st.radio(
+            "加算申請",
+            ["なし", "あり（導入予定）", "あり（導入済み）"],
+            key="juman_kazan",
+            horizontal=True,
+            label_visibility="collapsed",
+        )
+
+        ry_juman_info = {
+            "type": "柔軟な働き方選択制度",
+            "selected_seidos": selected_seidos,
+            "kazan": kazan,
+            "valid": len(selected_seidos) >= 3,
+        }
+
+        if not ry_juman_info["valid"] and len(selected_seidos) > 0:
+            st.error("3つ以上の制度を選択してください。「チェック開始」は3つ以上選択後に有効になります。")
+
+    else:
+        st.info("有給の子の看護等休暇制度：選択完了")
+        ry_juman_info = {
+            "type": "有給の子の看護等休暇制度",
+            "valid": True,
+        }
+
+    st.markdown('<hr class="divider">', unsafe_allow_html=True)
+
+# RY_kaigo選択時の追加情報入力
+ry_kaigo_info = {}
+ry_kaigo_selected = any(c["course_id"] == "RY_kaigo" for c in selected_courses)
+
+if ry_kaigo_selected:
+    st.markdown(
+        '<div class="sec-label">STEP 3.4b　介護離職防止支援コース：申請内容</div>',
+        unsafe_allow_html=True,
+    )
+    kaigo_type = st.radio(
+        "申請する制度",
+        ["介護休業", "介護休暇制度有給化支援"],
+        key="kaigo_type",
+        horizontal=True,
+        label_visibility="collapsed",
+    )
+    ry_kaigo_info = {"type": kaigo_type}
+    st.markdown('<hr class="divider">', unsafe_allow_html=True)
+
+# RY_funin選択時の追加情報入力
+ry_funin_info = {}
+ry_funin_selected = any(c["course_id"] == "RY_funin" for c in selected_courses)
+
+if ry_funin_selected:
+    st.markdown(
+        '<div class="sec-label">STEP 3.3　不妊治療等両立支援コース：申請内容</div>',
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        '<div class="phase-hint">&#9888;&#160;'
+        '<strong>対象疾患・状態と導入制度の組み合わせを選択してください。</strong>'
+        '複数申請する場合はすべて選択してください。</div>',
+        unsafe_allow_html=True,
+    )
+
+    # 申請件数
+    funin_count = st.number_input(
+        "申請件数（組み合わせの数）",
+        min_value=1, max_value=9, value=1,
+        key="funin_count",
+    )
+
+    funin_applications = []
+    ALL_TARGETS = ["月経（月経困難症等）", "更年期", "不妊治療"]
+    TARGET_KEYS  = {"月経（月経困難症等）": "月経", "更年期": "更年期", "不妊治療": "不妊治療"}
+
+    used_targets = set()  # 選択済みの疾患・状態を追跡
+
+    for i in range(int(funin_count)):
+        st.markdown(f"**申請 {i+1}**")
+        f_col1, f_col2 = st.columns(2)
+        with f_col1:
+            st.markdown("対象疾患・状態")
+            targets = []
+            for target_label in ALL_TARGETS:
+                target_key = TARGET_KEYS[target_label]
+                if target_key in used_targets:
+                    # 選択済みはグレーアウト表示
+                    st.markdown(
+                        f'<span style="color:#aaa;font-size:0.9rem;">☑ {target_label}（選択済み）</span>',
+                        unsafe_allow_html=True,
+                    )
+                else:
+                    if st.checkbox(target_label, key=f"funin_target_{target_key}_{i}"):
+                        targets.append(target_key)
+        with f_col2:
+            st.markdown("導入する制度")
+            seidos = []
+            if st.checkbox("有給休暇制度", key=f"funin_seido_yukyu_{i}"):
+                seidos.append("有給休暇制度")
+            if st.checkbox("時短勤務制度", key=f"funin_seido_jitan_{i}"):
+                seidos.append("時短勤務制度")
+            if st.checkbox("時差出勤制度", key=f"funin_seido_jisa_{i}"):
+                seidos.append("時差出勤制度")
+
+        if targets or seidos:
+            funin_applications.append({
+                "申請番号": i + 1,
+                "対象": targets,
+                "制度": seidos,
+            })
+            # 選択した疾患・状態を使用済みに追加
+            for t in targets:
+                used_targets.add(t)
+
+        if i < int(funin_count) - 1:
+            st.markdown("---")
+
+    ry_funin_info = {"applications": funin_applications}
+
+    if funin_applications:
+        st.info(
+            f"申請内容：" +
+            "　/　".join([
+                f"【{a['申請番号']}】{' + '.join(a['対象'])} × {' + '.join(a['制度'])}"
+                for a in funin_applications
+                if a['対象'] and a['制度']
+            ])
+        )
 
     st.markdown('<hr class="divider">', unsafe_allow_html=True)
 
@@ -1467,13 +1677,17 @@ valid_courses = [c for c in selected_courses if c["rule_exists"]]
 # 正社員化コース選択時は対象者情報も必須
 ca_selected_in_valid = any(c["course_id"] == "CA_seishain" for c in valid_courses)
 person_info_ok = (not ca_selected_in_valid) or bool(target_person_info)
-can_run = bool(company_name) and bool(valid_courses) and bool(uploaded_files) and person_info_ok
+# RY_jumanは3つ以上の制度選択が必須
+juman_selected_in_valid = any(c["course_id"] == "RY_juman" for c in valid_courses)
+juman_ok = (not juman_selected_in_valid) or (ry_juman_info.get("valid", True))
+can_run = bool(company_name) and bool(valid_courses) and bool(uploaded_files) and person_info_ok and juman_ok
 
 missing = []
 if not company_name:   missing.append("会社名")
 if not valid_courses:  missing.append("助成金コース")
 if not uploaded_files: missing.append("就業規則ファイル")
 if ca_selected_in_valid and not person_info_ok: missing.append("対象者情報（生年月日・入社日・転換予定日）")
+if juman_selected_in_valid and not juman_ok: missing.append("柔軟な働き方：制度を3つ以上選択してください")
 if missing:
     st.caption("未入力の項目：" + "　/　".join(missing))
 
@@ -1571,6 +1785,9 @@ if run_button and can_run:
                     humax_knowledge=humax_k,
                     ca_shoyo_info=ca_shoyo_info if ci["course_id"] == "CA_seishain" else {},
                     law_knowledge=law_k,
+                    ry_funin_info=ry_funin_info if ci["course_id"] == "RY_funin" else {},
+                    ry_juman_info=ry_juman_info if ci["course_id"] == "RY_juman" else {},
+                    ry_kaigo_info=ry_kaigo_info if ci["course_id"] == "RY_kaigo" else {},
                 )
                 report = generate_report(
                     result, company_name, ci["course_id"],

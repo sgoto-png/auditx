@@ -88,7 +88,10 @@ def build_prompt(rule_knowledge: dict, course_id: str, phase: str,
                  target_person_info: dict = None,
                  humax_knowledge: dict = None,
                  ca_shoyo_info: dict = None,
-                 law_knowledge: dict = None) -> str:
+                 law_knowledge: dict = None,
+                 ry_funin_info: dict = None,
+                 ry_juman_info: dict = None,
+                 ry_kaigo_info: dict = None) -> str:
     course_name = rule_knowledge.get("meta", {}).get("course_name", course_id)
     year = rule_knowledge.get("meta", {}).get("year", "")
     eff_date = rule_knowledge.get("meta", {}).get("effective_date", "")
@@ -153,6 +156,120 @@ C. 支給申請書類との整合性
 {_json.dumps(humax_knowledge, ensure_ascii=False, indent=2)}
 
 上記の各項目について、就業規則に該当するリスクがあれば必ずアラートを出すこと。
+"""
+
+    ry_kaigo_text = ""
+    if ry_kaigo_info:
+        ktype = ry_kaigo_info.get("type", "")
+        if ktype == "介護休業":
+            ry_kaigo_text = """
+【介護離職防止支援コース 申請内容】
+申請制度：介護休業
+【チェック指示】
+- 介護休業規定が就業規則に明記されているか
+- 対象者・取得日数・申請手続き・賃金の取り扱いが明確か
+- 法定を上回る水準（日数・対象者の拡大等）になっているか確認
+"""
+        elif ktype == "介護休暇制度有給化支援":
+            ry_kaigo_text = """
+【介護離職防止支援コース 申請内容】
+申請制度：介護休暇制度有給化支援
+【チェック指示】
+- 介護休暇制度が就業規則に規定されているか
+- 有給（賃金が支払われる）であることが明記されているか
+- 対象者・取得日数・申請手続きが明確か
+- 法定の介護休暇（無給）を有給化している旨が確認できるか
+"""
+
+    ry_juman_text = ""
+    if ry_juman_info:
+        jtype = ry_juman_info.get("type", "")
+        if jtype == "有給の子の看護等休暇制度":
+            ry_kaigo_text = ""
+    if ry_kaigo_info:
+        ktype = ry_kaigo_info.get("type", "")
+        if ktype == "介護休業":
+            ry_kaigo_text = """
+【介護離職防止支援コース 申請内容】
+申請制度：介護休業
+【チェック指示】
+- 介護休業規定が就業規則に明記されているか
+- 対象者・取得日数・申請手続き・賃金の取り扱いが明確か
+- 法定を上回る水準（日数・対象者の拡大等）になっているか確認
+"""
+        elif ktype == "介護休暇制度有給化支援":
+            ry_kaigo_text = """
+【介護離職防止支援コース 申請内容】
+申請制度：介護休暇制度有給化支援
+【チェック指示】
+- 介護休暇制度が就業規則に規定されているか
+- 有給（賃金が支払われる）であることが明記されているか
+- 対象者・取得日数・申請手続きが明確か
+- 法定の介護休暇（無給）を有給化している旨が確認できるか
+"""
+
+    ry_juman_text = ""
+    if ry_juman_info:
+        jtype = ry_juman_info.get("type", "")
+        if jtype == "有給の子の看護等休暇制度":
+            ry_juman_text = """
+【柔軟な働き方選択制度等支援コース 申請内容】
+申請制度：有給の子の看護等休暇制度
+【チェック指示】
+- 有給の子の看護等休暇制度が就業規則に規定されているか
+- 有給（賃金が支払われる）であることが明記されているか
+- 対象者・取得日数・申請手続きが明確か
+"""
+        elif jtype == "柔軟な働き方選択制度":
+            seidos = ry_juman_info.get("selected_seidos", {})
+            kazan  = ry_juman_info.get("kazan", "なし")
+            seido_lines = "\n".join(
+                f"  - {s}：{st}" for s, st in seidos.items()
+            )
+            ry_juman_text = f"""
+【柔軟な働き方選択制度等支援コース 申請内容】
+申請制度：柔軟な働き方選択制度
+
+【導入予定制度一覧】
+{seido_lines}
+
+【制度利用期間延長制度（加算申請）】：{kazan}
+
+【チェック指示】
+- 選択した各制度が就業規則に規定されているか確認
+- 「導入済み」の制度：既存規定の内容が支給要領の要件を満たしているか
+- 「導入予定」の制度：新設規定が必要・記載すべき内容が揃っているか
+- フレックスタイム制度：コアタイム・フレキシブルタイムの記載があるか
+- 短時間勤務制度：短縮後の所定労働時間・対象者・期間が明確か
+- 時差出勤制度：選択可能な時間帯・対象者・申請手続きが明確か
+- 育児のためのテレワーク等：対象者・実施条件・申請手続きが明確か
+- 制度利用期間延長制度：加算申請ありの場合、延長後の期間・条件が明確か
+- 3つ以上の制度が就業規則に正しく規定されているか（要件）
+"""
+
+    ry_funin_text = ""
+    if ry_funin_info and ry_funin_info.get("applications"):
+        import json as _json4
+        apps = ry_funin_info["applications"]
+        app_lines = []
+        for a in apps:
+            targets = "・".join(a.get("対象", []))
+            seidos  = "・".join(a.get("制度", []))
+            if targets and seidos:
+                app_lines.append(f"  申請{a['申請番号']}：{targets} × {seidos}")
+        if app_lines:
+            ry_funin_text = f"""
+【不妊治療等両立支援コース 申請内容】
+以下の組み合わせで申請予定です。就業規則に各制度が対象疾患・状態ごとに正しく規定されているか確認してください。
+
+{chr(10).join(app_lines)}
+
+【チェック指示】
+- 各申請の対象疾患・状態（月経/更年期/不妊治療）に対応した制度が就業規則に明記されているか
+- 有給休暇制度：対象者・取得日数・取得単位（時間単位可否等）が明確か
+- 時短勤務制度：短縮後の所定労働時間・対象者・期間が明確か
+- 時差出勤制度：変更可能な時間帯・対象者・申請手続きが明確か
+- 複数申請の場合、各組み合わせの制度が個別に規定されているか、または包括的に規定されているか
 """
 
     law_info = ""
@@ -275,6 +392,9 @@ numeric_rules の数値要件を満たしていない場合もCRITICALで指摘�
 {additional_info}
 {humax_info}
 {law_info}
+{ry_kaigo_text}
+{ry_juman_text}
+{ry_funin_text}
 {ca_shoyo_text}
 {person_info_text}
 
@@ -343,6 +463,9 @@ def run_audit(
     humax_knowledge: dict = None,
     ca_shoyo_info: dict = None,
     law_knowledge: dict = None,
+    ry_funin_info: dict = None,
+    ry_juman_info: dict = None,
+    ry_kaigo_info: dict = None,
 ) -> str:
     api_key = os.getenv("GOOGLE_API_KEY")
     if not api_key:
@@ -359,7 +482,7 @@ def run_audit(
 
     client = genai.Client(api_key=api_key)
 
-    prompt = build_prompt(rule_knowledge, course_id, phase, rules_text, additional_courses, target_person_info, humax_knowledge, ca_shoyo_info, law_knowledge)
+    prompt = build_prompt(rule_knowledge, course_id, phase, rules_text, additional_courses, target_person_info, humax_knowledge, ca_shoyo_info, law_knowledge, ry_funin_info, ry_juman_info, ry_kaigo_info)
 
     response = client.models.generate_content(
         model=MODEL,

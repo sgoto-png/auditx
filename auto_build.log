@@ -1149,3 +1149,36 @@ google.api_core.exceptions.NotFound: 404 models/gemini-1.5-pro is not found for 
 2026-06-07 17:17:06,371 [INFO] 
 [7/15] 処理中: KO65_tenkan
 2026-06-07 17:17:06,373 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course KO65_tenkan --year R06 --date 0401
+2026-06-07 17:19:16,716 [INFO]   [OK] 完了: R06_0401_KO65_tenkan
+2026-06-07 17:19:16,717 [INFO]   10秒待機中...
+2026-06-07 17:19:26,719 [INFO] 
+[8/15] 処理中: JH_kyuka
+2026-06-07 17:19:26,720 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JH_kyuka --year R07 --date 0401
+2026-06-07 17:21:31,548 [INFO]   [OK] 完了: R07_0401_JH_kyuka
+2026-06-07 17:21:31,548 [INFO]   10秒待機中...
+2026-06-07 17:21:41,549 [INFO] 
+[9/15] 処理中: JK_kanri
+2026-06-07 17:21:41,550 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JK_kanri --year R07 --date 0401
+2026-06-07 17:23:46,013 [INFO]   [OK] 完了: R07_0401_JK_kanri
+2026-06-07 17:23:46,014 [INFO]   10秒待機中...
+2026-06-07 17:23:56,017 [INFO] 
+[10/15] 処理中: KO65_tenkan
+2026-06-07 17:23:56,021 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course KO65_tenkan --year R07 --date 0401
+2026-06-07 17:26:00,257 [INFO]   [OK] 完了: R07_0401_KO65_tenkan
+2026-06-07 17:26:00,258 [INFO] 
+[PUSH] GitHubにpush中...
+2026-06-07 17:26:03,514 [INFO]   [OK] push完了: Auto build: JK_hyoka, KO65_tenkan, JH_kyuka, JK_kanri, KO65_tenkan [2026-06-07 17:26]
+2026-06-07 17:26:03,515 [INFO]   10秒待機中...
+2026-06-07 17:26:13,516 [INFO] 
+[11/15] 処理中: JH_kyuka
+2026-06-07 17:26:13,525 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JH_kyuka --year R08 --date 0408
+2026-06-07 17:28:15,183 [INFO]   [OK] 完了: R08_0408_JH_kyuka
+2026-06-07 17:28:15,183 [INFO]   10秒待機中...
+2026-06-07 17:28:25,184 [INFO] 
+[12/15] 処理中: JK_kanri
+2026-06-07 17:28:25,185 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JK_kanri --year R08 --date 0408
+2026-06-07 17:30:13,569 [INFO]   [OK] 完了: R08_0408_JK_kanri
+2026-06-07 17:30:13,569 [INFO]   10秒待機中...
+2026-06-07 17:30:23,571 [INFO] 
+[13/15] 処理中: KO65_keizoku
+2026-06-07 17:30:23,572 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course KO65_keizoku --year R08 --date 0408

@@ -44,7 +44,7 @@ PDF_PATTERNS = {
     "pamphlet": ["pamphlet", "パンフレット", "案内"],
 }
 
-MODEL = "gemini-1.5-pro"
+MODEL = "gemini-2.5-flash-lite"
 MAX_TOKENS = 8192
 PAGE_BATCH_SIZE = 15
 

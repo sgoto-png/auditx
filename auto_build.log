@@ -1195,3 +1195,16 @@ google.api_core.exceptions.NotFound: 404 models/gemini-1.5-pro is not found for 
 2026-06-07 22:36:48,987 [INFO]   [OK] 完了: law_ikukyu_detail
 2026-06-07 22:36:48,987 [INFO] 
 [PUSH] GitHubにpush中...
+2026-06-07 22:36:52,052 [INFO]   [OK] push完了: Auto build: JH_kyuka, JK_kanri, KO65_keizoku, KO65_tenkan, ikukyu_detail [2026-06-07 22:36]
+2026-06-07 22:36:52,053 [INFO] 
+[PUSH] GitHubにpush中...
+2026-06-07 22:36:54,925 [INFO]   [OK] push完了: Auto build: JH_kyuka, KO65_tenkan, JH_kyuka, KO65_tenkan, JH_kyuka, JK_hyoka, KO65_tenkan, JH_kyuka, JK_kanri, KO65_tenkan, JH_kyuka, JK_kanri, KO65_keizoku, KO65_tenkan, ikukyu_detail [2026-06-07 22:36]
+2026-06-07 22:36:54,926 [INFO] 
+============================================================
+2026-06-07 22:36:54,926 [INFO]   処理完了
+2026-06-07 22:36:54,926 [INFO]   [OK] 成功: 15件
+2026-06-07 22:36:54,927 [INFO]   [ERROR] 失敗: 0件
+2026-06-07 22:36:54,927 [INFO]   終了時刻: 2026年06月07日 22:36:54
+2026-06-07 22:36:54,927 [INFO] ============================================================
+2026-06-07 22:36:54,927 [INFO] 
+[LOG] ログファイル: C:\Users\s_got\Desktop\クロードコード\auditx\auto_build.log

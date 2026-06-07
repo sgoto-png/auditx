@@ -1085,3 +1085,67 @@ google.api_core.exceptions.NotFound: 404 models/gemini-1.5-pro is not found for 
 2026-06-07 17:03:44,769 [INFO] 
 [1/15] 処理中: JH_kyuka
 2026-06-07 17:03:44,769 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JH_kyuka --year R05 --date 0401
+2026-06-07 17:04:46,534 [INFO] ============================================================
+2026-06-07 17:04:46,534 [INFO]   AuditX 自動ビルドスクリプト 開始
+2026-06-07 17:04:46,534 [INFO]   開始時刻: 2026年06月07日 17:04:46
+2026-06-07 17:04:46,535 [INFO] ============================================================
+2026-06-07 17:04:46,538 [INFO]   スキップ（既存）: law_dotsu_chingin
+2026-06-07 17:04:46,538 [INFO]   スキップ（既存）: law_dotsu_chingin_leaf
+2026-06-07 17:04:46,538 [INFO]   スキップ（既存）: law_hatarakikata
+2026-06-07 17:04:46,538 [INFO]   スキップ（既存）: law_ikukyu_ho
+2026-06-07 17:04:46,539 [INFO]   スキップ（既存）: law_rodo_kijunho
+2026-06-07 17:04:46,539 [INFO]   スキップ（既存）: law_rodo_kijunho_qa
+2026-06-07 17:04:46,539 [INFO] 
+[LIST] 処理対象: 15件
+2026-06-07 17:04:46,539 [INFO]   [助成金] R05_0401_JH_kyuka
+2026-06-07 17:04:46,539 [INFO]   [助成金] R05_0401_KO65_tenkan
+2026-06-07 17:04:46,539 [INFO]   [助成金] R05_0626_JH_kyuka
+2026-06-07 17:04:46,539 [INFO]   [助成金] R05_0626_KO65_tenkan
+2026-06-07 17:04:46,539 [INFO]   [助成金] R06_0401_JH_kyuka
+2026-06-07 17:04:46,539 [INFO]   [助成金] R06_0401_JK_hyoka
+2026-06-07 17:04:46,539 [INFO]   [助成金] R06_0401_KO65_tenkan
+2026-06-07 17:04:46,540 [INFO]   [助成金] R07_0401_JH_kyuka
+2026-06-07 17:04:46,540 [INFO]   [助成金] R07_0401_JK_kanri
+2026-06-07 17:04:46,540 [INFO]   [助成金] R07_0401_KO65_tenkan
+2026-06-07 17:04:46,540 [INFO]   [助成金] R08_0408_JH_kyuka
+2026-06-07 17:04:46,540 [INFO]   [助成金] R08_0408_JK_kanri
+2026-06-07 17:04:46,540 [INFO]   [助成金] R08_0408_KO65_keizoku
+2026-06-07 17:04:46,540 [INFO]   [助成金] R08_0408_KO65_tenkan
+2026-06-07 17:04:46,541 [INFO]   [法令]   law_ikukyu_detail
+2026-06-07 17:04:46,541 [INFO] 
+2026-06-07 17:04:46,541 [INFO] 
+[1/15] 処理中: JH_kyuka
+2026-06-07 17:04:46,541 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JH_kyuka --year R05 --date 0401
+2026-06-07 17:06:38,374 [INFO]   [OK] 完了: R05_0401_JH_kyuka
+2026-06-07 17:06:38,374 [INFO]   10秒待機中...
+2026-06-07 17:06:48,375 [INFO] 
+[2/15] 処理中: KO65_tenkan
+2026-06-07 17:06:48,377 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course KO65_tenkan --year R05 --date 0401
+2026-06-07 17:09:06,193 [INFO]   [OK] 完了: R05_0401_KO65_tenkan
+2026-06-07 17:09:06,194 [INFO]   10秒待機中...
+2026-06-07 17:09:16,195 [INFO] 
+[3/15] 処理中: JH_kyuka
+2026-06-07 17:09:16,196 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JH_kyuka --year R05 --date 0626
+2026-06-07 17:10:58,293 [INFO]   [OK] 完了: R05_0626_JH_kyuka
+2026-06-07 17:10:58,293 [INFO]   10秒待機中...
+2026-06-07 17:11:08,294 [INFO] 
+[4/15] 処理中: KO65_tenkan
+2026-06-07 17:11:08,295 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course KO65_tenkan --year R05 --date 0626
+2026-06-07 17:13:31,377 [INFO]   [OK] 完了: R05_0626_KO65_tenkan
+2026-06-07 17:13:31,377 [INFO]   10秒待機中...
+2026-06-07 17:13:41,378 [INFO] 
+[5/15] 処理中: JH_kyuka
+2026-06-07 17:13:41,380 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JH_kyuka --year R06 --date 0401
+2026-06-07 17:15:29,204 [INFO]   [OK] 完了: R06_0401_JH_kyuka
+2026-06-07 17:15:29,204 [INFO] 
+[PUSH] GitHubにpush中...
+2026-06-07 17:15:32,149 [INFO]   [OK] push完了: Auto build: JH_kyuka, KO65_tenkan, JH_kyuka, KO65_tenkan, JH_kyuka [2026-06-07 17:15]
+2026-06-07 17:15:32,150 [INFO]   10秒待機中...
+2026-06-07 17:15:42,150 [INFO] 
+[6/15] 処理中: JK_hyoka
+2026-06-07 17:15:42,157 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course JK_hyoka --year R06 --date 0401
+2026-06-07 17:16:56,368 [INFO]   [OK] 完了: R06_0401_JK_hyoka
+2026-06-07 17:16:56,369 [INFO]   10秒待機中...
+2026-06-07 17:17:06,371 [INFO] 
+[7/15] 処理中: KO65_tenkan
+2026-06-07 17:17:06,373 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course KO65_tenkan --year R06 --date 0401

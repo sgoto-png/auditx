@@ -210,7 +210,7 @@ def merge_and_finalize(
     try:
         return json.loads(raw_text)
     except json.JSONDecodeError as e:
-        print(f"  ⚠️ JSON解析エラー: {e}")
+        print(f"   [WARN] JSON解析エラー: {e}")
         return {"_raw_text": raw_text, "_error": str(e)}
 
 # ============================================================
@@ -239,10 +239,10 @@ def build_rule_knowledge(course_id: str, year: str, date: str):
 
     pdf_files = find_pdf_files(pdf_folder)
     if not pdf_files:
-        print(f"❌ エラー: '{pdf_folder}' にPDFファイルが見つかりません。")
+        print(f" [NG] エラー: '{pdf_folder}' にPDFファイルが見つかりません。")
         sys.exit(1)
 
-    print("📄 検出されたPDF:")
+    print(" [PDF] 検出されたPDF:")
     source_files = []
     for doc_type, path in pdf_files.items():
         filename = os.path.basename(path)
@@ -260,7 +260,7 @@ def build_rule_knowledge(course_id: str, year: str, date: str):
                         api_key = line.split("=", 1)[1].strip()
                         break
     if not api_key:
-        print("❌ エラー: GOOGLE_API_KEY が設定されていません。")
+        print(" [NG] エラー: GOOGLE_API_KEY が設定されていません。")
         sys.exit(1)
 
     genai.configure(api_key=api_key)
@@ -273,7 +273,7 @@ def build_rule_knowledge(course_id: str, year: str, date: str):
         batch_ranges = list(range(0, total_pages, PAGE_BATCH_SIZE))
         doc_label = {"shikyo_yori": "支給要領", "qa": "Q&A", "pamphlet": "パンフレット"}.get(doc_type, doc_type)
 
-        print(f"\n📖 [{doc_label}] {filename} を処理中... (全{total_pages}ページ / {len(batch_ranges)}バッチ)")
+        print(f"\n [READ] [{doc_label}] {filename} を処理中... (全{total_pages}ページ / {len(batch_ranges)}バッチ)")
 
         file_extractions = []
         for i, batch_start in enumerate(batch_ranges):
@@ -292,30 +292,30 @@ def build_rule_knowledge(course_id: str, year: str, date: str):
                         result = result.split("```")[1].split("```")[0].strip()
                     parsed = json.loads(result)
                     file_extractions.append({"source": filename, "doc_type": doc_type, "pages": batch_label, "data": parsed})
-                    print(f" ✅")
+                    print(f"  [OK]")
                 except json.JSONDecodeError:
                     file_extractions.append({"source": filename, "doc_type": doc_type, "pages": batch_label, "data": result})
-                    print(f" ✅ (テキスト形式)")
+                    print(f"  [OK] (テキスト形式)")
 
                 time.sleep(2)  # レート制限対策
 
             except Exception as e:
-                print(f" ❌ エラー: {e}")
+                print(f"  [NG] エラー: {e}")
                 time.sleep(5)
 
         all_extractions.extend(file_extractions)
         print(f"  → [{doc_label}] 完了")
 
-    print(f"\n🔄 全{len(all_extractions)}バッチのデータを統合中...")
+    print(f"\n [MERGE] 全{len(all_extractions)}バッチのデータを統合中...")
     final_json = merge_and_finalize(model, all_extractions, course_name, course_id, year, date, source_files)
 
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(final_json, f, ensure_ascii=False, indent=2)
 
-    print(f"\n✅ 完了！")
+    print(f"\n [OK] 完了！")
     print(f"  出力ファイル: {output_path}")
     print(f"  ファイルサイズ: {os.path.getsize(output_path):,} バイト")
-    print(f"\n⚠️ 生成されたJSONは必ず社労士スタッフが内容を確認・修正してください。")
+    print(f"\n [WARN] 生成されたJSONは必ず社労士スタッフが内容を確認・修正してください。")
 
 
 if __name__ == "__main__":

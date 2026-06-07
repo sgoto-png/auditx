@@ -542,3 +542,113 @@ https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/READM
 2026-06-08 02:39:23,901 [INFO] ============================================================
 2026-06-08 02:39:23,902 [INFO] 
 [LOG] ログファイル: C:\Users\s_got\Desktop\クロードコード\auditx\auto_build.log
+2026-06-08 02:43:37,519 [INFO] ============================================================
+2026-06-08 02:43:37,520 [INFO]   AuditX 自動ビルドスクリプト 開始
+2026-06-08 02:43:37,520 [INFO]   開始時刻: 2026年06月08日 02:43:37
+2026-06-08 02:43:37,521 [INFO] ============================================================
+2026-06-08 02:43:37,521 [INFO]   スキップ（既存）: R05_0401_JH_kyuka
+2026-06-08 02:43:37,522 [INFO]   スキップ（既存）: R05_0401_KO65_tenkan
+2026-06-08 02:43:37,522 [INFO]   スキップ（既存）: R05_0626_JH_kyuka
+2026-06-08 02:43:37,522 [INFO]   スキップ（既存）: R05_0626_KO65_tenkan
+2026-06-08 02:43:37,522 [INFO]   スキップ（既存）: R05_0626_RY_ikukyu
+2026-06-08 02:43:37,522 [INFO]   スキップ（既存）: R06_0101_RY_daitai
+2026-06-08 02:43:37,523 [INFO]   スキップ（既存）: R06_0101_RY_ikukyu
+2026-06-08 02:43:37,523 [INFO]   スキップ（既存）: R06_0401_JH_kyuka
+2026-06-08 02:43:37,523 [INFO]   スキップ（既存）: R06_0401_JK_hyoka
+2026-06-08 02:43:37,523 [INFO]   スキップ（既存）: R06_0401_KO65_tenkan
+2026-06-08 02:43:37,524 [INFO]   共通PDFフォルダを使用: _RY_common → RY_daitai
+2026-06-08 02:43:37,524 [INFO]   共通PDFフォルダを使用: _RY_common → RY_funin
+2026-06-08 02:43:37,525 [INFO]   共通PDFフォルダを使用: _RY_common → RY_ikukyu
+2026-06-08 02:43:37,526 [INFO]   共通PDFフォルダを使用: _RY_common → RY_juman
+2026-06-08 02:43:37,527 [INFO]   共通PDFフォルダを使用: _RY_common → RY_kaigo
+2026-06-08 02:43:37,527 [INFO]   共通PDFフォルダを使用: _RY_common → RY_shussei
+2026-06-08 02:43:37,530 [INFO]   スキップ（既存）: R06_1217_RY_daitai
+2026-06-08 02:43:37,530 [INFO]   スキップ（既存）: R07_0401_JH_kyuka
+2026-06-08 02:43:37,531 [INFO]   スキップ（既存）: R07_0401_JK_kanri
+2026-06-08 02:43:37,531 [INFO]   スキップ（既存）: R07_0401_KO65_tenkan
+2026-06-08 02:43:37,532 [INFO]   共通PDFフォルダを使用: _RY_common → RY_daitai
+2026-06-08 02:43:37,533 [INFO]   共通PDFフォルダを使用: _RY_common → RY_funin
+2026-06-08 02:43:37,533 [INFO]   共通PDFフォルダを使用: _RY_common → RY_ikukyu
+2026-06-08 02:43:37,534 [INFO]   共通PDFフォルダを使用: _RY_common → RY_juman
+2026-06-08 02:43:37,535 [INFO]   共通PDFフォルダを使用: _RY_common → RY_kaigo
+2026-06-08 02:43:37,535 [INFO]   共通PDFフォルダを使用: _RY_common → RY_shussei
+2026-06-08 02:43:37,536 [INFO]   共通PDFフォルダを使用: _CA_common → CA_seishain
+2026-06-08 02:43:37,536 [INFO]   共通PDFフォルダを使用: _CA_common → CA_shoyo
+2026-06-08 02:43:37,538 [INFO]   共通PDFフォルダを使用: _RY_common → RY_daitai
+2026-06-08 02:43:37,538 [INFO]   共通PDFフォルダを使用: _RY_common → RY_funin
+2026-06-08 02:43:37,539 [INFO]   共通PDFフォルダを使用: _RY_common → RY_ikukyu
+2026-06-08 02:43:37,539 [INFO]   共通PDFフォルダを使用: _RY_common → RY_juman
+2026-06-08 02:43:37,540 [INFO]   共通PDFフォルダを使用: _RY_common → RY_kaigo
+2026-06-08 02:43:37,540 [INFO]   共通PDFフォルダを使用: _RY_common → RY_shussei
+2026-06-08 02:43:37,542 [INFO]   スキップ（既存）: R08_0408_JH_kyuka
+2026-06-08 02:43:37,542 [INFO]   スキップ（既存）: R08_0408_JK_kanri
+2026-06-08 02:43:37,542 [INFO]   スキップ（既存）: R08_0408_KO65_keizoku
+2026-06-08 02:43:37,543 [INFO]   スキップ（既存）: R08_0408_KO65_tenkan
+2026-06-08 02:43:37,543 [INFO]   共通PDFフォルダを使用: _RY_common → RY_daitai
+2026-06-08 02:43:37,543 [INFO]   共通PDFフォルダを使用: _RY_common → RY_funin
+2026-06-08 02:43:37,544 [INFO]   共通PDFフォルダを使用: _RY_common → RY_ikukyu
+2026-06-08 02:43:37,544 [INFO]   共通PDFフォルダを使用: _RY_common → RY_juman
+2026-06-08 02:43:37,545 [INFO]   共通PDFフォルダを使用: _RY_common → RY_kaigo
+2026-06-08 02:43:37,546 [INFO]   共通PDFフォルダを使用: _RY_common → RY_shussei
+2026-06-08 02:43:37,547 [INFO]   スキップ（既存）: law_dotsu_chingin
+2026-06-08 02:43:37,547 [INFO]   スキップ（既存）: law_dotsu_chingin_leaf
+2026-06-08 02:43:37,547 [INFO]   スキップ（既存）: law_hatarakikata
+2026-06-08 02:43:37,548 [INFO]   スキップ（既存）: law_ikukyu_detail
+2026-06-08 02:43:37,548 [INFO]   スキップ（既存）: law_ikukyu_ho
+2026-06-08 02:43:37,548 [INFO]   スキップ（既存）: law_rodo_kijunho
+2026-06-08 02:43:37,548 [INFO]   スキップ（既存）: law_rodo_kijunho_qa
+2026-06-08 02:43:37,548 [INFO] 
+[LIST] 処理対象: 26件
+2026-06-08 02:43:37,548 [INFO]   [助成金] R06_0401_RY_daitai
+2026-06-08 02:43:37,549 [INFO]   [助成金] R06_0401_RY_funin
+2026-06-08 02:43:37,549 [INFO]   [助成金] R06_0401_RY_ikukyu
+2026-06-08 02:43:37,549 [INFO]   [助成金] R06_0401_RY_juman
+2026-06-08 02:43:37,549 [INFO]   [助成金] R06_0401_RY_kaigo
+2026-06-08 02:43:37,549 [INFO]   [助成金] R06_0401_RY_shussei
+2026-06-08 02:43:37,549 [INFO]   [助成金] R07_0401_RY_daitai
+2026-06-08 02:43:37,549 [INFO]   [助成金] R07_0401_RY_funin
+2026-06-08 02:43:37,549 [INFO]   [助成金] R07_0401_RY_ikukyu
+2026-06-08 02:43:37,549 [INFO]   [助成金] R07_0401_RY_juman
+2026-06-08 02:43:37,550 [INFO]   [助成金] R07_0401_RY_kaigo
+2026-06-08 02:43:37,550 [INFO]   [助成金] R07_0401_RY_shussei
+2026-06-08 02:43:37,550 [INFO]   [助成金] R07_0701_CA_seishain
+2026-06-08 02:43:37,550 [INFO]   [助成金] R07_0701_CA_shoyo
+2026-06-08 02:43:37,550 [INFO]   [助成金] R07_1001_RY_daitai
+2026-06-08 02:43:37,550 [INFO]   [助成金] R07_1001_RY_funin
+2026-06-08 02:43:37,550 [INFO]   [助成金] R07_1001_RY_ikukyu
+2026-06-08 02:43:37,550 [INFO]   [助成金] R07_1001_RY_juman
+2026-06-08 02:43:37,550 [INFO]   [助成金] R07_1001_RY_kaigo
+2026-06-08 02:43:37,550 [INFO]   [助成金] R07_1001_RY_shussei
+2026-06-08 02:43:37,550 [INFO]   [助成金] R08_0408_RY_daitai
+2026-06-08 02:43:37,551 [INFO]   [助成金] R08_0408_RY_funin
+2026-06-08 02:43:37,551 [INFO]   [助成金] R08_0408_RY_ikukyu
+2026-06-08 02:43:37,551 [INFO]   [助成金] R08_0408_RY_juman
+2026-06-08 02:43:37,551 [INFO]   [助成金] R08_0408_RY_kaigo
+2026-06-08 02:43:37,551 [INFO]   [助成金] R08_0408_RY_shussei
+2026-06-08 02:43:37,551 [INFO] 
+2026-06-08 02:43:37,551 [INFO] 
+[1/26] 処理中: RY_daitai
+2026-06-08 02:43:37,551 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course RY_daitai --year R06 --date 0401 --pdf-folder C:\Users\s_got\Desktop\クロードコード\auditx\knowledge\R06_0401\_RY_common
+2026-06-08 02:45:47,456 [INFO]   [OK] 完了: R06_0401_RY_daitai
+2026-06-08 02:45:47,457 [INFO]   10秒待機中...
+2026-06-08 02:45:57,458 [INFO] 
+[2/26] 処理中: RY_funin
+2026-06-08 02:45:57,465 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course RY_funin --year R06 --date 0401 --pdf-folder C:\Users\s_got\Desktop\クロードコード\auditx\knowledge\R06_0401\_RY_common
+2026-06-08 02:47:53,354 [INFO]   [OK] 完了: R06_0401_RY_funin
+2026-06-08 02:47:53,354 [INFO]   10秒待機中...
+2026-06-08 02:48:03,356 [INFO] 
+[3/26] 処理中: RY_ikukyu
+2026-06-08 02:48:03,369 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course RY_ikukyu --year R06 --date 0401 --pdf-folder C:\Users\s_got\Desktop\クロードコード\auditx\knowledge\R06_0401\_RY_common
+2026-06-08 02:50:20,102 [INFO]   [OK] 完了: R06_0401_RY_ikukyu
+2026-06-08 02:50:20,103 [INFO]   10秒待機中...
+2026-06-08 02:50:30,103 [INFO] 
+[4/26] 処理中: RY_juman
+2026-06-08 02:50:30,105 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course RY_juman --year R06 --date 0401 --pdf-folder C:\Users\s_got\Desktop\クロードコード\auditx\knowledge\R06_0401\_RY_common
+2026-06-08 02:52:23,021 [INFO]   [OK] 完了: R06_0401_RY_juman
+2026-06-08 02:52:23,022 [INFO]   10秒待機中...
+2026-06-08 02:52:33,023 [INFO] 
+[5/26] 処理中: RY_kaigo
+2026-06-08 02:52:33,036 [INFO]   実行中（1回目）: C:\Python314\python.exe C:\Users\s_got\Desktop\クロードコード\auditx\build_rule_knowledge.py --course RY_kaigo --year R06 --date 0401 --pdf-folder C:\Users\s_got\Desktop\クロードコード\auditx\knowledge\R06_0401\_RY_common
+2026-06-08 02:54:27,618 [INFO]   [OK] 完了: R06_0401_RY_kaigo
+2026-06-08 02:54:27,618 [INFO] 
+[PUSH] GitHubにpush中...

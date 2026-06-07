@@ -61,7 +61,7 @@ COURSE_YEAR_OPTIONS = {
     "RY_ikukyu":    ["R09", "R08", "R07", "R06", "R05"],
     "RY_daitai":    ["R09", "R08", "R07", "R06", "R05"],
     # デフォルト（未定義コース）
-    "JK_hyoka":     ["R09", "R08", "R07"],
+    "JK_hyoka":     ["R06"],
 }
 
 PHASE_ITEMS = {
